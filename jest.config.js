@@ -42,6 +42,9 @@ module.exports = {
         "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)":
             "<rootDir>/config/jest/fileTransform.js"
     },
+    // moduleNameMapper: {
+    //     'styled-components': '<rootDir>/node_modules/styled-components'
+    //   },
     transformIgnorePatterns: [
         "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
         "^.+\\.module\\.(css|sass|scss)$"

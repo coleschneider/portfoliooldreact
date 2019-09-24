@@ -1,7 +1,7 @@
 const React = require('react')
 const { configure, shallow, render, mount } = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
-
+// const StyledTests = require('jest-styled-components')
 configure({ adapter: new Adapter() });
 global.shallow = shallow;
 global.render = render;
