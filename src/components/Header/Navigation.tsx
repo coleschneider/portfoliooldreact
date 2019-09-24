@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { config, colors, media } from '../../theme';
+import { config, colors, media, adjustColor } from '../../theme';
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 import SidebarImage from '../../assets/images/profile.jpg';
@@ -64,6 +64,10 @@ const IconWrapper = styled.a`
     background: ${colors.white};
     text-align: center;
     border-radius: 50%;
+    transition: background .3s ease;
+    :hover {
+        background: #ccc;
+    }
 `;
 
 const Bar = styled.hr`
