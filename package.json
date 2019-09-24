@@ -91,7 +91,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
-    "test": "npm run clear-cache && npm run prettier:test && npm run lint && npm run build:ts && jest --config jest.config.js",
+    "test": "npm run clear-cache && npm run prettier:test && npm run lint && jest --config jest.config.js",
     "unit-test:watch": "NODE_ENV=test jest --watch --config jest.config.js",
     "clear-cache": "rimraf ./jestCache",
     "prettier:test": "prettier --check \"src/**/*{.ts, .tsx}\"",
