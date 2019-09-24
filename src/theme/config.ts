@@ -3,16 +3,16 @@ import { UseTransitionResult } from 'react-spring';
 
 export const header = {
   from: {
-    transform: 'translateX(-100%)',
-},
-enter: {
-    transform: 'translateX(0)',
-},
-leave: {
-    transform: 'translateY(-100%)',
-},
-unique: true,
-clamp: true,
+    transform: 'translateX(-100%)'
+  },
+  enter: {
+    transform: 'translateX(0)'
+  },
+  leave: {
+    transform: 'translateY(-100%)'
+  },
+  unique: true,
+  clamp: true
 };
 export const items = {
   trail: 100,
