@@ -66,7 +66,7 @@ const IconWrapper = styled.a`
     border-radius: 50%;
     transition: background .3s ease;
     :hover {
-        background: #ccc;
+        background: #fafafa;
     }
 `;
 

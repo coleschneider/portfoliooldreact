@@ -32,6 +32,7 @@ export function adjustColor(col: string, amt: number) {
   return (usePound ? '#' : '') + RR + GG + BB;
 }
 const primary = '#021D44';
+
 const primaryDarker = '#021a3c';
 // const secondary = '#FF3E55';
 const secondary = '#2c98f0';
@@ -40,7 +41,7 @@ const circleGrey = '#4B4B4B';
 const lightGrey = '#f2f3f7';
 
 export const colors = {
-  // lightBlue: '',
+  lightBlue: '#f2f3f7',
   black: '#000',
   blue: '#2c98f0',
   red: '#ec5453',
