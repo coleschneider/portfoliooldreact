@@ -10,12 +10,12 @@ const LayoutContainer = styled.div`
     display: block;
 `;
 const App: React.FC = () => {
-    const [isOpen, setSidebar] = React.useState(false);
+    const [isOpen, setSidebar] = React.useState(true);
     const [isMobile] = useDevice(() => setSidebar(false))
     return (
     <Router>
         <LayoutContainer>
-            <Header isOpen={isOpen} isMobile={isMobile} toggleSidebar={() => setSidebar(!isOpen)}/>
+        <Header isOpen={isOpen} isMobile={isMobile} onClick={() => setSidebar(!isOpen)} />
         <Switch>
             <Route exact path="/" component={Home} />
         </Switch>

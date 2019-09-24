@@ -52,4 +52,4 @@ export interface HamburgerAnimation {
   right: string;
   color: any;
 }
-export type ItemsAnimation = UseTransitionResult<null, {}>[];
+export type ItemsAnimation = UseTransitionResult<string, {}>[];
