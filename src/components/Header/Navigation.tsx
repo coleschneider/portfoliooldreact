@@ -3,60 +3,10 @@ import { config, colors, media } from '../../theme';
 import styled from 'styled-components';
 import { animated } from 'react-spring';
 import SidebarImage from '../../assets/images/profile.jpg';
-
+import { Twitter, Github, Linkedin, Medium } from 'styled-icons/boxicons-logos';
 interface Props {
     itemsTransition: config.ItemsAnimation
 }
-const ProfileHeader = styled.div`
-    font-weight: bold;
-    font-size: 1.5rem;
-    color: #fff;
-    display: block;
-    text-align: center;
-    margin-bottom: 0;
-    line-height: 1.2;
-    margin-top: 0;
-    ${media.desktopMin`
-        padding-top: 1.5rem;
-    `}
-`;
-
-const ProfileImage = styled.img`
-    max-width: 160px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 1rem;
-    border-radius: 50%;
-    vertical-align: middle;
-    border-style: none;
-`;
-
-
-const Item = styled(animated.div)`
-    color: ${colors.black};
-    margin: 10px auto 0;
-    padding: 15px 0;
-    background-color: ${colors.white};
-    display: block;
-    position: relative;
-    z-index: 0;
-    box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
-    padding: 1.5em;
-`;
-const Bio = styled.div`
-    font-size: 0.875rem;
-    text-align: center;
-    margin-bottom: 1rem;
-`;
-
-interface ItemProps {
-    item: string;
-    key: number;
-    props: any;
-}
-
-type MenuItems = 'Home' | 'About' | 'Contact' | 'Info'
-const items: MenuItems[] = ['Home', 'About', 'Contact', 'Info'];
 
 const Wrapper = styled.nav`
     display: flex;
@@ -65,6 +15,8 @@ const Wrapper = styled.nav`
     flex-basis: auto;
     flex-grow: 1;
 `;
+
+
 const ProfileSection = styled.div`
     padding: 1rem;
     display: block;
@@ -100,10 +52,10 @@ const SocialItem = styled.li`
     list-style: none;
     text-align: -webkit-match-parent;
 `;
-// const TwitterIcon = getIcon(Twitter);
-// const GithubIcon = getIcon(Github);
-// const LinkedinIcon = getIcon(Linkedin);
-// const MediumIcon = getIcon(Medium);
+const TwitterIcon = getIcon(Twitter);
+const GithubIcon = getIcon(Github);
+const LinkedinIcon = getIcon(Linkedin);
+const MediumIcon = getIcon(Medium);
 const IconWrapper = styled.a`
     width: 32px;
     height: 32px;
@@ -131,9 +83,37 @@ const Bar = styled.hr`
     margin-inline-end: auto;
 `;
 
+const ProfileImage = styled.img`
+    max-width: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    vertical-align: middle;
+    border-style: none;
+`;
+
+const Item = styled(animated.div)`
+    color: ${colors.black};
+    margin: 10px auto 0;
+    padding: 15px 0;
+    background-color: ${colors.white};
+    display: block;
+    position: relative;
+    z-index: 0;
+    box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
+    padding: 1.5em;
+`;
+const Bio = styled.div`
+    font-size: 0.875rem;
+    text-align: center;
+    margin-bottom: 1rem;
+`;
+
+
 function Navigation({itemsTransition}: Props){
     return (
-        <Wrapper>
+            <Wrapper>
                             <ProfileSection>
                                 <ProfileImage src={SidebarImage} />
                                 <Bio>
@@ -143,22 +123,22 @@ function Navigation({itemsTransition}: Props){
                                 <SocialList>
                                     <SocialItem>
                                         <IconWrapper>
-                                            {/* <TwitterIcon /> */}
+                                            <TwitterIcon />
                                         </IconWrapper>
                                     </SocialItem>
                                     <SocialItem>
                                         <IconWrapper>
-                                            {/* <GithubIcon /> */}
+                                            <GithubIcon />
                                         </IconWrapper>
                                     </SocialItem>
                                     <SocialItem>
                                         <IconWrapper>
-                                            {/* <LinkedinIcon /> */}
+                                            <LinkedinIcon />
                                         </IconWrapper>
                                     </SocialItem>
                                     <SocialItem>
                                         <IconWrapper>
-                                            {/* <MediumIcon /> */}
+                                            <MediumIcon />
                                         </IconWrapper>
                                     </SocialItem>
                                 </SocialList>
