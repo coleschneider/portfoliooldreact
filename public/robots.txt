@@ -1,2 +1,3 @@
 User-Agent: *
 Disallow:
+Sitemap: https://www.coleschneider.me/sitemap.xml
