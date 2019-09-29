@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { animated } from 'react-spring';
 import SidebarImage from '../../assets/images/profile.jpg';
 import { Twitter, Github, Linkedin, Medium } from 'styled-icons/boxicons-logos';
+import { Link } from 'react-router-dom';
 interface Props {
     itemsTransition: config.ItemsAnimation
 }
@@ -107,6 +108,15 @@ const Item = styled(animated.div)`
     z-index: 0;
     box-shadow: 0px 0px 56px -8px rgba(0, 0, 0, 0.17);
     padding: 1.5em;
+  /* ::after {
+    content: " ";
+  position: absolute;
+  right: -18px;
+  border-top: 15px solid transparent;
+  border-right: none;
+  border-left: 15px solid ${colors.white};
+  border-bottom: 15px solid transparent;
+  } */
 `;
 const Bio = styled.div`
     font-size: 0.875rem;
@@ -149,7 +159,9 @@ function Navigation({itemsTransition}: Props){
                                 <Bar />
                                 {itemsTransition.map(({ item, key, props }: ItemProps) => (
                                     <Item key={key} style={props}>
-                                        {item}
+                                        <Link to={item.path}>
+                                        {item.title}
+                                        </Link>
                                     </Item>
                                 ))}
                             </ProfileSection>

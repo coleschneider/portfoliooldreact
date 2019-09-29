@@ -4,11 +4,12 @@ import * as Section from '../../components/Section/Section';
 import About from '../../components/About/About';
 
 
-function Home() {
+function Home(props) {
     return (
-    <Section.Main>
-        <About />
-    </Section.Main>);
+        <Section.Main>
+            <About />
+        </Section.Main>
+    );
 }
 
 export default Home;

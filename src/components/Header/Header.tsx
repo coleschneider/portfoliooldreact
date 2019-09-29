@@ -42,7 +42,19 @@ interface ItemProps {
     key: number;
     props: any;
 }
-const items = ['Home', 'About', 'Contact', 'Info'];
+const items = [{
+    path: '',
+    title: 'Home',
+},{
+    path: 'about',
+    title: 'About',
+},{
+    path: 'experience',
+    title: 'Experience',
+},{
+    path: 'contact',
+    title: 'Contact',
+}];
 
 // Ha,burger Icon
 const openedTransformationConfig = {
@@ -82,7 +94,7 @@ const Header = ({ isMobile, isOpen, onClick }: Props) => {
 
     const itemsRef = useRef();
 
-    const trail = useTransition(displayHeader || !isMobile ? items : [], (item) => item, {
+    const trail = useTransition(displayHeader || !isMobile ? items : [], (item) => item.title, {
         ...config.items,
         ref: itemsRef,
         config: springConfig.wobbly,
