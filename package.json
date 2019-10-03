@@ -100,7 +100,7 @@
     "clear-cache": "rimraf ./jestCache",
     "prettier:test": "prettier --check \"src/**/*{.ts, .tsx}\"",
     "lint": "eslint --fix --ext ts,tsx src/",
-    "prettier": "prettier --write \"src/**/*{.ts, .tsx}\"",
+    "prettier": "prettier --write './src/**/*.{ts,tsx}'",
     "predeploy": "npm run build",
     "build:ts": "tsc"
   },

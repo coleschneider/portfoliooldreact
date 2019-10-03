@@ -2,34 +2,34 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { adjustColor, colors } from '../../../theme';
 interface MixinProps {
-    primary?: boolean;
-    secondary?: boolean;
+  primary?: boolean;
+  secondary?: boolean;
 }
 
 interface ButtonMixin extends MixinProps {
-    background?: boolean;
+  background?: boolean;
 }
 interface FontMixin extends MixinProps {
-    color?: string;
-    hover?: boolean;
+  color?: string;
+  hover?: boolean;
 }
 
 const buttonMixin = ({ primary, secondary, background }: ButtonMixin) => {
-    if (primary) return `background: ${colors.primary};`;
-    if (secondary) return `background: ${colors.secondary};`;
-    return `background: ${background};`;
+  if (primary) return `background: ${colors.primary};`;
+  if (secondary) return `background: ${colors.secondary};`;
+  return `background: ${background};`;
 };
 const hoverMixin = ({ primary, secondary }: FontMixin) => {
-    const transition = `transition: background 400ms ease;`;
-    if (primary)
-        return `
+  const transition = `transition: background 400ms ease;`;
+  if (primary)
+    return `
     ${transition}
     :hover {
         background: ${adjustColor(colors.primary, -30)};
     }
     `;
-    if (secondary)
-        return `
+  if (secondary)
+    return `
     ${transition}
     :hover {
         background: ${adjustColor(colors.secondary, -30)};
@@ -37,9 +37,9 @@ const hoverMixin = ({ primary, secondary }: FontMixin) => {
     `;
 };
 const fontColor = ({ primary, secondary, color, hover }: FontMixin) => {
-    if (color) return ` color: ${color};`;
-    if (primary) return `color: ${colors.secondary};`;
-    if (secondary) return `color: ${colors.primary};`;
+  if (color) return ` color: ${color};`;
+  if (primary) return `color: ${colors.secondary};`;
+  if (secondary) return `color: ${colors.primary};`;
 };
 
 export const ButtonLink = styled.a<ButtonMixin & FontMixin>`
