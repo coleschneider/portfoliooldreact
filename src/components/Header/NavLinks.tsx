@@ -58,15 +58,23 @@ const navPaths: NavLinkProps[] = [
 
 function NavLink({ path, display }: NavLinkProps) {
   const isMatch = useRouteMatch(path)
-
   return (
     <TextLink to={path} matches={isMatch && isMatch.isExact}>
       {display}
     </TextLink>
   )
 }
+NavLink.displayName = 'NavLink'
+
 function NavLinks() {
-  return navPaths.map(navProps => <NavLink key={navProps.display} {...navProps} />)
+  return (
+    <React.Fragment>
+      {navPaths.map(({ path, display }) => (
+        <NavLink key={display} path={path} display={display} />
+      ))}
+    </React.Fragment>
+  )
 }
 
+NavLinks.displayName = 'NavLinks'
 export default NavLinks

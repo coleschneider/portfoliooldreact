@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog should match the snapshot when isShown is false 1`] = `""`;
+
+exports[`Dialog should match the snapshot when isShown is true 1`] = `
+<Portal
+  id="portal-root"
+>
+  <Transition
+    appear={true}
+    enter={true}
+    exit={true}
+    in={true}
+    mountOnEnter={false}
+    onEnter={[Function]}
+    onEntered={[Function]}
+    onEntering={[Function]}
+    onExit={[Function]}
+    onExited={[Function]}
+    onExiting={[Function]}
+    timeout={300}
+    unmountOnExit={true}
+  >
+    <Component />
+  </Transition>
+</Portal>
+`;

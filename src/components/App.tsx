@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { useSpring } from 'react-spring'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { TransitionGroup, CSSTransition as OriginalCSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
 import Work from './Work/Work'
@@ -60,7 +60,7 @@ const WorkCards = () => {
   return (
     <ImageWrapper>
       <Wrapper>
-        <CardWrapper css={css``} />
+        <CardWrapper />
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>

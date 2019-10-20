@@ -99,7 +99,7 @@ interface Props extends RouteProps {
 }
 
 function Header(props: Props) {
-  const headRef: React.MutableRefObject<HTMLElement | null> = React.useRef(null)
+  const headRef = React.useRef<HTMLDivElement>(null)
   const [modeType, setMode] = React.useState('static')
   const { goBack } = useHistory()
   useHeadroom(
