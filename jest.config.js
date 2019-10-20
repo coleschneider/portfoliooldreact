@@ -28,13 +28,11 @@ module.exports = {
   resolver: "jest-pnp-resolver",
   setupFiles: ["react-app-polyfill/jsdom", "<rootDir>/config/jest/setup.js"],
   snapshotSerializers: ["enzyme-to-json/serializer"],
-  setupFilesAfterEnv: [
-      "<rootDir>/src/setupTests.ts",
-  ],
-  testMatch: [
-      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
-      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
-  ],
+    setupFilesAfterEnv: ["<rootDir>/config/jest/setup.js"],
+    testMatch: [
+        "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+        "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
+    ],
   verbose: false,
   testEnvironment: "jsdom",
   testURL: "http://localhost",
