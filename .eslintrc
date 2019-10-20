@@ -8,6 +8,11 @@
     "browser": true,
     "jest/globals": true
   },
+  "globals": {
+    "shallow": true,
+    "mount": true,
+    "render":true
+  },
   "plugins": ["@typescript-eslint", "react-hooks", "jest", "prettier"],
   "extends": [
     "airbnb",
