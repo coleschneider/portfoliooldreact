@@ -80,7 +80,6 @@
     "lint": "eslint --fix --ext ts,tsx src/",
     "predeploy": "npm run build",
     "build:ts": "tsc"
-
   },
   "babel": {
     "presets": [
