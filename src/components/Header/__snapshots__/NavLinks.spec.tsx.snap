@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavLinks should match the snapshot 1`] = `
+Array [
+  <NavLink
+    display="HOME"
+    key="HOME"
+    path="/"
+  />,
+  <NavLink
+    display="WORK"
+    key="WORK"
+    path="/mywork"
+  />,
+  <NavLink
+    display="RESUME"
+    key="RESUME"
+    path="/resume"
+  />,
+]
+`;

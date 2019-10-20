@@ -65,7 +65,7 @@ function NavLink({ path, display }: NavLinkProps) {
     </TextLink>
   )
 }
-function NavLinks(props: RouteProps) {
+function NavLinks() {
   return navPaths.map((navProps) => <NavLink key={navProps.display} {...navProps} />)
 }
 

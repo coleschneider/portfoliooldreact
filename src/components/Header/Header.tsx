@@ -137,7 +137,7 @@ function Header(props: Props) {
                     )}
                   </NameContainer>
                 </NavOuter>
-                <NavLinks {...props} />
+                <NavLinks />
               </Navbar>
             </HeaderPinned>
           </HeadroomWrapper>
