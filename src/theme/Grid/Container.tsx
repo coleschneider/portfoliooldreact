@@ -12,30 +12,26 @@ const Container = styled.div<Props>`
     margin-right: auto;
     max-width: 100%;
     box-sizing: border-box;
-    ${(p) => css`
+    ${p => css`
       ${DIMENSIONS.map(
-        (d) =>
+        d =>
           config(p).container[d] &&
           config(p).media[d]`
       padding-left: ${config(p).paddingWidth[d]}rem;
       padding-right: ${config(p).paddingWidth[d]}rem;
-    `
+    `,
       )}
     `}
 
-  ${(p) =>
+  ${p =>
     !p.fluid &&
     css`
       ${DIMENSIONS.map(
-        (d) =>
+        d =>
           config(p).container[d] &&
           config(p).media[d]`
-      ${
-        typeof config(p).container[d] === 'number'
-          ? `width: ${config(p).container[d]}rem;`
-          : `width: 100%;`
-      }
-    `
+      ${typeof config(p).container[d] === 'number' ? `width: ${config(p).container[d]}rem;` : `width: 100%;`}
+    `,
       )}
     `}
   ${({ debug }) =>

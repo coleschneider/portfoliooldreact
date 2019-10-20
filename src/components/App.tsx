@@ -64,34 +64,31 @@ const WorkCards = () => {
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare
-            sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero,
-            ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus
-            tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin
-            feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi.
-            Phasellus in est placerat, viverra odio eget, rhoncus justo.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
           </P>
         </TextWrapper>
         <TextWrapper>
           <H2 primary>Development</H2>
           <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare
-            sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero,
-            ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus
-            tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin
-            feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi.
-            Phasellus in est placerat, viverra odio eget, rhoncus justo.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
           </P>
         </TextWrapper>
         <TextWrapper>
           <H2 primary>Testing</H2>
           <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare
-            sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero,
-            ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus
-            tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin
-            feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi.
-            Phasellus in est placerat, viverra odio eget, rhoncus justo.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
           </P>
         </TextWrapper>
       </Wrapper>
@@ -121,7 +118,7 @@ const App: React.FC = () => {
       y: 0,
       reset: true,
       from: { y: window.scrollY },
-      onFrame: ({ y }) => window.scroll(0, y)
+      onFrame: ({ y }) => window.scroll(0, y),
     })
   }
   return (

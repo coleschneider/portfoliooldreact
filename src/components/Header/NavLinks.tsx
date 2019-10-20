@@ -53,7 +53,7 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 const navPaths: NavLinkProps[] = [
   { path: '/', display: 'HOME' },
   { path: '/mywork', display: 'WORK' },
-  { path: '/resume', display: 'RESUME' }
+  { path: '/resume', display: 'RESUME' },
 ]
 
 function NavLink({ path, display }: NavLinkProps) {
@@ -66,7 +66,7 @@ function NavLink({ path, display }: NavLinkProps) {
   )
 }
 function NavLinks() {
-  return navPaths.map((navProps) => <NavLink key={navProps.display} {...navProps} />)
+  return navPaths.map(navProps => <NavLink key={navProps.display} {...navProps} />)
 }
 
 export default NavLinks

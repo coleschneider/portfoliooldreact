@@ -25,36 +25,36 @@ export const BASE_CONF: Baseconfig = {
     sm: 8,
     md: 8,
     lg: 12,
-    xl: 12
+    xl: 12,
   },
   gutterWidth: {
     xs: 1,
     sm: 1,
     md: 1.5,
     lg: 1.5,
-    xl: 1.5
+    xl: 1.5,
   },
   paddingWidth: {
     xs: 1,
     sm: 1,
     md: 1.5,
     lg: 1.5,
-    xl: 1.5
+    xl: 1.5,
   },
   container: {
     xs: 'full', // 'full' = max-width: 100%
     sm: 'full', // 'full' = max-width: 100%
     md: 'full', // 'full' = max-width: 100%
     lg: 90, // max-width: 1440px
-    xl: 90 // max-width: 1440px
+    xl: 90, // max-width: 1440px
   },
   breakpoints: {
     xs: 1,
     sm: 48, // 768px
     md: 64, // 1024px
     lg: 90, // 1440px
-    xl: 120 // 1920px
-  }
+    xl: 120, // 1920px
+  },
 }
 export interface ConfigMedia extends Baseconfig {
   media: ConfigDimensions<ThemedCssFunction<DefaultTheme>>
@@ -74,11 +74,11 @@ export const media = (Object.keys(BASE_CONF.breakpoints) as Dimensions[]).reduce
     mediaQuery[breakpoint] = makeMedia(
       [BASE_CONF.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
         .filter(Boolean)
-        .join(' and ')
+        .join(' and '),
     )
     return mediaQuery
   },
-  {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>
+  {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>,
 )
 
 function transformConfig(basConfig: Baseconfig): ConfigMedia {
@@ -89,11 +89,11 @@ function transformConfig(basConfig: Baseconfig): ConfigMedia {
       mediaQuery[breakpoint] = makeMedia(
         [basConfig.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
           .filter(Boolean)
-          .join(' and ')
+          .join(' and '),
       )
       return mediaQuery
     },
-    {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>
+    {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>,
   )
   return basConfig as ConfigMedia
 }
@@ -113,6 +113,6 @@ export const sizeProps = () =>
       acc[key] = PropTypes.number
       return acc
     },
-    {} as { [k in Dimensions]: Requireable<number> }
+    {} as { [k in Dimensions]: Requireable<number> },
   )
 export default config

@@ -45,7 +45,7 @@ const closeAnimation = keyframes`
 const animationEasing = {
   deceleration: `cubic-bezier(0.0, 0.0, 0.2, 1)`,
   acceleration: `cubic-bezier(0.4, 0.0, 1, 1)`,
-  spring: `cubic-bezier(0.175, 0.885, 0.320, 1.175)`
+  spring: `cubic-bezier(0.175, 0.885, 0.320, 1.175)`,
 }
 
 const TextContainer = styled.div`
@@ -74,7 +74,7 @@ const styles: Styles = {
   `,
   exiting: css`
     animation: ${closeAnimation} 120ms ${animationEasing.acceleration} both;
-  `
+  `,
 }
 
 const TitleContainer = styled.div`
@@ -115,29 +115,29 @@ function Dialog({
   title,
   confirmLabel = 'Learn More',
   children,
-  onCancel = (close) => close(),
-  onConfirm = (close) => close(),
+  onCancel = close => close(),
+  onConfirm = close => close(),
   onCloseComplete = () => {},
   onOpenComplete = () => {},
   hasCancel = true,
   hasClose = true,
-  cancelLabel = 'Close'
+  cancelLabel = 'Close',
 }: Props) {
   const [{ exiting, exited }, setState] = React.useState({
     exiting: false,
-    exited: !isShown
+    exited: !isShown,
   })
   const prevShown = usePrevious(isShown)
   React.useEffect(() => {
     if (isShown !== prevShown) {
       setState({ exited: false, exiting })
     }
-  }, [isShown])
+  }, [exiting, isShown, prevShown])
 
   const handleExited = () => {
     setState({
       exiting: false,
-      exited: !isShown
+      exited: !isShown,
     })
     onCloseComplete()
   }

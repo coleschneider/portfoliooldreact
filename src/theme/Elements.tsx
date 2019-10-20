@@ -38,8 +38,8 @@ export const Button = styled.button<ButtonProps>`
   border: none;
   cursor: pointer;
   color: white;
-  ${(props) => (props.primary ? primaryGradient : secondaryGradient)};
-  color: ${(props) => (props.primary ? Colors.white : '#425A70')};
+  ${props => (props.primary ? primaryGradient : secondaryGradient)};
+  color: ${props => (props.primary ? Colors.white : '#425A70')};
   height: 32px;
   padding-right: 16px;
   padding-left: 16px;

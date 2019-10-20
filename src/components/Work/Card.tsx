@@ -54,8 +54,7 @@ const CardText = styled.h1`
   position: relative;
   padding: 190px 0px 100px 10px;
   width: 90%;
-  transform: ${({ isOpen }) =>
-    !isOpen ? 'translate3d(20%, 0px, 0px)' : 'translate3d(20%, -40px, 0px)'};
+  transform: ${({ isOpen }) => (!isOpen ? 'translate3d(20%, 0px, 0px)' : 'translate3d(20%, -40px, 0px)')};
   opacity: ${({ isOpen }) => (!isOpen ? 1 : 0)};
   transition: opacity 200ms linear 120ms, transform 200ms ease-in 120ms;
 `
@@ -64,10 +63,7 @@ function Card({ isOpen, cardId, setFirstRef, handleClick }: Props) {
   return (
     <Container ref={setFirstRef} onClick={handleClick}>
       <Border isOpen={isOpen === cardId} />
-      <CardImage
-        isOpen={isOpen === cardId}
-        src="https://www.blend.com/wp-content/uploads/2017/06/blend-logotype.png"
-      />
+      <CardImage isOpen={isOpen === cardId} src="https://www.blend.com/wp-content/uploads/2017/06/blend-logotype.png" />
       <CardText isOpen={isOpen === cardId}>Hey now, you're an allstar</CardText>
     </Container>
   )

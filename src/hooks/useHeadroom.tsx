@@ -46,7 +46,7 @@ function useHeadroom(
   ref: React.MutableRefObject<HTMLElement | null>,
   options: Options,
   effect: EffectFunction,
-  wait: number
+  wait: number,
 ) {
   const { pinStart } = options
   const lastKnownScrollTop = React.useRef(getScrollHeight(ref.current))

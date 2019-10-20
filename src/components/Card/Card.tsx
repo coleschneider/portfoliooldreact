@@ -40,29 +40,29 @@ function Card({ handleClick, getRef, location }) {
     config,
     opacity: 1,
     x: 0,
-    height: 80
+    height: 80,
   }))
   React.useEffect(() => {
     set({
       opacity: 1,
       x: 0,
-      height: 80
+      height: 80,
     })
-  }, [location])
+  }, [location, set])
   const animateOnClick = () => {
     const completed = []
     set({
       opacity: 0,
       x: -200,
       height: 80,
-      onRest: (item) => {
+      onRest: item => {
         completed.push(item)
         if (completed.length === items.length) {
           // eslint-disable-next-line
           stop();
           handleClick()
         }
-      }
+      },
     })
   }
 
@@ -87,7 +87,7 @@ function Card({ handleClick, getRef, location }) {
               color: 'white',
               whiteSpace: 'pre',
               fontSize: '1.5em',
-              transform: x.interpolate((y) => `translate3d(0,${y}px,0)`)
+              transform: x.interpolate(y => `translate3d(0,${y}px,0)`),
             }}
           >
             <animated.div style={{ height }}>{items[index]}</animated.div>

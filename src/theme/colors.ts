@@ -11,7 +11,7 @@ export enum Colors {
   offwhite = '#f4f5f7',
   grey = 'rgb(102, 120, 138)',
   transparentDarken = 'rgba(67, 90, 111, 0.06)',
-  evergreen = 'rgb(35, 67, 97)'
+  evergreen = 'rgb(35, 67, 97)',
 }
 interface ShadowProps {
   hover: boolean
@@ -20,7 +20,7 @@ interface ShadowProps {
 
 const boxShadows = [
   '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
-  '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)'
+  '0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22)',
 ]
 export const withHover = ({ hover, level }: ShadowProps) => {
   return css`

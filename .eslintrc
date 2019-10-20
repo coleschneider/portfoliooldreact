@@ -16,10 +16,11 @@
   "plugins": ["@typescript-eslint", "react-hooks", "jest", "prettier"],
   "extends": [
     "airbnb",
+    "react-app",
+    "plugin:prettier/recommended",
+    "prettier/react",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
-    "prettier",
-    "prettier/react",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
 

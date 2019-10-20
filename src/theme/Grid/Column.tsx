@@ -25,10 +25,10 @@ const reverseMixin = (p: Props) =>
   css`
     ${Array.isArray(p.reverse)
       ? DIMENSIONS.map(
-          (d) =>
+          d =>
             config(p).breakpoints[d] &&
             config(p).media[d]`
-  flex-direction:${p.reverse.indexOf(d) !== -1 ? `column-reverse` : `column`};`
+  flex-direction:${p.reverse.indexOf(d) !== -1 ? `column-reverse` : `column`};`,
         )
       : 'flex-direction: column-reverse;'}
   `
@@ -36,18 +36,18 @@ const paddingMixin = (p: Props) =>
   !p.noGutter &&
   css`
     ${DIMENSIONS.map(
-      (d) =>
+      d =>
         config(p).breakpoints[d] &&
         config(p).media[d]`
   padding-right: ${config(p).gutterWidth[d] / 2}rem;
   padding-left: ${config(p).gutterWidth[d] / 2}rem;
-`
+`,
     )}
   `
 const bpMixin = (p: Props) =>
   css`
     ${DIMENSIONS.map(
-      (d) =>
+      d =>
         config(p).breakpoints[d] &&
         config(p).media[d]`
   ${p[d] &&
@@ -55,23 +55,22 @@ const bpMixin = (p: Props) =>
     flex: 1 1 ${(p[d] / config(p).columns[d]) * 100}%;
     max-width: ${(p[d] / config(p).columns[d]) * 100}%;
   `}
-`
+`,
     )}
   `
 const offsetMixin = (p: Props) =>
   p.offset &&
   css`
     ${DIMENSIONS.map(
-      (d) =>
+      d =>
         config(p).breakpoints[d] &&
         config(p).media[d]`
 ${
   typeof p.offset === 'object'
-    ? p.offset[d] !== undefined &&
-      `margin-left: ${p.offset[d] > 0 ? (p.offset[d] / config(p).columns[d]) * 100 : 0}%`
+    ? p.offset[d] !== undefined && `margin-left: ${p.offset[d] > 0 ? (p.offset[d] / config(p).columns[d]) * 100 : 0}%`
     : `margin-left: ${(p.offset / config(p).columns.xs) * 100}%`
 };
-`
+`,
     )}
   `
 const centerMixin = (p: Props) =>
@@ -107,7 +106,7 @@ Column.propTypes = {
   debug: PropTypes.bool,
   center: PropTypes.bool,
   children: PropTypes.node,
-  ...sizeProps()
+  ...sizeProps(),
 }
 Column.displayName = 'Column'
 // const GridColumn = (props: Partial<ColumnProps>) => <Column {...props} />

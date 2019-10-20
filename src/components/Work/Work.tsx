@@ -13,7 +13,7 @@ const WorkCards = ({ history, location }) => {
   const refMap = new Map()
   const handleGetCardRef = (id, ref) => refMap.set(id, ref)
 
-  const handleClick = (id) => {
+  const handleClick = id => {
     const { top, right, bottom, left, width, height } = refMap.get(id).getBoundingClientRect()
 
     history.push({
@@ -28,28 +28,20 @@ const WorkCards = ({ history, location }) => {
             bottom,
             left,
             width,
-            height
-          }
-        }
-      }
+            height,
+          },
+        },
+      },
     })
   }
   return (
     <Wrapper>
       <Row>
         <Col xs={4} sm={4}>
-          <Card
-            location={location}
-            getRef={(ref) => handleGetCardRef(0, ref)}
-            handleClick={() => handleClick(0)}
-          />
+          <Card location={location} getRef={ref => handleGetCardRef(0, ref)} handleClick={() => handleClick(0)} />
         </Col>
         <Col xs={4} sm={4}>
-          <Card
-            location={location}
-            getRef={(ref) => handleGetCardRef(1, ref)}
-            handleClick={() => handleClick(1)}
-          />
+          <Card location={location} getRef={ref => handleGetCardRef(1, ref)} handleClick={() => handleClick(1)} />
         </Col>
       </Row>
     </Wrapper>

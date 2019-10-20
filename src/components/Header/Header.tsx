@@ -108,10 +108,10 @@ function Header(props: Props) {
     ({ mode }) => {
       if (mode !== modeType) setMode(mode)
     },
-    300
+    300,
   )
   const { y } = useSpring({
-    y: modeType === 'unpinned' ? -100 : 0
+    y: modeType === 'unpinned' ? -100 : 0,
   })
   const handleGoBack = () => {
     goBack()
@@ -123,18 +123,14 @@ function Header(props: Props) {
           <HeadroomWrapper ref={headRef}>
             <HeaderPinned
               style={{
-                transform: y.interpolate((int) => `translateY(${int}px)`)
+                transform: y.interpolate(int => `translateY(${int}px)`),
               }}
             >
               <Navbar>
                 <NavBackground />
                 <NavOuter>
                   <NameContainer>
-                    {props.modal ? (
-                      <ArrowIcon onClick={handleGoBack} />
-                    ) : (
-                      <Name>COLE SCHNEIDER</Name>
-                    )}
+                    {props.modal ? <ArrowIcon onClick={handleGoBack} /> : <Name>COLE SCHNEIDER</Name>}
                   </NameContainer>
                 </NavOuter>
                 <NavLinks />
@@ -144,7 +140,7 @@ function Header(props: Props) {
         </div>
       </div>
     ),
-    [modeType]
+    [handleGoBack, props.modal, y],
   )
 }
 

@@ -14,25 +14,25 @@ const Row = styled.div<Props>`
   flex-direction: row;
   flex-wrap: wrap;
   
-  ${(p) => css`
+  ${p => css`
     ${DIMENSIONS.map(
-      (d) =>
+      d =>
         config(p).container[d] &&
         config(p).media[d]`
       margin-left: -${config(p).gutterWidth[d] / 2}rem;
       margin-right: -${config(p).gutterWidth[d] / 2}rem;
-    `
+    `,
     )}
   `}
-  ${(p) =>
+  ${p =>
     p.reverse &&
     css`
       ${Array.isArray(p.reverse)
         ? DIMENSIONS.map(
-            (d) =>
+            d =>
               config(p).breakpoints[d] &&
               config(p).media[d]`
-      flex-direction:${p.reverse.indexOf(d) !== -1 ? `row-reverse` : `row`};`
+      flex-direction:${p.reverse.indexOf(d) !== -1 ? `row-reverse` : `row`};`,
           )
         : 'flex-direction: row-reverse;'}
     `}
