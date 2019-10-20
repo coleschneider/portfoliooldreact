@@ -1,4 +1,3 @@
-import * as React from 'react'
 import styled, { css, ThemedStyledProps, DefaultTheme } from 'styled-components'
 import PropTypes from 'prop-types'
 import { Colors } from '../colors'
@@ -80,24 +79,22 @@ const centerMixin = (p: Props) =>
   css`
     align-items: center;
   `
-const alignMixin = (p: Props) =>
-  p.align &&
-  css`
-    ${DIMENSIONS.map(
-      (d) =>
-        config(p).breakpoints[d] &&
-        config(p).media[d]`
-${typeof p.align === 'object' ? console.log('idk') : console.log('should loig')};
-`
-    )}
-  `
+// const alignMixin = (p: Props) =>
+//   p.align &&
+//   css`
+//     ${DIMENSIONS.map(
+//       (d) =>
+//         config(p).breakpoints[d] &&
+//         config(p).media[d]`
+// `
+//     )}
+//   `
 const Column = styled.div<Props>`
 box-sizing: border-box;
   flex: 1 0 auto;
   max-width: 100%;
   display: flex;
   flex-direction: column;
-  ${alignMixin}
   ${centerMixin}
   ${paddingMixin}
   ${bpMixin}

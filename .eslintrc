@@ -13,6 +13,8 @@
     "airbnb",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
+    "prettier",
+    "prettier/react",
     "plugin:prettier/recommended",
     "prettier/@typescript-eslint"
 
@@ -41,6 +43,7 @@
      * @description rules of @typescript-eslint
      */
     "@typescript-eslint/prefer-interface": "off", // also want to use "type"
+    "react/no-unescaped-entities": "warn",
     "@typescript-eslint/no-param-reassign": "off", // also want to use "type"
     "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
     "no-param-reassign": "off",

@@ -1,18 +1,15 @@
 import React from 'react'
 // eslint-disable-next-line
-import { Route, Switch, useLocation, useParams, RouteProps, useHistory } from 'react-router-dom';
-import { useSpring, useTransition, animated } from 'react-spring'
+import { Route, Switch, useLocation } from 'react-router-dom';
+import { useSpring } from 'react-spring'
 import styled, { css } from 'styled-components'
 import { TransitionGroup, CSSTransition as OriginalCSSTransition } from 'react-transition-group'
-import Col from '../theme/Grid/Column'
-import Row from '../theme/Grid/Row'
-import AboutMe from '../images/about_me.jpg'
 import Home from './Home/Home'
-import Work, { ImageContainer } from './Work/Work'
+import Work from './Work/Work'
 import { CardWrapper } from './Card/Card'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
-import { Pane, P, H2 } from '../theme/Elements'
+import { P, H2 } from '../theme/Elements'
 import usePrevious from '../hooks/usePrevious'
 
 const ModalContainer = styled.div`
@@ -63,7 +60,7 @@ const WorkCards = () => {
   return (
     <ImageWrapper>
       <Wrapper>
-          <CardWrapper css={css``} />
+        <CardWrapper css={css``} />
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>

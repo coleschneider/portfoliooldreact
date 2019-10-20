@@ -1,5 +1,4 @@
-import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { Colors, primaryGradient, secondaryGradient, withHover } from './colors'
 
 const fontColorMixin = ({ primary }: { primary?: boolean }) => `

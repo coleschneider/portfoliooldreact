@@ -1,10 +1,4 @@
-import {
-  css,
-  DefaultTheme,
-  ThemedCssFunction,
-  StyledComponentPropsWithRef,
-  ThemedStyledProps
-} from 'styled-components'
+import { css, DefaultTheme, ThemedCssFunction, ThemedStyledProps } from 'styled-components'
 import PropTypes, { Requireable } from 'prop-types'
 
 type Dimensions = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -20,7 +14,8 @@ export interface Baseconfig {
   paddingWidth: ConfigDimensions<number>
   container: ConfigDimensions<number | 'full'>
   breakpoints: ConfigDimensions<number>
-  [key: string]: any
+  // eslint-disable-next-line
+  [key: string]: any;
 }
 
 export const BASE_CONF: Baseconfig = {
@@ -65,43 +60,44 @@ export interface ConfigMedia extends Baseconfig {
   media: ConfigDimensions<ThemedCssFunction<DefaultTheme>>
 }
 
-function makeMedia(media: string): ThemedCssFunction<DefaultTheme> {
+function makeMedia(mediaQuery: string): ThemedCssFunction<DefaultTheme> {
   return (...args) => css`
-    @media ${media} {
+    @media ${mediaQuery} {
       ${css(...args)}
     }
   `
 }
 
 export const media = (Object.keys(BASE_CONF.breakpoints) as Dimensions[]).reduce(
-  (media, breakpoint) => {
+  (mediaQuery, breakpoint) => {
     const breakpointWidth = BASE_CONF.breakpoints[breakpoint]
-    media[breakpoint] = makeMedia(
+    mediaQuery[breakpoint] = makeMedia(
       [BASE_CONF.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
         .filter(Boolean)
         .join(' and ')
     )
-    return media
+    return mediaQuery
   },
   {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>
 )
 
-function transformConfig(config: Baseconfig): ConfigMedia {
-  const keys = Object.keys(config.breakpoints) as Dimensions[]
-  config.media = keys.reduce(
-    (media, breakpoint) => {
-      const breakpointWidth = config.breakpoints[breakpoint]
-      media[breakpoint] = makeMedia(
-        [config.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
+function transformConfig(basConfig: Baseconfig): ConfigMedia {
+  const keys = Object.keys(basConfig.breakpoints) as Dimensions[]
+  basConfig.media = keys.reduce(
+    (mediaQuery, breakpoint) => {
+      const breakpointWidth = basConfig.breakpoints[breakpoint]
+      mediaQuery[breakpoint] = makeMedia(
+        [basConfig.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
           .filter(Boolean)
           .join(' and ')
       )
-      return media
+      return mediaQuery
     },
     {} as ConfigDimensions<ThemedCssFunction<DefaultTheme>>
   )
-  return config as ConfigMedia
+  return basConfig as ConfigMedia
 }
+// eslint-disable-next-line
 function config(props: ThemedStyledProps<ConfigMedia, DefaultTheme>) {
   const conf = transformConfig({ ...BASE_CONF })
   return conf

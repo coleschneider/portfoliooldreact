@@ -1,10 +1,6 @@
 import * as React from 'react'
-import styled, { crea, css, keyframes } from 'styled-components'
-import { useSpring, animated } from 'react-spring'
-
-import usePortal from '../../hooks/usePortal'
+import styled from 'styled-components'
 import Container from '../../theme/Grid/Container'
-import { Colors } from '../../theme/colors'
 import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
 import AboutMe from '../../assets/images/about_me.jpg'
@@ -41,7 +37,7 @@ function About() {
         onCloseComplete={() => setState({ isShown: false })}
       >
         <PSecondary>
-          Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or          {' '}
+          Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
           <ExternalLink
             target="_blank"
             href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry"
@@ -66,13 +62,13 @@ function About() {
                   Pepperdine University
                 </ExternalLink>
                 . Expected graduation date is Fall of 2019 with a major in business administration
-                and and a minor in computer science. Please feel free to                {' '}
+                and and a minor in computer science. Please feel free to{' '}
                 <ExternalLink
                   target="_blank"
                   href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry"
                 >
                   send an email
-                </ExternalLink>                {' '}
+                </ExternalLink>
                 to me with any questions or concerns
               </P>
             </div>
