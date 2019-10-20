@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card should match the snapshot 1`] = `
+<Card___StyledCardWrapper
+  hover={true}
+  level={0}
+  onClick={[Function]}
+>
+  <Card__ImagePopUp>
+    <ForwardRef
+      key="Software "
+      style={
+        Object {
+          "color": "white",
+          "fontSize": "1.5em",
+          "opacity": AnimatedValue {
+            "animatedStyles": Set {},
+            "children": Array [],
+            "done": false,
+            "lastPosition": 1,
+            "lastTime": undefined,
+            "lastVelocity": undefined,
+            "payload": undefined,
+            "setValue": [Function],
+            "startPosition": 1,
+            "startTime": 1571546403272,
+            "value": 1,
+          },
+          "transform": AnimatedInterpolation {
+            "attach": [Function],
+            "calc": [Function],
+            "children": Array [],
+            "detach": [Function],
+            "payload": Array [
+              AnimatedValue {
+                "animatedStyles": Set {},
+                "children": Array [],
+                "done": false,
+                "lastPosition": 0,
+                "lastTime": undefined,
+                "lastVelocity": undefined,
+                "payload": undefined,
+                "setValue": [Function],
+                "startPosition": 0,
+                "startTime": 1571546403272,
+                "value": 0,
+              },
+            ],
+          },
+          "whiteSpace": "pre",
+        }
+      }
+    >
+      <ForwardRef
+        style={
+          Object {
+            "height": AnimatedValue {
+              "animatedStyles": Set {},
+              "children": Array [],
+              "done": false,
+              "lastPosition": 80,
+              "lastTime": undefined,
+              "lastVelocity": undefined,
+              "payload": undefined,
+              "setValue": [Function],
+              "startPosition": 80,
+              "startTime": 1571546403272,
+              "value": 80,
+            },
+          }
+        }
+      >
+        Software 
+      </ForwardRef>
+    </ForwardRef>
+    <ForwardRef
+      key="Engineer"
+      style={
+        Object {
+          "color": "white",
+          "fontSize": "1.5em",
+          "opacity": AnimatedValue {
+            "animatedStyles": Set {},
+            "children": Array [],
+            "done": false,
+            "lastPosition": 1,
+            "lastTime": undefined,
+            "lastVelocity": undefined,
+            "payload": undefined,
+            "setValue": [Function],
+            "startPosition": 1,
+            "startTime": 1571546403272,
+            "value": 1,
+          },
+          "transform": AnimatedInterpolation {
+            "attach": [Function],
+            "calc": [Function],
+            "children": Array [],
+            "detach": [Function],
+            "payload": Array [
+              AnimatedValue {
+                "animatedStyles": Set {},
+                "children": Array [],
+                "done": false,
+                "lastPosition": 0,
+                "lastTime": undefined,
+                "lastVelocity": undefined,
+                "payload": undefined,
+                "setValue": [Function],
+                "startPosition": 0,
+                "startTime": 1571546403272,
+                "value": 0,
+              },
+            ],
+          },
+          "whiteSpace": "pre",
+        }
+      }
+    >
+      <ForwardRef
+        style={
+          Object {
+            "height": AnimatedValue {
+              "animatedStyles": Set {},
+              "children": Array [],
+              "done": false,
+              "lastPosition": 80,
+              "lastTime": undefined,
+              "lastVelocity": undefined,
+              "payload": undefined,
+              "setValue": [Function],
+              "startPosition": 80,
+              "startTime": 1571546403272,
+              "value": 80,
+            },
+          }
+        }
+      >
+        Engineer
+      </ForwardRef>
+    </ForwardRef>
+  </Card__ImagePopUp>
+</Card___StyledCardWrapper>
+`;
