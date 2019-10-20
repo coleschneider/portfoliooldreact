@@ -39,6 +39,7 @@ function About() {
         <PSecondary>
           Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
           <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
+            {' '}
             send an email
           </ExternalLink>
         </PSecondary>
@@ -53,12 +54,12 @@ function About() {
               <H1 primary>Cole Schneider</H1>
 
               <P primary>
-                Hi my name is Cole Schneider I am currently a senior at
+                Hi my name is Cole Schneider I am currently a senior at{' '}
                 <ExternalLink target="_blank" href="https://www.pepperdine.edu/">
                   {' '}
-                  Pepperdine University
+                  Pepperdine University.{' '}
                 </ExternalLink>
-                . Expected graduation date is Fall of 2019 with a major in business administration and and a minor in
+                Expected graduation date is Fall of 2019 with a major in business administration and and a minor in
                 computer science. Please feel free to{' '}
                 <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
                   send an email

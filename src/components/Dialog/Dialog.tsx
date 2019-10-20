@@ -1,11 +1,12 @@
 import * as React from 'react'
 import Transition, { TransitionStatus, EnterHandler } from 'react-transition-group/Transition'
-import styled, { css, keyframes, FlattenSimpleInterpolation } from 'styled-components'
+import styled, { FlattenSimpleInterpolation } from 'styled-components'
 import { PSecondary, Button, SVGButton } from '../../theme/Elements'
 import { ReactComponent as Close } from '../../assets/icons/Close.svg'
 import usePrevious from '../../hooks/usePrevious'
 import { Colors } from '../../theme/colors'
 import Portal from '../Portal/Portal'
+import { transitions, DIALOG_TRANSITION } from '../../theme/animations'
 
 type Closefn = ({ close }: { close: () => void }) => void
 
@@ -24,58 +25,15 @@ interface Props {
   width?: string | number
 }
 
-const openAnimation = keyframes`
-to {
-  transform: translateY(0);
-}
-from {
-  transform: translateY(100%);
-}
-`
-const closeAnimation = keyframes`
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-`
-const animationEasing = {
-  deceleration: `cubic-bezier(0.0, 0.0, 0.2, 1)`,
-  acceleration: `cubic-bezier(0.4, 0.0, 1, 1)`,
-  spring: `cubic-bezier(0.175, 0.885, 0.320, 1.175)`,
-}
-
 const TextContainer = styled.div`
   overflow-y: auto;
 `
-const ANIMATION_DURATION = 300
 
 const CloseIcon = styled(Close)`
   fill: ${Colors.grey};
   width: 14px;
   height: 14px;
 `
-
-type StyleProps = {
-  [key in TransitionStatus]: FlattenSimpleInterpolation
-}
-interface Styles extends Omit<StyleProps, 'exited' | 'unmounted'> {
-  [k: string]: any
-}
-const styles: Styles = {
-  entering: css`
-    animation: ${openAnimation} ${ANIMATION_DURATION}ms ${animationEasing.spring} both;
-  `,
-  entered: css`
-    animation: ${openAnimation} ${ANIMATION_DURATION}ms ${animationEasing.spring} both;
-  `,
-  exiting: css`
-    animation: ${closeAnimation} 120ms ${animationEasing.acceleration} both;
-  `,
-}
 
 const TitleContainer = styled.div`
   display: flex;
@@ -93,7 +51,7 @@ const Title = styled.h4`
   margin: 0;
   font-weight: 500;
 `
-const Container = styled.div<{ css: FlattenSimpleInterpolation; children: React.ReactNode }>`
+const Container = styled.div<{ children: React.ReactNode; css: FlattenSimpleInterpolation }>`
   padding: 32px;
   bottom: 16px;
   right: 16px;
@@ -110,6 +68,13 @@ const ButtonGroup = styled.div`
   flex-shrink: 0;
   margin-top: 24px;
 `
+
+/**
+ * Returns a react portal given a title, children, and isShown prop. If isShown is false returns null.
+ * All other parameters are optional.
+ * @param {Props}
+ * @returns
+ */
 function Dialog({
   isShown,
   title,
@@ -163,14 +128,14 @@ function Dialog({
       <Transition
         appear
         unmountOnExit
-        timeout={ANIMATION_DURATION}
+        timeout={DIALOG_TRANSITION}
         in={isShown && !exiting}
         onExited={handleExited}
         onEntered={onOpenComplete}
       >
         {(state: TransitionStatus) => {
           return (
-            <Container css={styles[state] as FlattenSimpleInterpolation}>
+            <Container css={transitions.dialogTransition[state]}>
               <TitleContainer>
                 <Title>{title}</Title>
                 <SVGButton onClick={handleClose}>

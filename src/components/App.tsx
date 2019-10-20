@@ -2,7 +2,7 @@ import React from 'react'
 // eslint-disable-next-line
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { useSpring } from 'react-spring'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { TransitionGroup, CSSTransition as OriginalCSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
 import Work from './Work/Work'
@@ -43,10 +43,7 @@ const Wrapper = styled.div`
 `
 const ImageWrapper = styled.div`
   color: rgba(0, 0, 0, 0.87);
-  /* background-color: #143859; */
-
   z-index: 1;
-  /* padding: 15px; */
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
   border-radius: 2px;
@@ -60,7 +57,11 @@ const WorkCards = () => {
   return (
     <ImageWrapper>
       <Wrapper>
-        <CardWrapper />
+        <CardWrapper
+          css={css`
+            background-size: contain;
+          `}
+        />
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
