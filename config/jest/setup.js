@@ -1,4 +1,5 @@
 const React = require('react')
+// require('@testing-library/jest-dom/extend-expect')
 const { configure, shallow, render, mount } = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
 // const StyledTests = require('jest-styled-components')
