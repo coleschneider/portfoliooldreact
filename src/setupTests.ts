@@ -4,15 +4,16 @@ import '@testing-library/jest-dom/extend-expect'
 // // require('@testing-library/jest-dom/extend-expect')
 // const { configure, shallow, render, mount } = require('enzyme');
 
-import {configure, shallow, render, mount} from 'enzyme'
+import { configure, shallow, render, mount } from 'enzyme'
 import { cleanup } from '@testing-library/react'
 
 const StyledTests = require('jest-styled-components')
-configure({ adapter: new Adapter() });
 
-global.shallow = shallow;
-global.render = render;
-global.mount = mount;
+configure({ adapter: new Adapter() })
+
+global.shallow = shallow
+global.render = render
+global.mount = mount
 const windowAdditions = {}
 Object.assign(global.window, windowAdditions)
 

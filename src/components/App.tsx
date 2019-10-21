@@ -50,16 +50,17 @@ const TextWrapper = styled.div`
   max-width: 680px;
   margin: 0 24px;
 `
-const WorkCards = () => {
+
+const WrapImage = styled.div`
+  width: 100%;
+`
+const WorkCards = ({ position, isExited }) => {
   return (
     <ImageWrapper>
       <Wrapper>
-        <CardWrapper
-          css={css`
-            background-size: contain;
-            width: 100%;
-          `}
-        />
+        <WrapImage style={position}>
+          <CardWrapper />
+        </WrapImage>
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
@@ -122,6 +123,8 @@ const App: React.FC = () => {
     console.log({ width, height }, position)
     position = { ...position, width, height }
   }
+  const [isExited, setIsExited] = React.useState(false)
+  const setExited = () => setIsExited(true)
   return (
     <div className="App">
       <Header modal={modal} {...location} />
@@ -140,11 +143,14 @@ const App: React.FC = () => {
           appear
           // onExit={() => console.log('exit')}
           // onExiting={() => console.log('exiting')}
-          // onExited={() => console.log('exited')}
+          onExiting={() => setExited()}
         >
           <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
             <Switch location={location}>
-              <Route path="/work/:workId" component={WorkCards} />
+              <Route
+                path="/work/:workId"
+                component={props => <WorkCards {...props} isExited={isExited} position={position} />}
+              />
             </Switch>
           </ModalContainer>
         </CSSTransition>

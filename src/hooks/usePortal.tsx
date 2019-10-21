@@ -7,7 +7,6 @@ function createRootElement(id: string) {
 }
 
 function usePortal(id: string): Element {
-  
   const rootElemRef: React.RefObject<Element> = React.useRef(null)
 
   React.useEffect(
