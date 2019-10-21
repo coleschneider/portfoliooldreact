@@ -58,9 +58,9 @@ const WorkCards = ({ position }) => {
   return (
     <ImageWrapper>
       <Wrapper>
-        <WrapImage style={position}>
-          <CardWrapper />
-        </WrapImage>
+        {/* <WrapImage> */}
+        <CardWrapper style={position} />
+        {/* </WrapImage> */}
         <TextWrapper>
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
