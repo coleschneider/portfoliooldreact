@@ -54,7 +54,7 @@ const TextWrapper = styled.div`
 const WrapImage = styled.div`
   width: 100%;
 `
-const WorkCards = ({ position, isExited }) => {
+const WorkCards = ({ position }) => {
   return (
     <ImageWrapper>
       <Wrapper>
