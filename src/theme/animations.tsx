@@ -27,12 +27,14 @@ const closeAnimation = keyframes`
   }
 `
 const DIALOG_TRANSITION = 300
+const CARD_TRANSITION = 300
 type StyleProps = {
   [key in TransitionStatus]: FlattenSimpleInterpolation
 }
 interface Styles extends Omit<StyleProps, 'exited' | 'unmounted'> {
   [k: string]: FlattenSimpleInterpolation
 }
+
 const transitions: {
   dialogTransition: Styles
 } = {

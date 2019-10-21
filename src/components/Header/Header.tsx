@@ -113,9 +113,9 @@ function Header(props: Props) {
   const { y } = useSpring({
     y: modeType === 'unpinned' ? -100 : 0,
   })
-  const handleGoBack = () => {
+  const handleGoBack = React.useCallback(() => {
     goBack()
-  }
+  }, [goBack])
   return React.useMemo(
     () => (
       <div data-testid="header-testId">

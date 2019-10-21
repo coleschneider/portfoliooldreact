@@ -1,7 +1,9 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { animated, useTrail } from 'react-spring'
+import { useHistory } from 'react-router-dom'
 import { Pane } from '../../theme/Elements'
+import useResizeObserver from '../../hooks/useResizeObserver'
 
 export const CardWrapper = styled(Pane)`
   height: 400px;
@@ -35,13 +37,38 @@ const ImagePopUp = styled.a`
 const items = ['Software ', 'Engineer']
 const config = { duration: 400, mass: 1, tension: 5000, friction: 250 }
 
-function Card({ handleClick, getRef, location }) {
+function Card({ getRef, onUpdateCards, location }) {
+  const history = useHistory()
+  const { ref, height, width } = useResizeObserver({ update: onUpdateCards })
+
+  const handleClick = () => {
+    const { top, right, bottom, left, width, height } = ref.current.getBoundingClientRect()
+    history.push({
+      pathname: `/work/${0}`,
+      state: {
+        background: location,
+        to: 'modal',
+        meta: {
+          from: {
+            top,
+            right,
+            bottom,
+            left,
+            width,
+            height,
+          },
+        },
+      },
+    })
+  }
+
   const [trail, set, stop] = useTrail(items.length, () => ({
     config,
     opacity: 1,
     x: 0,
     height: 80,
   }))
+
   React.useEffect(() => {
     set({
       opacity: 1,
@@ -66,11 +93,12 @@ function Card({ handleClick, getRef, location }) {
     })
   }
 
+  // getRef(ref)
   return (
     // eslint-disable-next-line
     <CardWrapper
       // eslint-disable-next-line
-      ref={getRef}
+      ref={ref}
       css={css`
         position: relative;
       `}

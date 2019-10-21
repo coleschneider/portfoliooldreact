@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useRouteMatch, RouteProps, Link } from 'react-router-dom'
+import { useRouteMatch, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 interface NavLinkProps {

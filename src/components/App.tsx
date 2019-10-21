@@ -33,13 +33,10 @@ const Scrollup = styled.a`
 `
 
 const Wrapper = styled.div`
-  /* margin-top: 100px; */
   display: flex;
-
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* flex: 0.5 1 500px; */
 `
 const ImageWrapper = styled.div`
   color: rgba(0, 0, 0, 0.87);
@@ -60,6 +57,7 @@ const WorkCards = () => {
         <CardWrapper
           css={css`
             background-size: contain;
+            width: 100%;
           `}
         />
         <TextWrapper>
@@ -71,8 +69,7 @@ const WorkCards = () => {
             purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
             euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
           </P>
-        </TextWrapper>
-        <TextWrapper>
+
           <H2 primary>Development</H2>
           <P primary>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
@@ -81,8 +78,7 @@ const WorkCards = () => {
             purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
             euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
           </P>
-        </TextWrapper>
-        <TextWrapper>
+
           <H2 primary>Testing</H2>
           <P primary>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
@@ -122,17 +118,30 @@ const App: React.FC = () => {
       onFrame: ({ y }) => window.scroll(0, y),
     })
   }
+  const onUpdateCards = ({ width, height }) => {
+    console.log({ width, height }, position)
+    position = { ...position, width, height }
+  }
   return (
     <div className="App">
       <Header modal={modal} {...location} />
       <div className="view-container">
         <Switch location={background || location}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/mywork" component={Work} />
+          <Route exact path="/mywork" component={props => <Work onUpdateCards={onUpdateCards} />} />
         </Switch>
       </div>
       <TransitionGroup>
-        <CSSTransition timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
+        <CSSTransition
+          timeout={450}
+          classNames="modal"
+          key={location.pathname}
+          mountOnEnter
+          appear
+          // onExit={() => console.log('exit')}
+          // onExiting={() => console.log('exiting')}
+          // onExited={() => console.log('exited')}
+        >
           <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
             <Switch location={location}>
               <Route path="/work/:workId" component={WorkCards} />
