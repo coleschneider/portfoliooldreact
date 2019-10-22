@@ -1,41 +1,24 @@
 import React from 'react'
 import ResizeObserver from 'resize-observer-polyfill'
 
-interface Props {
-  defaultWidth: number
-  defaultHeight: number
+export interface ResizeObserverEntry {
+  target: HTMLElement
+  contentRect: DOMRectReadOnly
 }
+export type ObserverCallback = (entry: DOMRectReadOnly) => void
 
-function useResizeObserver({ defaultWidth = 1, defaultHeight = 1, update = () => {} }: Partial<Props> = {}) {
-  const ref = React.useRef(null)
-  const [width, changeWidth] = React.useState(defaultWidth)
-  const [height, changeHeight] = React.useState(defaultHeight)
-
+export const useResizeObserver = (ref: React.RefObject<HTMLElement>, callback: ObserverCallback) => {
   React.useEffect(() => {
-    const element = ref.current
-    const resizeObserver = new ResizeObserver(entries => {
-      if (!Array.isArray(entries)) {
-        return
-      }
-
-      // Since we only observe the one element, we don't need to loop over the
-      // array
-      if (!entries.length) {
-        return
-      }
-
-      const entry = entries[0]
-
-      changeWidth(entry.contentRect.width)
-      changeHeight(entry.contentRect.height)
-      update({ width, height })
+    const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+      const { top, right, bottom, left, width, height } = entries[0].target.getBoundingClientRect()
+      callback({ top, right, bottom, left, width, height })
     })
 
-    resizeObserver.observe(element)
+    resizeObserver.observe(ref.current)
 
-    return () => resizeObserver.unobserve(element)
-  }, [height, update, width])
-
-  return { ref, width, height }
+    return () => {
+      resizeObserver.disconnect()
+    }
+  }, [callback, ref])
 }
 export default useResizeObserver

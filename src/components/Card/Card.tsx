@@ -7,8 +7,10 @@ import useResizeObserver from '../../hooks/useResizeObserver'
 
 export const CardWrapper = styled(Pane)`
   height: 400px;
-  /* background-size: cover; */
+  background-size: cover;
+  width: 100%;
   background-repeat: no-repeat;
+  max-width: 680px;
   border-radius: 7px;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   background-position: 50% center;
@@ -38,12 +40,22 @@ const ImagePopUp = styled.a`
 const items = ['Software ', 'Engineer']
 const config = { duration: 400, mass: 1, tension: 5000, friction: 250 }
 
-function Card({ getRef, onUpdateCards, location }) {
-  const history = useHistory()
-  const { ref, height, width } = useResizeObserver({ update: onUpdateCards })
+function Card({ getRef, onUpdateCards, location, history }) {
+  const cardRef = React.useRef()
+  const [cardDimensions, setDimensions] = React.useState({})
+  useResizeObserver(
+    cardRef,
+    React.useCallback(
+      dims => {
+        onUpdateCards(dims)
+        setDimensions(dims)
+      },
+      [onUpdateCards],
+    ),
+  )
 
   const handleClick = () => {
-    const { top, right, bottom, left, width, height } = ref.current.getBoundingClientRect()
+    console.log(cardDimensions)
     history.push({
       pathname: `/work/${0}`,
       state: {
@@ -51,12 +63,7 @@ function Card({ getRef, onUpdateCards, location }) {
         to: 'modal',
         meta: {
           from: {
-            top,
-            right,
-            bottom,
-            left,
-            width,
-            height,
+            ...cardDimensions,
           },
         },
       },
@@ -99,7 +106,7 @@ function Card({ getRef, onUpdateCards, location }) {
     // eslint-disable-next-line
     <CardWrapper
       // eslint-disable-next-line
-      ref={ref}
+      ref={cardRef}
       css={css`
         position: relative;
       `}

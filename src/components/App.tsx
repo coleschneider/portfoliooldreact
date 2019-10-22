@@ -58,10 +58,8 @@ const WorkCards = ({ position }) => {
   return (
     <ImageWrapper>
       <Wrapper>
-        {/* <WrapImage> */}
-        <CardWrapper style={position} />
-        {/* </WrapImage> */}
         <TextWrapper>
+          <CardWrapper />
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
@@ -119,10 +117,10 @@ const App: React.FC = () => {
       onFrame: ({ y }) => window.scroll(0, y),
     })
   }
-  const onUpdateCards = ({ width, height }) => {
-    console.log({ width, height }, position)
-    position = { ...position, width, height }
+  const onUpdateCards = dimensions => {
+    position = dimensions
   }
+  console.log({ position })
   const [isExited, setIsExited] = React.useState(false)
   const setExited = () => setIsExited(true)
   return (
@@ -131,7 +129,7 @@ const App: React.FC = () => {
       <div className="view-container">
         <Switch location={background || location}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/mywork" component={props => <Work onUpdateCards={onUpdateCards} />} />
+          <Route exact path="/mywork" component={props => <Work {...props} onUpdateCards={onUpdateCards} />} />
         </Switch>
       </div>
       <TransitionGroup>
