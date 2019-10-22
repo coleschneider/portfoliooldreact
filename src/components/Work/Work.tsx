@@ -9,7 +9,9 @@ const Wrapper = styled.div`
   margin-top: 25px;
   padding: 1.5rem;
 `
-
+const ColumnFlex = styled.div`
+  flex: 1 0 300px;
+`
 const WorkCards = ({ history, location, onUpdateCards }) => {
   const refMap = new Map()
   const handleGetCardRef = (id, ref) => refMap.set(id, ref)
@@ -17,7 +19,7 @@ const WorkCards = ({ history, location, onUpdateCards }) => {
   return (
     <Wrapper>
       <Row>
-        <Col xs={4} sm={4}>
+        <ColumnFlex>
           <Card
             onUpdateCards={onUpdateCards}
             location={location}
@@ -25,8 +27,8 @@ const WorkCards = ({ history, location, onUpdateCards }) => {
             // getRef={ref => handleGetCardRef(0, ref)}
             // handleClick={() => handleClick(0)}
           />
-        </Col>
-        <Col xs={4} sm={4}>
+        </ColumnFlex>
+        <ColumnFlex>
           <Card
             onUpdateCards={onUpdateCards}
             location={location}
@@ -34,7 +36,7 @@ const WorkCards = ({ history, location, onUpdateCards }) => {
             // getRef={ref => handleGetCardRef(0, ref)}
             // handleClick={() => handleClick(0)}
           />
-        </Col>
+        </ColumnFlex>
       </Row>
     </Wrapper>
   )

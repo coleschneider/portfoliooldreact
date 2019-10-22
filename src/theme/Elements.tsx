@@ -73,8 +73,8 @@ export const SVGButton = styled(Button)`
 `
 export const Pane = styled.div`
   padding: 32px;
-  bottom: 16px;
-  right: 16px;
+  /* bottom: 16px;
+  right: 16px; */
   background-color: ${Colors.white};
   width: 100%;
 
