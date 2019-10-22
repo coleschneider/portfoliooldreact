@@ -11,6 +11,8 @@ import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
 import { P, H2 } from '../theme/Elements'
 import usePrevious from '../hooks/usePrevious'
+import Row from '../theme/Grid/Row'
+import Col from '../theme/Grid/Column'
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -52,14 +54,19 @@ const TextWrapper = styled.div`
 `
 
 const WrapImage = styled.div`
+  margin: 0 auto;
   width: 100%;
+  max-width: 680px;
 `
 const WorkCards = ({ position }) => {
   return (
     <ImageWrapper>
+      <WrapImage>
+        <CardWrapper />
+      </WrapImage>
+
       <Wrapper>
         <TextWrapper>
-          <CardWrapper />
           <H2 primary>September - December Blend (Software Engineer Internship)</H2>
           <P primary>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,

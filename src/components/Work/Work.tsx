@@ -26,14 +26,15 @@ const WorkCards = ({ history, location, onUpdateCards }) => {
             // handleClick={() => handleClick(0)}
           />
         </Col>
-        {/* <Col xs={4} sm={4}>
+        <Col xs={4} sm={4}>
           <Card
             onUpdateCards={onUpdateCards}
             location={location}
-            getRef={ref => handleGetCardRef(1, ref)}
-            handleClick={() => handleClick(1)}
+            history={history}
+            // getRef={ref => handleGetCardRef(0, ref)}
+            // handleClick={() => handleClick(0)}
           />
-        </Col> */}
+        </Col>
       </Row>
     </Wrapper>
   )

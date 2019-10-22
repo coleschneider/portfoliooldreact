@@ -47,10 +47,10 @@ function Card({ getRef, onUpdateCards, location, history }) {
     cardRef,
     React.useCallback(
       dims => {
-        onUpdateCards(dims)
         setDimensions(dims)
+        onUpdateCards(cardDimensions)
       },
-      [onUpdateCards],
+      [cardDimensions, onUpdateCards],
     ),
   )
 
