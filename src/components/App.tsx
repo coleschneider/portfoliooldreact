@@ -1,6 +1,6 @@
 import React from 'react'
 // eslint-disable-next-line
-import { Route, Switch, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom';
 import { useSpring } from 'react-spring'
 import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -44,7 +44,7 @@ class OmittedTransitionGroup extends CSSTransition {
 const App: React.FC = () => {
   const location = useLocation()
 
-  const modalContainerRef: React.RefObject<Element> = React.useRef(null)
+  const modalContainerRef: React.RefObject<HTMLDivElement> = React.useRef(null)
   const modal = location.state && location.state.to === 'modal'
 
   let position = usePrevious<DOMRect | ClientRect>()
@@ -87,7 +87,11 @@ const App: React.FC = () => {
       <div className="view-container">
         <Switch location={background || location}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/mywork" component={props => <Work {...props} onUpdateCards={onUpdateCards} />} />
+          <Route
+            exact
+            path="/mywork"
+            component={(props: RouteComponentProps) => <Work {...props} onUpdateCards={onUpdateCards} />}
+          />
         </Switch>
       </div>
       <TransitionGroup>

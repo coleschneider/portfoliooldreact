@@ -1,7 +1,6 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { animated, useTrail } from 'react-spring'
-import { useHistory } from 'react-router-dom'
 import { Pane } from '../../theme/Elements'
 import useResizeObserver from '../../hooks/useResizeObserver'
 
