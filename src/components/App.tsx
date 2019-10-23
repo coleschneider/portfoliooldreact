@@ -2,17 +2,14 @@ import React from 'react'
 // eslint-disable-next-line
 import { Route, Switch, useLocation } from 'react-router-dom';
 import { useSpring } from 'react-spring'
-import styled, { css } from 'styled-components'
-import { TransitionGroup, CSSTransition as OriginalCSSTransition } from 'react-transition-group'
+import styled from 'styled-components'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
 import Work from './Work/Work'
-import { CardWrapper } from './Card/Card'
+import WorkDetails from './WorkDetails/WorkDetails'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
-import { P, H2 } from '../theme/Elements'
 import usePrevious from '../hooks/usePrevious'
-import Row from '../theme/Grid/Row'
-import Col from '../theme/Grid/Column'
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -33,72 +30,13 @@ const Scrollup = styled.a`
   cursor: pointer;
   bottom: 50px;
 `
-
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`
-const ImageWrapper = styled.div`
-  color: rgba(0, 0, 0, 0.87);
-  z-index: 1;
-  box-sizing: border-box;
-  font-family: Roboto, sans-serif;
-  border-radius: 2px;
-`
-const TextWrapper = styled.div`
-  line-height: 1.8;
-  max-width: 680px;
-  margin: 0 24px;
-`
-
-const WrapImage = styled.div`
-  margin: 0 auto;
-  width: 100%;
-  max-width: 680px;
-`
-const WorkCards = ({ position }) => {
-  return (
-    <ImageWrapper>
-      <WrapImage>
-        <CardWrapper />
-      </WrapImage>
-
-      <Wrapper>
-        <TextWrapper>
-          <H2 primary>September - December Blend (Software Engineer Internship)</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
-
-          <H2 primary>Development</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
-
-          <H2 primary>Testing</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
-        </TextWrapper>
-      </Wrapper>
-    </ImageWrapper>
-  )
+interface SpringWindow {
+  onFrame: ({ y }: { y: number }) => void
+  y: number
 }
-class CSSTransition extends OriginalCSSTransition {
+const windowFn = (): SpringWindow => ({ y: 0, onFrame: ({ y }) => window.scroll(0, y) })
+
+class OmittedTransitionGroup extends CSSTransition {
   onEntered = () => {
     // Do not remove enter classes when active
   }
@@ -106,30 +44,43 @@ class CSSTransition extends OriginalCSSTransition {
 const App: React.FC = () => {
   const location = useLocation()
 
-  const modalContainerRef = React.useRef()
+  const modalContainerRef: React.RefObject<Element> = React.useRef(null)
   const modal = location.state && location.state.to === 'modal'
-  let position = usePrevious({})
+
+  let position = usePrevious<DOMRect | ClientRect>()
 
   const background = location.state && location.state.background
 
   if (modal && location.state.meta) {
     position = location.state.meta.from
   }
-  const [, setY] = useSpring(() => ({ y: 0 }))
+  const [, setY] = useSpring<SpringWindow>(windowFn)
+  const getScrollTop = () => {
+    if (modalContainerRef.current && modal && location.state.meta) {
+      return modalContainerRef.current.scrollTop
+    }
+    return window.scrollY
+  }
+  const scrollContainer = (y: number) => {
+    if (modalContainerRef.current && modal && location.state.meta) {
+      return modalContainerRef.current.scroll(0, y)
+    }
+    return window.scroll(0, y)
+  }
   const handleUpArrowClick = () => {
     setY({
       y: 0,
       reset: true,
-      from: { y: window.scrollY },
-      onFrame: ({ y }) => window.scroll(0, y),
+      from: { y: getScrollTop() },
+      onFrame: ({ y }) => {
+        scrollContainer(y)
+      },
     })
   }
-  const onUpdateCards = dimensions => {
+  const onUpdateCards: DimensionCallback = dimensions => {
     position = dimensions
   }
-  console.log({ position })
-  const [isExited, setIsExited] = React.useState(false)
-  const setExited = () => setIsExited(true)
+
   return (
     <div className="App">
       <Header modal={modal} {...location} />
@@ -140,25 +91,13 @@ const App: React.FC = () => {
         </Switch>
       </div>
       <TransitionGroup>
-        <CSSTransition
-          timeout={450}
-          classNames="modal"
-          key={location.pathname}
-          mountOnEnter
-          appear
-          // onExit={() => console.log('exit')}
-          // onExiting={() => console.log('exiting')}
-          onExiting={() => setExited()}
-        >
+        <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
           <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
             <Switch location={location}>
-              <Route
-                path="/work/:workId"
-                component={props => <WorkCards {...props} isExited={isExited} position={position} />}
-              />
+              <Route path="/work/:workId" component={WorkDetails} />
             </Switch>
           </ModalContainer>
-        </CSSTransition>
+        </OmittedTransitionGroup>
       </TransitionGroup>
       <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
         <UpArrow />

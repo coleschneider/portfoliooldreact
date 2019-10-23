@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function usePrevious<T>(value: T) {
+function usePrevious<T>(value?: T) {
   const ref = React.useRef<T>()
   React.useEffect(() => {
     ref.current = value

@@ -1,5 +1,7 @@
+import React from 'react'
 import styled from 'styled-components'
 import { Colors, primaryGradient, secondaryGradient, withHover } from './colors'
+import Icons from './Icons'
 
 const fontColorMixin = ({ primary }: { primary?: boolean }) => `
     color: ${primary ? Colors.darkBlue : Colors.white};
@@ -30,7 +32,10 @@ export const PSecondary = styled(P)`
 interface ButtonProps {
   primary?: boolean
 }
-
+interface ButtonIconProps extends ButtonProps {
+  icon: Icons
+  children: React.ReactNode
+}
 export const Button = styled.button<ButtonProps>`
   margin-left: 8px;
   vertical-align: middle;
@@ -58,6 +63,23 @@ export const Button = styled.button<ButtonProps>`
   font-weight: 500;
   box-shadow: inset 0 0 0 1px rgba(67, 90, 111, 0.3), inset 0 -1px 1px 0 rgba(67, 90, 111, 0.06);
 `
+const withIcon = (component: React.FunctionComponent<any>) => styled(component)`
+  margin-left: 8px;
+  height: 12px;
+  width: 12px;
+  margin-right: -2px;
+`
+
+export const ButtonIcon = ({ icon, children, ...rest }: ButtonIconProps) => {
+  const IconComponent = withIcon(Icons[icon])
+
+  return (
+    <Button {...rest}>
+      {children}
+      <IconComponent />
+    </Button>
+  )
+}
 
 export const SVGButton = styled(Button)`
   color: #1070ca;

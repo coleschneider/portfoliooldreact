@@ -5,7 +5,7 @@ import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
 import AboutMe from '../../assets/images/about_me.jpg'
 import { media } from '../../theme/Grid/config'
-import { H1, P, PSecondary } from '../../theme/Elements'
+import { H1, P, PSecondary, ButtonIcon } from '../../theme/Elements'
 import Dialog from '../Dialog/Dialog'
 
 const ImageContainer = styled.img`
@@ -24,6 +24,12 @@ const ExternalLink = styled.a`
   text-decoration: underline;
   color: inherit;
   vertical-align: baseline;
+`
+const ButtonGroup = styled.div`
+  flex-direction: row-reverse;
+  display: flex;
+  flex-shrink: 0;
+  margin-top: 24px;
 `
 function About() {
   const [{ isShown }, setState] = React.useState({ isShown: true })
@@ -67,6 +73,9 @@ function About() {
                 to me with any questions or concerns
               </P>
             </div>
+            <ButtonGroup>
+              <ButtonIcon icon="PointerRight">See Work</ButtonIcon>
+            </ButtonGroup>
           </Col>
         </Row>
       </Container>
