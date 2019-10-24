@@ -1,7 +1,9 @@
-import * as React from 'react';
-import styled from 'styled-components';
+import * as React from 'react'
+import styled, { css } from 'styled-components'
+import { RouteComponentProps } from 'react-router'
 import { P, H2 } from '../../theme/Elements'
 import { CardWrapper } from '../Card/Card'
+import { cardsById } from '../Card/cardsConfig'
 
 const Wrapper = styled.div`
   display: flex;
@@ -28,47 +30,51 @@ const WrapImage = styled.div`
   max-width: 680px;
 `
 
+const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
+  const { cardImage } = cardsById[params.workId]
 
-const WorkDetails = () => {
-    return (
-      <ImageWrapper>
-        <WrapImage>
-          <CardWrapper />
-        </WrapImage>
-  
-        <Wrapper>
-          <TextWrapper>
-            <H2 primary>September - December Blend (Software Engineer Internship)</H2>
-            <P primary>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-              venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-              bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-              purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-              euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-            </P>
-  
-            <H2 primary>Development</H2>
-            <P primary>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-              venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-              bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-              purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-              euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-            </P>
-  
-            <H2 primary>Testing</H2>
-            <P primary>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-              venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-              bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-              purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-              euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-            </P>
-          </TextWrapper>
-        </Wrapper>
-      </ImageWrapper>
-    )
-  }
+  return (
+    <ImageWrapper>
+      <WrapImage>
+        <CardWrapper
+          css={css`
+            background-image: url(${cardImage});
+          `}
+        />
+      </WrapImage>
 
+      <Wrapper>
+        <TextWrapper>
+          <H2 primary>September - December Blend (Software Engineer Internship)</H2>
+          <P primary>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
+          </P>
 
-  export default WorkDetails
+          <H2 primary>Development</H2>
+          <P primary>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
+          </P>
+
+          <H2 primary>Testing</H2>
+          <P primary>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
+            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
+            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
+            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
+            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
+          </P>
+        </TextWrapper>
+      </Wrapper>
+    </ImageWrapper>
+  )
+}
+
+export default WorkDetails

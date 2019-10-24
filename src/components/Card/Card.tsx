@@ -1,6 +1,7 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
 import { animated, useTrail } from 'react-spring'
+import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import useResizeObserver from '../../hooks/useResizeObserver'
 
@@ -13,7 +14,7 @@ export const CardWrapper = styled(Pane)`
   border-radius: 7px;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   background-position: 50% center;
-  background-image: url(https://blend.com/wp-content/uploads/2019/09/Blend-OG-1200x630_5.png);
+  /* background-image: url(https://blend.com/wp-content/uploads/2019/09/Blend-OG-1200x630_5.png); */
 `
 const ImagePopUp = styled.a`
   position: absolute;
@@ -36,10 +37,11 @@ const ImagePopUp = styled.a`
   }
 `
 
-const items = ['Software ', 'Engineer']
+type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
+
 const config = { duration: 400, mass: 1, tension: 5000, friction: 250 }
 
-function Card({ getRef, onUpdateCards, location, history }) {
+function Card({ onUpdateCards, location, history, id, cardImage, description }: Props) {
   const cardRef = React.useRef()
   const [cardDimensions, setDimensions] = React.useState({})
   useResizeObserver(
@@ -54,9 +56,8 @@ function Card({ getRef, onUpdateCards, location, history }) {
   )
 
   const handleClick = () => {
-    console.log(cardDimensions)
     history.push({
-      pathname: `/work/${0}`,
+      pathname: `/work/${id}`,
       state: {
         background: location,
         to: 'modal',
@@ -69,7 +70,7 @@ function Card({ getRef, onUpdateCards, location, history }) {
     })
   }
 
-  const [trail, set, stop] = useTrail(items.length, () => ({
+  const [trail, set, stop] = useTrail(description.length, () => ({
     config,
     opacity: 1,
     x: 0,
@@ -91,7 +92,7 @@ function Card({ getRef, onUpdateCards, location, history }) {
       height: 80,
       onRest: item => {
         completed.push(item)
-        if (completed.length === items.length) {
+        if (completed.length === description.length) {
           // eslint-disable-next-line
           stop();
           handleClick()
@@ -108,6 +109,7 @@ function Card({ getRef, onUpdateCards, location, history }) {
       ref={cardRef}
       css={css`
         position: relative;
+        background-image: url(${cardImage});
       `}
       onClick={animateOnClick}
       hover
@@ -116,7 +118,7 @@ function Card({ getRef, onUpdateCards, location, history }) {
       <ImagePopUp>
         {trail.map(({ x, height, ...rest }, index) => (
           <animated.div
-            key={items[index]}
+            key={description[index]}
             style={{
               ...rest,
               color: 'white',
@@ -125,7 +127,7 @@ function Card({ getRef, onUpdateCards, location, history }) {
               transform: x.interpolate(y => `translate3d(0,${y}px,0)`),
             }}
           >
-            <animated.div style={{ height }}>{items[index]}</animated.div>
+            <animated.div style={{ height }}>{description[index]}</animated.div>
           </animated.div>
         ))}
       </ImagePopUp>

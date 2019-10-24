@@ -61,7 +61,7 @@ const App: React.FC = () => {
     }
     return window.scrollY
   }
-  const scrollContainer = (y: number) => {
+  const onFrame = ({ y }: { y: number }) => {
     if (modalContainerRef.current && modal && location.state.meta) {
       return modalContainerRef.current.scroll(0, y)
     }
@@ -72,9 +72,7 @@ const App: React.FC = () => {
       y: 0,
       reset: true,
       from: { y: getScrollTop() },
-      onFrame: ({ y }) => {
-        scrollContainer(y)
-      },
+      onFrame,
     })
   }
   const onUpdateCards: DimensionCallback = dimensions => {
