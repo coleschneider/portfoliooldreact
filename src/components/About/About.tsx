@@ -26,8 +26,6 @@ const ExternalLink = styled.a`
   vertical-align: baseline;
 `
 const ButtonGroup = styled.div`
-  flex-direction: row-reverse;
-  display: flex;
   flex-shrink: 0;
   margin-top: 24px;
 `
@@ -75,6 +73,9 @@ function About() {
             </div>
             <ButtonGroup>
               <ButtonIcon icon="PointerRight">See Work</ButtonIcon>
+              <ButtonIcon icon="PointerRight" primary>
+                See Resume
+              </ButtonIcon>
             </ButtonGroup>
           </Col>
         </Row>
