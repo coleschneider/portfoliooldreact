@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router'
 import { P, H2 } from '../../theme/Elements'
 import { CardWrapper } from '../Card/Card'
@@ -37,9 +37,9 @@ const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string
     <ImageWrapper>
       <WrapImage>
         <CardWrapper
-          css={css`
-            background-image: url(${cardImage});
-          `}
+          style={{
+            backgroundImage: `url(${cardImage})`,
+          }}
         />
       </WrapImage>
 

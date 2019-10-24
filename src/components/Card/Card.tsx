@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled, { css } from 'styled-components'
-import { animated, useTrail } from 'react-spring'
+import { animated, useTrail, SpringConfig } from 'react-spring'
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import useResizeObserver from '../../hooks/useResizeObserver'
@@ -14,7 +14,6 @@ export const CardWrapper = styled(Pane)`
   border-radius: 7px;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
   background-position: 50% center;
-  /* background-image: url(https://blend.com/wp-content/uploads/2019/09/Blend-OG-1200x630_5.png); */
 `
 const ImagePopUp = styled.a`
   position: absolute;
@@ -40,7 +39,12 @@ const ImagePopUp = styled.a`
 type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
 
 const config = { duration: 400, mass: 1, tension: 5000, friction: 250 }
-
+interface TrailAnimation {
+  config: SpringConfig
+  opacity: number
+  x: number
+  height: number
+}
 function Card({ onUpdateCards, location, history, id, cardImage, description }: Props) {
   const cardRef = React.useRef()
   const [cardDimensions, setDimensions] = React.useState({})
@@ -70,7 +74,7 @@ function Card({ onUpdateCards, location, history, id, cardImage, description }: 
     })
   }
 
-  const [trail, set, stop] = useTrail(description.length, () => ({
+  const [trail, set] = useTrail<TrailAnimation>(description.length, () => ({
     config,
     opacity: 1,
     x: 0,
@@ -78,12 +82,14 @@ function Card({ onUpdateCards, location, history, id, cardImage, description }: 
   }))
 
   React.useEffect(() => {
+    // Update animation when/if we go back/forward in history
     set({
       opacity: 1,
       x: 0,
       height: 80,
     })
   }, [location, set])
+
   const animateOnClick = () => {
     const completed = []
     set({
@@ -94,7 +100,6 @@ function Card({ onUpdateCards, location, history, id, cardImage, description }: 
         completed.push(item)
         if (completed.length === description.length) {
           // eslint-disable-next-line
-          stop();
           handleClick()
         }
       },
@@ -107,13 +112,12 @@ function Card({ onUpdateCards, location, history, id, cardImage, description }: 
     <CardWrapper
       // eslint-disable-next-line
       ref={cardRef}
-      css={css`
-        position: relative;
-        background-image: url(${cardImage});
-      `}
+      style={{
+        backgroundImage: `url(${cardImage})`,
+        position: 'relative',
+      }}
       onClick={animateOnClick}
       hover
-      level={0}
     >
       <ImagePopUp>
         {trail.map(({ x, height, ...rest }, index) => (
