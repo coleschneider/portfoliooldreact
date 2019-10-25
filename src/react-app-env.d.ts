@@ -70,4 +70,5 @@ interface Card {
   description: string[]
   id: string | number
   cardImage: string
+  placeholder: string
 }

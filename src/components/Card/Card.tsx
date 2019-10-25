@@ -4,6 +4,7 @@ import { animated, useTrail, SpringConfig } from 'react-spring'
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import useResizeObserver from '../../hooks/useResizeObserver'
+import useLazyImage from '../../hooks/useLazyImage'
 
 export const CardWrapper = styled(Pane)`
   height: 400px;
@@ -45,9 +46,12 @@ interface TrailAnimation {
   x: number
   height: number
 }
-function Card({ onUpdateCards, location, history, id, cardImage, description }: Props) {
+
+function Card({ onUpdateCards, location, history, id, cardImage, description, placeholder }: Props) {
+  const imageSrc = useLazyImage(cardImage, placeholder)
   const cardRef = React.useRef()
   const [cardDimensions, setDimensions] = React.useState({})
+
   useResizeObserver(
     cardRef,
     React.useCallback(
@@ -113,7 +117,7 @@ function Card({ onUpdateCards, location, history, id, cardImage, description }: 
       // eslint-disable-next-line
       ref={cardRef}
       style={{
-        backgroundImage: `url(${cardImage})`,
+        backgroundImage: `url(${imageSrc})`,
         position: 'relative',
       }}
       onClick={animateOnClick}

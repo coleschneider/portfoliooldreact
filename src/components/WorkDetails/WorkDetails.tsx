@@ -4,6 +4,7 @@ import { RouteComponentProps } from 'react-router'
 import { P, H2 } from '../../theme/Elements'
 import { CardWrapper } from '../Card/Card'
 import { cardsById } from '../Card/cardsConfig'
+import useLazyImage from '../../hooks/useLazyImage'
 
 const Wrapper = styled.div`
   display: flex;
@@ -29,16 +30,26 @@ const WrapImage = styled.div`
   width: 100%;
   max-width: 680px;
 `
+const resolveImage = (url: string): Promise<void> => {
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    image.onload = () => resolve()
+    image.onerror = reject
+    image.src = url
+  })
+}
 
 const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
-  const { cardImage } = cardsById[params.workId]
+  const { cardImage, placeholder } = cardsById[params.workId]
+
+  const imageSrc = useLazyImage(cardImage, placeholder)
 
   return (
     <ImageWrapper>
       <WrapImage>
         <CardWrapper
           style={{
-            backgroundImage: `url(${cardImage})`,
+            backgroundImage: `url(${imageSrc})`,
           }}
         />
       </WrapImage>
