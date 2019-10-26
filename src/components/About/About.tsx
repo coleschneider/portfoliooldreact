@@ -4,9 +4,12 @@ import Container from '../../theme/Grid/Container'
 import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
 import AboutMe from '../../assets/images/about_me.jpg'
+import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
+
 import { media } from '../../theme/Grid/config'
 import { H1, P, PSecondary, ButtonIcon } from '../../theme/Elements'
 import Dialog from '../Dialog/Dialog'
+import useLazyImage from '../../hooks/useLazyImage'
 
 const ImageContainer = styled.img`
   ${media.sm`
@@ -31,7 +34,7 @@ const ButtonGroup = styled.div`
 `
 function About() {
   const [{ isShown }, setState] = React.useState({ isShown: true })
-
+  const imageSrc = useLazyImage(AboutMe, AboutMePlaceholder)
   return (
     <Wrapper>
       <Dialog
@@ -51,7 +54,7 @@ function About() {
       <Container>
         <Row>
           <Col center xs={4} sm={3} md={3} lg={3} xl={3}>
-            <ImageContainer src={AboutMe} />
+            <ImageContainer src={imageSrc} />
           </Col>
           <Col xs={4} sm={5} md={5} lg={9} xl={9}>
             <div>
@@ -73,7 +76,8 @@ function About() {
             </div>
             <ButtonGroup>
               <ButtonIcon icon="PointerRight">See Work</ButtonIcon>
-              <ButtonIcon icon="PointerRight" primary>
+              {/* eslint-disable-next-line */}
+              <ButtonIcon icon="PointerRight" primary target="_blank" link={require('../../assets/Resume.pdf')}>
                 See Resume
               </ButtonIcon>
             </ButtonGroup>

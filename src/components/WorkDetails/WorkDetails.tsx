@@ -30,14 +30,6 @@ const WrapImage = styled.div`
   width: 100%;
   max-width: 680px;
 `
-const resolveImage = (url: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const image = new Image()
-    image.onload = () => resolve()
-    image.onerror = reject
-    image.src = url
-  })
-}
 
 const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
   const { cardImage, placeholder } = cardsById[params.workId]
@@ -45,7 +37,7 @@ const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string
   const imageSrc = useLazyImage(cardImage, placeholder)
 
   return (
-    <ImageWrapper>
+    <ImageWrapper className="work-container">
       <WrapImage>
         <CardWrapper
           style={{

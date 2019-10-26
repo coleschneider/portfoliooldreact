@@ -1,5 +1,7 @@
 import ORCASPreview from '../../assets/images/ORCASPreview.png'
 import ORCASPreviewSmall from '../../assets/images/ORCASPreviewSmall.jpg'
+import DanMillerATI from '../../assets/images/DanMillerATI.png'
+import DanMillerATISmall from '../../assets/images/DanMillerATISmaller.jpg'
 import BlendLogo from '../../assets/images/BlendLogo.png'
 import BlendLogoSmall from '../../assets/images/BlendLogoSmall.jpg'
 
@@ -15,6 +17,12 @@ const cardsConfig: Card[] = [
     description: ['Non ', '-', 'Profit ', 'Website'],
     cardImage: ORCASPreview,
     placeholder: ORCASPreviewSmall,
+  },
+  {
+    id: 3,
+    description: ['Dan ', 'Miller ', 'ATI '],
+    cardImage: DanMillerATI,
+    placeholder: DanMillerATISmall,
   },
 ]
 

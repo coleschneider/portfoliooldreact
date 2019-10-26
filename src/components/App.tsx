@@ -1,6 +1,7 @@
 import React from 'react'
 // eslint-disable-next-line
-import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom';
+import {Helmet, HelmetProvider} from 'react-helmet-async'
+import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -50,22 +51,24 @@ const App: React.FC = () => {
   let position = usePrevious<DOMRect | ClientRect>()
 
   const background = location.state && location.state.background
-
+  const isModal = location.state && location.state.background
   if (modal && location.state.meta) {
     position = location.state.meta.from
   }
   const [, setY] = useSpring<SpringWindow>(windowFn)
+  const getScrollContainer = () => {
+    if (modalContainerRef.current && modal && location.state.meta) return modalContainerRef.current
+    return window
+  }
   const getScrollTop = () => {
     if (modalContainerRef.current && modal && location.state.meta) {
       return modalContainerRef.current.scrollTop
     }
     return window.scrollY
   }
+
   const onFrame = ({ y }: { y: number }) => {
-    if (modalContainerRef.current && modal && location.state.meta) {
-      return modalContainerRef.current.scroll(0, y)
-    }
-    return window.scroll(0, y)
+    return getScrollContainer().scroll(0, y)
   }
   const handleUpArrowClick = () => {
     setY({
@@ -80,31 +83,36 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="App">
-      <Header modal={modal} {...location} />
-      <div className="view-container">
-        <Switch location={background || location}>
-          <Route exact path="/" component={Home} />
-          <Route
-            exact
-            path="/mywork"
-            component={(props: RouteComponentProps) => <Work {...props} onUpdateCards={onUpdateCards} />}
-          />
-        </Switch>
+    <HelmetProvider>
+      <div className="App">
+        <Helmet>
+          <body />
+        </Helmet>
+        <Header scrollContainer={getScrollContainer()} modal={modal} {...location} />
+        <div className="view-container">
+          <Switch location={background || location}>
+            <Route exact path="/" component={Home} />
+            <Route
+              exact
+              path="/mywork"
+              component={(props: RouteComponentProps) => <Work {...props} onUpdateCards={onUpdateCards} />}
+            />
+          </Switch>
+        </div>
+        <TransitionGroup>
+          <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
+            <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
+              <Switch location={location}>
+                <Route path="/work/:workId" component={WorkDetails} />
+              </Switch>
+            </ModalContainer>
+          </OmittedTransitionGroup>
+        </TransitionGroup>
+        <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
+          <UpArrow />
+        </Scrollup>
       </div>
-      <TransitionGroup>
-        <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-          <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
-            <Switch location={location}>
-              <Route path="/work/:workId" component={WorkDetails} />
-            </Switch>
-          </ModalContainer>
-        </OmittedTransitionGroup>
-      </TransitionGroup>
-      <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
-        <UpArrow />
-      </Scrollup>
-    </div>
+    </HelmetProvider>
   )
 }
 

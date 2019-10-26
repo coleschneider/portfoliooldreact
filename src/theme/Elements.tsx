@@ -34,6 +34,7 @@ interface ButtonProps {
 }
 interface ButtonIconProps extends ButtonProps {
   icon: Icons
+  link?: string
   children: React.ReactNode
 }
 export const Button = styled.button<ButtonProps>`
@@ -70,17 +71,16 @@ const withIcon = (component: React.FunctionComponent<any>) => styled(component)`
   margin-right: -2px;
 `
 
-export const ButtonIcon = ({ icon, children, ...rest }: ButtonIconProps) => {
+export const ButtonIcon = ({ link, icon, children, ...rest }: ButtonIconProps) => {
   const IconComponent = withIcon(Icons[icon])
 
   return (
-    <Button {...rest}>
+    <Button {...rest} as={link ? 'a' : undefined} href={link || undefined}>
       {children}
       <IconComponent />
     </Button>
   )
 }
-
 export const SVGButton = styled(Button)`
   color: #1070ca;
   background-color: transparent;

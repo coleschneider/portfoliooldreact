@@ -102,6 +102,7 @@ function Header(props: Props) {
   const headRef = React.useRef<HTMLDivElement>(null)
   const [modeType, setMode] = React.useState('static')
   const { goBack } = useHistory()
+
   useHeadroom(
     headRef,
     { pinStart: 100 },
