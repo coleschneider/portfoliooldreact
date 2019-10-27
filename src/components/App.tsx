@@ -52,6 +52,7 @@ const App: React.FC = () => {
 
   const background = location.state && location.state.background
   const isModal = location.state && location.state.background
+
   if (modal && location.state.meta) {
     position = location.state.meta.from
   }

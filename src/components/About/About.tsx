@@ -1,11 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import { RouteComponentProps } from 'react-router'
 import Container from '../../theme/Grid/Container'
 import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
 import AboutMe from '../../assets/images/about_me.jpg'
 import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
-
+import Resume from '../../assets/Resume.pdf'
 import { media } from '../../theme/Grid/config'
 import { H1, P, PSecondary, ButtonIcon } from '../../theme/Elements'
 import Dialog from '../Dialog/Dialog'
@@ -35,14 +36,13 @@ const ButtonGroup = styled.div`
 function About() {
   const [{ isShown }, setState] = React.useState({ isShown: true })
   const imageSrc = useLazyImage(AboutMe, AboutMePlaceholder)
+  const handleClose = () => {
+    setState({ isShown: false })
+    window.open(Resume)
+  }
   return (
     <Wrapper>
-      <Dialog
-        confirmLabel="View Resume"
-        title="Hello!"
-        isShown={isShown}
-        onCloseComplete={() => setState({ isShown: false })}
-      >
+      <Dialog confirmLabel="View Resume" title="Hello!" isShown={isShown} onCloseComplete={handleClose}>
         <PSecondary>
           Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
           <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
@@ -75,9 +75,10 @@ function About() {
               </P>
             </div>
             <ButtonGroup>
-              <ButtonIcon icon="PointerRight">See Work</ButtonIcon>
-              {/* eslint-disable-next-line */}
-              <ButtonIcon icon="PointerRight" primary target="_blank" link={require('../../assets/Resume.pdf')}>
+              <ButtonIcon icon="PointerRight" to="/mywork">
+                See Work
+              </ButtonIcon>
+              <ButtonIcon icon="PointerRight" primary target="_blank" href={Resume}>
                 See Resume
               </ButtonIcon>
             </ButtonGroup>

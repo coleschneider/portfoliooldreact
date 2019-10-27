@@ -49,19 +49,15 @@ interface TrailAnimation {
 
 function Card({ onUpdateCards, location, history, id, cardImage, description, placeholder }: Props) {
   const imageSrc = useLazyImage(cardImage, placeholder)
-  const cardRef = React.useRef()
+  const cardRef = React.useRef<HTMLDivElement>(null)
+
   const [cardDimensions, setDimensions] = React.useState({})
 
-  useResizeObserver(
-    cardRef,
-    React.useCallback(
-      dims => {
-        setDimensions(dims)
-        onUpdateCards(cardDimensions)
-      },
-      [cardDimensions, onUpdateCards],
-    ),
-  )
+  const updateDimensions: DimensionCallback = dims => {
+    setDimensions(dims)
+    onUpdateCards(dims)
+  }
+  useResizeObserver(cardRef, React.useCallback(updateDimensions, [cardDimensions, onUpdateCards]))
 
   const handleClick = () => {
     history.push({
@@ -109,12 +105,8 @@ function Card({ onUpdateCards, location, history, id, cardImage, description, pl
       },
     })
   }
-
-  // getRef(ref)
   return (
-    // eslint-disable-next-line
     <CardWrapper
-      // eslint-disable-next-line
       ref={cardRef}
       style={{
         backgroundImage: `url(${imageSrc})`,

@@ -1,5 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { Link, LinkProps } from 'react-router-dom'
 import { Colors, primaryGradient, secondaryGradient, withHover } from './colors'
 import Icons from './Icons'
 
@@ -32,20 +33,20 @@ export const PSecondary = styled(P)`
 interface ButtonProps {
   primary?: boolean
 }
+
 interface ButtonIconProps extends ButtonProps {
   icon: Icons
-  link?: string
-  children: React.ReactNode
 }
-export const Button = styled.button<ButtonProps>`
+
+const buttonStyles = (props: ButtonProps) => css`
   margin-left: 8px;
   vertical-align: middle;
   text-decoration: none;
   border: none;
   cursor: pointer;
   color: white;
-  ${props => (props.primary ? primaryGradient : secondaryGradient)};
-  color: ${props => (props.primary ? Colors.white : '#425A70')};
+  ${props.primary ? primaryGradient : secondaryGradient}
+  color: ${props.primary ? Colors.white : '#425A70'};
   height: 32px;
   padding-right: 16px;
   padding-left: 16px;
@@ -71,16 +72,46 @@ const withIcon = (component: React.FunctionComponent<any>) => styled(component)`
   margin-right: -2px;
 `
 
-export const ButtonIcon = ({ link, icon, children, ...rest }: ButtonIconProps) => {
+interface ConditionallyWithHref extends ButtonIconProps {
+  href: string
+  target: string
+  to?: never
+}
+
+interface ConditionallyWithTo extends ButtonIconProps {
+  href?: never
+  target?: never
+  to: string
+}
+
+type TConditionally = ConditionallyWithHref | ConditionallyWithTo
+
+export const Button = styled.button<ButtonProps>`
+  ${buttonStyles}
+`
+export const ButtonLink = styled(Link)<ConditionallyWithTo>`
+  ${buttonStyles}
+`
+export const ExternalButtonLink = styled.a<ConditionallyWithHref>`
+  ${buttonStyles}
+`
+export const ButtonIcon: React.FC<TConditionally & { children: React.ReactNode }> = ({ icon, children, ...rest }) => {
   const IconComponent = withIcon(Icons[icon])
+  let LinkComponent
+  if (rest.href && typeof rest.to === 'undefined') {
+    LinkComponent = ExternalButtonLink
+  } else {
+    LinkComponent = ButtonLink
+  }
 
   return (
-    <Button {...rest} as={link ? 'a' : undefined} href={link || undefined}>
+    <LinkComponent {...rest}>
       {children}
       <IconComponent />
-    </Button>
+    </LinkComponent>
   )
 }
+export const ButtonIconLink = {}
 export const SVGButton = styled(Button)`
   color: #1070ca;
   background-color: transparent;
