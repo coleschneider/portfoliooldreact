@@ -1,9 +1,10 @@
 import * as React from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
+import ResumePDF from '../../assets/Resume.pdf'
 
 interface NavLinkProps {
-  path: string
+  path: ConstantPaths
   display: string
   target?: string
 }
@@ -56,12 +57,12 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 const navPaths: NavLinkProps[] = [
   { path: '/', display: 'HOME' },
   { path: '/mywork', display: 'WORK' },
-  { path: require('../../assets/Resume.pdf'), display: 'RESUME', target: '_blank' },
+  { path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' },
 ]
 
 function NavLink({ display, path, ...rest }: NavLinkProps) {
   const isMatch = useRouteMatch(path)
-  const isResume = path === '/resume' && display === 'RESUME'
+  const isResume = path === '/static/media/Resume.pdf' && display === 'RESUME'
   return (
     <TextLink
       {...rest}

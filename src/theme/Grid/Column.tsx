@@ -9,9 +9,6 @@ interface ColumnProps extends ConfigDimensions<number>, ConfigMedia {
   offset: {
     [key: string]: number
   }
-  align: {
-    [key: string]: number
-  }
 }
 type Props = ThemedStyledProps<ColumnProps, DefaultTheme>
 const debugMixin = ({ debug }: Props) =>
@@ -78,16 +75,7 @@ const centerMixin = (p: Props) =>
   css`
     align-items: center;
   `
-// const alignMixin = (p: Props) =>
-//   p.align &&
-//   css`
-//     ${DIMENSIONS.map(
-//       (d) =>
-//         config(p).breakpoints[d] &&
-//         config(p).media[d]`
-// `
-//     )}
-//   `
+
 const Column = styled.div<Props>`
 box-sizing: border-box;
   flex: 1 0 auto;
@@ -109,6 +97,5 @@ Column.propTypes = {
   ...sizeProps(),
 }
 Column.displayName = 'Column'
-// const GridColumn = (props: Partial<ColumnProps>) => <Column {...props} />
 
 export default Column

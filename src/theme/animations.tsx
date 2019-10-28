@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { TransitionStatus, EnterHandler } from 'react-transition-group/Transition'
+import React from 'react'
+import { TransitionStatus } from 'react-transition-group/Transition'
 import { css, keyframes, FlattenSimpleInterpolation } from 'styled-components'
 
 const animationPatterns = {
@@ -27,7 +27,7 @@ const closeAnimation = keyframes`
   }
 `
 const DIALOG_TRANSITION = 300
-const CARD_TRANSITION = 300
+
 type StyleProps = {
   [key in TransitionStatus]: FlattenSimpleInterpolation
 }

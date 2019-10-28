@@ -7,3 +7,5 @@ interface Card {
   cardImage: string
   placeholder: string
 }
+
+type ConstantPaths = '/mywork' | '/' | '/static/media/Resume.pdf'
