@@ -71,5 +71,13 @@ const transitions: {
     `,
   },
 }
+const springs = {
+  trailCards: () => ({
+    config: { duration: 400, mass: 1, tension: 5000, friction: 250 },
+    opacity: 1,
+    x: 0,
+    height: 80,
+  }),
+}
 
-export { transitions, DIALOG_TRANSITION }
+export { transitions, DIALOG_TRANSITION, springs }

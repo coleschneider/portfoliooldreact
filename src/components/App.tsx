@@ -87,7 +87,7 @@ const App: React.FC = () => {
     <HelmetProvider>
       <div className="App">
         <Helmet>
-          <body />
+          <body className={isModal ? 'overflow-page' : undefined} />
         </Helmet>
         <Header scrollContainer={getScrollContainer()} modal={modal} {...location} />
         <div className="view-container">

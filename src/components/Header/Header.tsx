@@ -9,7 +9,6 @@ import NavLinks from './NavLinks'
 
 const ArrowIcon = styled(LeftArrow)`
   display: inline-block;
-  /* color: white/; */
   fill: currentcolor;
   height: 30px;
   width: 30px;

@@ -34,6 +34,7 @@
      * "import/named" temporary disable.
      */
     "import/named": "off",
+    "import/no-named-as-default": "off",
     /**
      * @bug?
      * "import/export" temporary disable.

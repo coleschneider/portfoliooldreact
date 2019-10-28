@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components'
 import { animated, useTrail, SpringConfig } from 'react-spring'
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
+import { springs } from '../../theme/animations'
 import useResizeObserver from '../../hooks/useResizeObserver'
 import useLazyImage from '../../hooks/useLazyImage'
 
@@ -39,7 +40,6 @@ const ImagePopUp = styled.a`
 
 type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
 
-const config = { duration: 400, mass: 1, tension: 5000, friction: 250 }
 interface TrailAnimation {
   config: SpringConfig
   opacity: number
@@ -74,15 +74,9 @@ function Card({ onUpdateCards, location, history, id, cardImage, description, pl
     })
   }
 
-  const [trail, set] = useTrail<TrailAnimation>(description.length, () => ({
-    config,
-    opacity: 1,
-    x: 0,
-    height: 80,
-  }))
+  const [trail, set] = useTrail<TrailAnimation>(description.length, springs.trailCards)
 
   React.useEffect(() => {
-    // Update animation when/if we go back/forward in history
     set({
       opacity: 1,
       x: 0,

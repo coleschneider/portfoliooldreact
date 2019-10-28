@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router'
 import { P, H2 } from '../../theme/Elements'

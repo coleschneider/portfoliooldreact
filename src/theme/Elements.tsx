@@ -73,7 +73,7 @@ const withIcon = (component: React.FunctionComponent<any>) => styled(component)`
 `
 
 type ExternalLink = {
-  to?: never
+  to?: string
   href: string
   target: string
 }
@@ -87,10 +87,10 @@ type InternalLink = {
 export const Button = styled.button`
   ${buttonStyles}
 `
-export const ButtonLink = styled(Link)`
+export const BLink = styled(Link)`
   ${buttonStyles}
 `
-export const ExternalButtonLink = styled.a`
+export const ExternalBLink = styled.a`
   ${buttonStyles}
 `
 
@@ -105,12 +105,10 @@ export const ButtonIcon: React.FC<BProps> = ({ icon, children, ...rest }) => {
   const IconComponent = withIcon(Icons[icon])
   let LinkComponent
   if (rest.to) {
-    LinkComponent = ButtonLink
+    LinkComponent = BLink
   } else {
-    LinkComponent = ExternalButtonLink
+    LinkComponent = ExternalBLink
   }
-  // const LinkComponent = rest.external ? ButtonLink : ExternalButtonLink
-
   return (
     <LinkComponent {...rest}>
       {children}
@@ -118,7 +116,7 @@ export const ButtonIcon: React.FC<BProps> = ({ icon, children, ...rest }) => {
     </LinkComponent>
   )
 }
-export const ButtonIconLink = {}
+
 export const SVGButton = styled(Button)`
   color: #1070ca;
   background-color: transparent;
@@ -133,11 +131,8 @@ export const SVGButton = styled(Button)`
 `
 export const Pane = styled.div`
   padding: 32px;
-  /* bottom: 16px;
-  right: 16px; */
   background-color: ${Colors.white};
   width: 100%;
-
   border-radius: 5px;
   ${withHover}
   transition-duration: 150ms;

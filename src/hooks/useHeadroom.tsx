@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 
 const UPWARDS = 'up'
 const DOWNWARDS = 'down'
@@ -10,9 +10,6 @@ const STATIC = 'static'
 type ModeType = 'pinned' | 'unpinned' | 'static'
 type DirectionType = 'up' | 'down'
 
-interface State {
-  mode: ModeType
-}
 interface Options {
   pinStart: number
 }
