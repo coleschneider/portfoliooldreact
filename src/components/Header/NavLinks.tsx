@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useRouteMatch, Link } from 'react-router-dom'
 import styled, { css } from 'styled-components'
-import ResumePDF from '../../assets/Resume.pdf'
 
 interface NavLinkProps {
   path: ConstantPaths
