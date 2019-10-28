@@ -72,37 +72,44 @@ const withIcon = (component: React.FunctionComponent<any>) => styled(component)`
   margin-right: -2px;
 `
 
-interface ConditionallyWithHref extends ButtonIconProps {
+type ExternalLink = {
+  to?: never
   href: string
   target: string
-  to?: never
 }
 
-interface ConditionallyWithTo extends ButtonIconProps {
+type InternalLink = {
+  to: string
   href?: never
   target?: never
-  to: string
 }
 
-type TConditionally = ConditionallyWithHref | ConditionallyWithTo
+export const Button = styled.button`
+  ${buttonStyles}
+`
+export const ButtonLink = styled(Link)`
+  ${buttonStyles}
+`
+export const ExternalButtonLink = styled.a`
+  ${buttonStyles}
+`
 
-export const Button = styled.button<ButtonProps>`
-  ${buttonStyles}
-`
-export const ButtonLink = styled(Link)<ConditionallyWithTo>`
-  ${buttonStyles}
-`
-export const ExternalButtonLink = styled.a<ConditionallyWithHref>`
-  ${buttonStyles}
-`
-export const ButtonIcon: React.FC<TConditionally & { children: React.ReactNode }> = ({ icon, children, ...rest }) => {
+type BaseProps = {
+  icon: Icons
+  children: React.ReactNode
+} & ButtonProps
+
+type BProps = BaseProps & (InternalLink | ExternalLink)
+
+export const ButtonIcon: React.FC<BProps> = ({ icon, children, ...rest }) => {
   const IconComponent = withIcon(Icons[icon])
   let LinkComponent
-  if (rest.href && typeof rest.to === 'undefined') {
-    LinkComponent = ExternalButtonLink
-  } else {
+  if (rest.to) {
     LinkComponent = ButtonLink
+  } else {
+    LinkComponent = ExternalButtonLink
   }
+  // const LinkComponent = rest.external ? ButtonLink : ExternalButtonLink
 
   return (
     <LinkComponent {...rest}>
