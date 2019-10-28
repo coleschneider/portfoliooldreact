@@ -68,7 +68,7 @@ function NavLink({ display, path, ...rest }: NavLinkProps) {
       to={path}
       matches={isMatch && isMatch.isExact}
       as={isResume ? 'a' : undefined}
-      href={isResume || undefined}
+      href={isResume ? '/static/media/Resume.pdf' : undefined}
     >
       {display}
     </TextLink>
