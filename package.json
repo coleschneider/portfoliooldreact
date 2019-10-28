@@ -77,7 +77,7 @@
     "start": "node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
     "test": "npm run clear-cache && npm run lint && jest --config jest.config.js",
-    "unit-test:watch": "NODE_ENV=test jest --watch --config jest.config.js",
+    "test:watch": "NODE_ENV=test jest --watch --config jest.config.js",
     "snap": "react-snap",
     "clear-cache": "rimraf ./jestCache",
     "lint": "eslint --fix --ext ts,tsx src/",
