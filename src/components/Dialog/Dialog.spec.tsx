@@ -20,6 +20,7 @@ describe('Dialog', () => {
     )
     expect(Wrapper).toMatchSnapshot()
   })
+
   it('should render null when isShown is false', () => {
     const Wrapper = shallow(<Dialog {...props}>Test Dialog</Dialog>)
     expect(Wrapper.find('#portal-root').isEmptyRender()).toBeTruthy()

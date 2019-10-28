@@ -67,3 +67,23 @@ declare module '*.module.sass' {
   const classes: { readonly [key: string]: string }
   export default classes
 }
+
+// type ShallowProps = import('enzyme').ShallowRendererProps
+// type ShallowWrapper = import('enzyme').ShallowWrapper
+// // declare const mount: import('enzyme').MountRendererProps
+// // declare const mount: import('enzyme').MountRendererProps
+// declare namespace NodeJS {
+//   function shallow<C extends Component, P = C['props'], S = C['state']>(
+//     node: ReactElement<P>,
+//     options?: ShallowRendererProps,
+//   ): ShallowWrapper<P, S, C>
+
+//   function shallow<P>(node: ReactElement<P>, options?: ShallowProps): ShallowWrapper<P, any>
+//   function shallow<P, S>(node: ReactElement<P>, options?: ShallowProps): ShallowWrapper<P, S>
+
+//   interface Global {
+//     shallow: shallow
+//     mount: import('enzyme').MountRendererProps
+//     render: import('enzyme').render
+//   }
+// }
