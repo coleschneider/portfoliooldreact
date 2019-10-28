@@ -15,7 +15,8 @@ exports[`NavLinks should match the snapshot 1`] = `
   <NavLink
     display="RESUME"
     key="RESUME"
-    path="/resume"
+    path="/static/media/Resume.pdf"
+    target="_blank"
   />
 </Fragment>
 `;

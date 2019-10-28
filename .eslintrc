@@ -35,6 +35,8 @@
      */
     "import/named": "off",
     "import/no-named-as-default": "off",
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts" ]}],
+
     /**
      * @bug?
      * "import/export" temporary disable.
