@@ -57,6 +57,7 @@ function Card({ onUpdateCards, location, history, id, cardImage, description, pl
     setDimensions(dims)
     onUpdateCards(dims)
   }
+
   useResizeObserver(cardRef, React.useCallback(updateDimensions, [cardDimensions, onUpdateCards]))
 
   const handleClick = () => {

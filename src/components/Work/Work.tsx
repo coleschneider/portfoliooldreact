@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
 import Row from '../../theme/Grid/Row'
 import Card from '../Card/Card'
-import cardsConfig from '../Card/cardsConfig'
+import { cardsConfig } from '../Card/cardsConfig'
 
 const Wrapper = styled.div`
   margin-top: 67px;

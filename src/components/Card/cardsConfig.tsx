@@ -5,7 +5,7 @@ import DanMillerATISmall from '../../assets/images/DanMillerATISmaller.jpg'
 import ORCASPreview from '../../assets/images/ORCASPreview.png'
 import ORCASPreviewSmall from '../../assets/images/ORCASPreviewSmall.jpg'
 
-const cardsConfig: Card[] = [
+export const cardsConfig: Card[] = [
   {
     id: 1,
     description: ['Software ', 'Engineer ', 'Internship'],
@@ -35,4 +35,5 @@ export const cardsById = cardsConfig.reduce(
     [k: string]: Card
   },
 )
-export default cardsConfig
+
+// export default cardsConfig
