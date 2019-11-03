@@ -7,12 +7,14 @@ import { springs } from '../../theme/animations'
 import useResizeObserver from '../../hooks/useResizeObserver'
 import useLazyImage from '../../hooks/useLazyImage'
 import usePrevious from '../../hooks/usePrevious'
+import useDimensions from '../../hooks/useResizeObserver'
 
 export const CardWrapper = styled(Pane)`
-  /* z-index: 0; */
+  z-index: 1200;
 `
 export const CardImage = styled.img`
   width: 100%;
+  object-fit: cover;
   /* z-index: 0; */
 `
 
@@ -45,7 +47,7 @@ function Card({  onUpdateCards, location, history, id, cardImage, description, p
   // const imageSrc = useLazyImage(cardImage, placeholder)
   // const [node, setNode] = React.useState(null)
 
-  const [ref, dimensions, node] = useResizeObserver()
+  const [ref, dimensions, node] = useDimensions()
 
 // React.useEffect(() => {
 //   if(ref.current){
@@ -58,15 +60,17 @@ function Card({  onUpdateCards, location, history, id, cardImage, description, p
   
 // }, [dimensions])
 React.useEffect(() => {
-  onUpdateCards(dimensions)
+  onUpdateCards(dimensions, id)
 }, [dimensions])
+
   const handleClick = () => {
-    onUpdateCards(dimensions)
+    onUpdateCards(dimensions, id)
     history.push({
       pathname: `/work/${id}`,
       state: {
         background: location,
         to: 'modal',
+        id,
         meta: {
           from: dimensions,
         },

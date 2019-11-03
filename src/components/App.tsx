@@ -83,7 +83,11 @@ const App: React.FC = () => {
   }
   
   const onUpdateCards: DimensionCallback = (dimensions, id) => {
-    position = dimensions
+    if(location.state && location.state.id === id){
+      console.log("updating dimensions for id: ", {id, dimensions})
+      position = dimensions
+    }
+    
   }
 
   
