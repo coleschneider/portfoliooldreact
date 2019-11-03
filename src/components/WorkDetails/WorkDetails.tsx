@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router'
 import { P, H2 } from '../../theme/Elements'
-import { CardWrapper } from '../Card/Card'
+import { CardImage } from '../Card/Card'
 import { cardsById } from '../Card/cardsConfig'
 import useLazyImage from '../../hooks/useLazyImage'
 
@@ -34,16 +34,12 @@ const WrapImage = styled.div`
 const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
   const { cardImage, placeholder } = cardsById[params.workId]
 
-  const imageSrc = useLazyImage(cardImage, placeholder)
+  // const imageSrc = useLazyImage(cardImage, placeholder)
 
   return (
     <ImageWrapper className="work-container">
       <WrapImage>
-        <CardWrapper
-          style={{
-            backgroundImage: `url(${imageSrc})`,
-          }}
-        />
+        <CardImage src={cardImage} />
       </WrapImage>
 
       <Wrapper>

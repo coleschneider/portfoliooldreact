@@ -42,14 +42,16 @@ class OmittedTransitionGroup extends CSSTransition {
     // Do not remove enter classes when active
   }
 }
+
 const App: React.FC = () => {
   const location = useLocation()
 
+  
   const modalContainerRef: React.RefObject<HTMLDivElement> = React.useRef(null)
   const modal = location.state && location.state.to === 'modal'
-
+// Maybe add null here
   let position = usePrevious<DOMRect | ClientRect>()
-
+  
   const background = location.state && location.state.background
   const isModal = location.state && location.state.background
 
@@ -79,10 +81,13 @@ const App: React.FC = () => {
       onFrame,
     })
   }
-  const onUpdateCards: DimensionCallback = dimensions => {
+  
+  const onUpdateCards: DimensionCallback = (dimensions, id) => {
     position = dimensions
   }
 
+  
+  
   return (
     <HelmetProvider>
       <div className="App">
@@ -96,17 +101,19 @@ const App: React.FC = () => {
             <Route
               exact
               path="/mywork"
-              component={(props: RouteComponentProps) => <Work {...props} onUpdateCards={onUpdateCards} />}
+              component={(props: RouteComponentProps) => (
+                <Work {...props} isModal={isModal} onUpdateCards={onUpdateCards}  />
+              )}
             />
           </Switch>
         </div>
         <TransitionGroup>
           <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            <ModalContainer className="modal-container" style={position} ref={modalContainerRef}>
+            <div className="modal-container" style={position} ref={modalContainerRef}>
               <Switch location={location}>
                 <Route path="/work/:workId" component={WorkDetails} />
               </Switch>
-            </ModalContainer>
+            </div>
           </OmittedTransitionGroup>
         </TransitionGroup>
         <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">

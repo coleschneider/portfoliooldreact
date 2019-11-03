@@ -130,10 +130,10 @@ export const SVGButton = styled(Button)`
   }
 `
 export const Pane = styled.div`
-  padding: 32px;
-  background-color: ${Colors.white};
+  /* padding: 32px; */
+  /* background-color: ${Colors.white}; */
   width: 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   ${withHover}
   transition-duration: 150ms;
   transition-property: box-shadow, transform, border;

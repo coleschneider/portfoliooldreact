@@ -100,7 +100,7 @@ interface Props extends RouteProps {
 function Header(props: Props) {
   const headRef = React.useRef<HTMLDivElement>(null)
   const [modeType, setMode] = React.useState('static')
-  const { goBack } = useHistory()
+  const { goBack, replace } = useHistory()
 
   useHeadroom(
     headRef,
@@ -113,9 +113,12 @@ function Header(props: Props) {
   const { y } = useSpring({
     y: modeType === 'unpinned' ? -100 : 0,
   })
-  const handleGoBack = React.useCallback(() => {
-    goBack()
-  }, [goBack])
+  const handleGoBack = () => {
+    replace({
+      pathname: '/mywork',
+      state: {},
+    })
+  }
   return React.useMemo(
     () => (
       <div data-testid="header-testId">

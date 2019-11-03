@@ -6,36 +6,14 @@ import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
 import useResizeObserver from '../../hooks/useResizeObserver'
 import useLazyImage from '../../hooks/useLazyImage'
+import usePrevious from '../../hooks/usePrevious'
 
 export const CardWrapper = styled(Pane)`
-  height: 400px;
-  background-size: cover;
-  width: 100%;
-  background-repeat: no-repeat;
-  max-width: 680px;
-  border-radius: 7px;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
-  background-position: 50% center;
+  /* z-index: 0; */
 `
-const ImagePopUp = styled.a`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  vertical-align: middle;
-  background: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border-radius: 7px;
-  transition: opacity 0.2s ease;
-  :hover {
-    opacity: 1;
-  }
+export const CardImage = styled.img`
+  width: 100%;
+  /* z-index: 0; */
 `
 
 type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
@@ -47,29 +25,50 @@ interface TrailAnimation {
   height: number
 }
 
-function Card({ onUpdateCards, location, history, id, cardImage, description, placeholder }: Props) {
-  const imageSrc = useLazyImage(cardImage, placeholder)
-  const cardRef = React.useRef<HTMLDivElement>(null)
+function getDimensionObject(node: HTMLElement): DimensionObject {
+  const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
 
-  const [cardDimensions, setDimensions] = React.useState({})
+  // return {
+  //   width: rect.width,
+  //   height: rect.height,
+  //   top: 'x' in rect ? rect.x : rect.top,
+  //   left: 'y' in rect ? rect.y : rect.left,
+  //   x: 'x' in rect ? rect.x : rect.left,
+  //   y: 'y' in rect ? rect.y : rect.top,
+  //   right: rect.right,
+  //   bottom: rect.bottom,
+  // }
+  return { top, right, bottom, left, width, height }
+}
 
-  const updateDimensions: DimensionCallback = dims => {
-    setDimensions(dims)
-    onUpdateCards(dims)
-  }
+function Card({  onUpdateCards, location, history, id, cardImage, description, placeholder }: Props) {
+  // const imageSrc = useLazyImage(cardImage, placeholder)
+  // const [node, setNode] = React.useState(null)
 
-  useResizeObserver(cardRef, React.useCallback(updateDimensions, [cardDimensions, onUpdateCards]))
+  const [ref, dimensions, node] = useResizeObserver()
 
+// React.useEffect(() => {
+//   if(ref.current){
+//     const { top, right, bottom, left, width, height } = ref.current.getBoundingClientRect();
+//     setDimensions({ top, right, bottom, left, width, height })
+//   }
+// }, [ref])
+
+// React.useEffect(() => {
+  
+// }, [dimensions])
+React.useEffect(() => {
+  onUpdateCards(dimensions)
+}, [dimensions])
   const handleClick = () => {
+    onUpdateCards(dimensions)
     history.push({
       pathname: `/work/${id}`,
       state: {
         background: location,
         to: 'modal',
         meta: {
-          from: {
-            ...cardDimensions,
-          },
+          from: dimensions,
         },
       },
     })
@@ -86,48 +85,69 @@ function Card({ onUpdateCards, location, history, id, cardImage, description, pl
   }, [location, set])
 
   const animateOnClick = () => {
-    const completed = []
-    set({
-      opacity: 0,
-      x: -200,
-      height: 80,
-      onRest: item => {
-        completed.push(item)
-        if (completed.length === description.length) {
-          // eslint-disable-next-line
-          handleClick()
-        }
-      },
-    })
+    handleClick()
+    // const completed = []
+    // set({
+    //   opacity: 0,
+    //   x: -200,
+    //   height: 80,
+    //   onRest: item => {
+    //     completed.push(item)
+    //     if (completed.length === description.length) {
+    //       // eslint-disable-next-line
+    //       handleClick()
+    //     }
+    //   },
+    // })
   }
   return (
-    <CardWrapper
-      ref={cardRef}
-      style={{
-        backgroundImage: `url(${imageSrc})`,
-        position: 'relative',
-      }}
-      onClick={animateOnClick}
-      hover
-    >
-      <ImagePopUp>
-        {trail.map(({ x, height, ...rest }, index) => (
-          <animated.div
-            key={description[index]}
-            style={{
-              ...rest,
-              color: 'white',
-              whiteSpace: 'pre',
-              fontSize: '1.5em',
-              transform: x.interpolate(y => `translate3d(0,${y}px,0)`),
-            }}
-          >
-            <animated.div style={{ height }}>{description[index]}</animated.div>
-          </animated.div>
-        ))}
-      </ImagePopUp>
+    <CardWrapper ref={ref} onClick={animateOnClick} hover>
+      <CardImage src={cardImage} />
     </CardWrapper>
   )
 }
+
+// class Card extends React.Component {
+//   element = null
+//         componentDidMount(){
+//             window.addEventListener('resize', this.handleResize)
+//         }
+//         componentWillUnmount(){
+//             window.removeEventListener('resize', this.handleResize)
+//         }
+//         handleResize = (e) => {
+//             const { top, right, bottom, left, width, height } = this.element.getBoundingClientRect();
+//             this.props.onUpdateCards({ top, right, bottom, left, width, height }, this.props.id)
+//             // if(this.props.isModal){
+//             //   this.props.onUpdateCards({ top, right, bottom, left, width, height }, this.props.id)
+//             // }
+
+//         }
+//   render(){
+//   const animateOnClick = () => {
+
+//     const { top, right, bottom, left, width, height } = this.element.getBoundingClientRect();
+
+//     this.props.onSelectCard({ top, right, bottom, left, width, height }, this.props.id)
+//     console.log(this.props)
+//     this.props.history.push({
+//       pathname: `/work/${this.props.id}`,
+//       state: {
+//         background: this.props.location,
+//         to: 'modal',
+//         meta: {
+//           from: { top, right, bottom, left, width, height },
+//         },
+//       },
+//     })
+//   }
+//     return (
+
+//     <CardWrapper ref={ref => this.element = ref} onClick={animateOnClick} hover>
+//       <CardImage src={this.props.cardImage} />
+//     </CardWrapper>
+//     )
+//   }
+// }
 
 export default Card
