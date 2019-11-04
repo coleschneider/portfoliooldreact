@@ -13,7 +13,7 @@ import Dialog from '../Dialog/Dialog'
 import useLazyImage from '../../hooks/useLazyImage'
 
 const ImageContainer = styled.img`
-  ${media.sm`
+  ${media.xs`
       width: 100%;
   `}
   width: 400px;

@@ -28,18 +28,19 @@ const TextWrapper = styled.div`
 const WrapImage = styled.div`
   margin: 0 auto;
   width: 100%;
+
   max-width: 680px;
 `
 
 const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
   const { cardImage, placeholder } = cardsById[params.workId]
 
-  // const imageSrc = useLazyImage(cardImage, placeholder)
+  const imageSrc = useLazyImage(cardImage, placeholder)
 
   return (
     <ImageWrapper className="work-container">
       <WrapImage>
-        <CardImage src={cardImage} />
+        <CardImage src={imageSrc} />
       </WrapImage>
 
       <Wrapper>

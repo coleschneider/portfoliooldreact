@@ -1,7 +1,7 @@
 import React from 'react'
 // eslint-disable-next-line
 import {Helmet, HelmetProvider} from 'react-helmet-async'
-import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
+import { Route, Switch, useLocation, RouteComponentProps, useHistory, useParams } from 'react-router-dom'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -30,6 +30,7 @@ const Scrollup = styled.a`
   padding: 10px;
   cursor: pointer;
   bottom: 50px;
+  z-index: 8000;
 `
 interface SpringWindow {
   onFrame: ({ y }: { y: number }) => void
@@ -56,7 +57,6 @@ function useCardDimensions(initialState = { cardsById: {}, currentCard: null }) 
   const cardsById = (state, action) => {
     switch (action.type) {
       case 'UPDATE_CARDS':
-        console.log(action.payload)
         return {
           ...state,
           [action.payload.id]: action.payload.dimensions,
@@ -103,6 +103,7 @@ const App: React.FC = () => {
   const modal = location.state && location.state.to === 'modal'
   const isModal = location.state && location.state.background
   const background = location.state && location.state.background
+
   const { state, updateCardDimensions, onSelectCard, onUnselectCard } = useCardDimensions(
     isModal
       ? {
@@ -114,17 +115,19 @@ const App: React.FC = () => {
       : undefined,
   )
 
-  // eslint-disable-next-line
-  
-  
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
-    if (modalContainerRef.current && modal && location.state.meta) return modalContainerRef.current
+    const c = document.querySelector('.modal-container')
+
+    if (isModal && location.state && state.currentCard === location.state.id) {
+      return c
+    }
     return window
   }
   const getScrollTop = () => {
-    if (modalContainerRef.current && modal && location.state.meta) {
-      return modalContainerRef.current.scrollTop
+    const c = document.querySelector('.modal-container')
+    if (isModal && location.state && state.currentCard === location.state.id) {
+      return c.scrollTop
     }
     return window.scrollY
   }
@@ -150,7 +153,7 @@ const App: React.FC = () => {
     }
   }
   const position = state.currentCard ? state.cardsById[state.currentCard] : {}
-  console.log(position, state, location.state)
+
   return (
     <HelmetProvider>
       <div className="App">
@@ -170,14 +173,20 @@ const App: React.FC = () => {
               exact
               path="/mywork"
               component={(props: RouteComponentProps) => (
-                <Work {...props} isModal={isModal} onUpdateCards={onUpdateCards} onSelectCard={onSelectCard} />
+                <Work
+                  {...props}
+                  isModal={isModal}
+                  onUpdateCards={onUpdateCards}
+                  onSelectCard={onSelectCard}
+                  currentCard={isModal ? state.currentCard : null}
+                />
               )}
             />
           </Switch>
         </div>
         <TransitionGroup>
           <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            <div className="modal-container" style={position}>
+            <div className="modal-container" style={position} ref={modalContainerRef}>
               <Switch location={location}>
                 <Route path="/work/:workId" component={WorkDetails} />
               </Switch>

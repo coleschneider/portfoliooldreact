@@ -12,16 +12,36 @@ import usePrevious from '../../hooks/usePrevious'
 import useDimensions from '../../hooks/useMeasure/useMeasure'
 
 export const CardWrapper = styled(Pane)`
-  z-index: 1200;
+  /* z-index: 1200; */
+  /* margin-top: 67px; */
 `
 export const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
-  /* z-index: 0; */
 `
 const ColumnFlex = styled.div`
   margin: 16px;
   flex: 1 1 250px;
+`
+const ImagePopUp = styled.a`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  vertical-align: middle;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 7px;
+  transition: opacity 0.2s ease;
+  :hover {
+    opacity: 1;
+  }
 `
 
 type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
@@ -50,7 +70,7 @@ function getDimensionObject(node: HTMLElement): DimensionObject {
 }
 
 function Card({
-  onUnselectCard,
+  currentCard,
   onSelectCard,
   onUpdateCards,
   location,
@@ -60,7 +80,9 @@ function Card({
   description,
   placeholder,
 }: Props) {
+  // const imageSrc = useLazyImage(cardImage, placeholder)
   const element = React.useRef(null)
+
   React.useEffect(() => {
     const handleResize = () => {
       if (element.current) {
@@ -74,20 +96,18 @@ function Card({
     }
   }, [])
 
-  // const imageSrc = useLazyImage(cardImage, placeholder)
   // const [node, setNode] = React.useState(null)
 
   const [trail, set] = useTrail<TrailAnimation>(description.length, springs.trailCards)
 
-  // React.useEffect(() => {
-  //   set({
-  //     opacity: 1,
-  //     x: 0,
-  //     height: 80,
-  //   })
-  // }, [location, set])
-
-  const animateOnClick = () => {
+  React.useEffect(() => {
+    set({
+      opacity: 1,
+      x: 0,
+      height: 80,
+    })
+  }, [location, set])
+  const handleClick = () => {
     const { top, right, bottom, left, width, height } = element.current.getBoundingClientRect()
     onSelectCard(id)
     onUpdateCards({ top, right, bottom, left, width, height }, id)
@@ -102,26 +122,49 @@ function Card({
         },
       },
     })
-
+  }
+  const animateOnClick = () => {
     // selectCard(id)
-    // const completed = []
-    // set({
-    //   opacity: 0,
-    //   x: -200,
-    //   height: 80,
-    //   onRest: item => {
-    //     completed.push(item)
-    //     if (completed.length === description.length) {
-    //       // eslint-disable-next-line
-    //       handleClick()
-    //     }
-    //   },
-    // })
+    const completed = []
+    set({
+      opacity: 0,
+      x: -200,
+      height: 80,
+      onRest: item => {
+        completed.push(item)
+        if (completed.length === description.length) {
+          // eslint-disable-next-line
+          handleClick()
+        }
+      },
+    })
   }
   return (
     // <ColumnFlex ref={ref} onClick={animateOnClick}>
-    <CardWrapper onClick={animateOnClick} hover ref={ref => (element.current = ref)}>
+
+    <CardWrapper
+      onClick={animateOnClick}
+      hover
+      ref={ref => (element.current = ref)}
+      style={{ position: currentCard ? undefined : 'relative' }}
+    >
       <CardImage src={cardImage} />
+      <ImagePopUp>
+        {trail.map(({ x, height, ...rest }, index) => (
+          <animated.div
+            key={description[index]}
+            style={{
+              ...rest,
+              color: 'white',
+              whiteSpace: 'pre',
+              fontSize: '1.5em',
+              transform: x.interpolate(y => `translate3d(0,${y}px,0)`),
+            }}
+          >
+            <animated.div style={{ height }}>{description[index]}</animated.div>
+          </animated.div>
+        ))}
+      </ImagePopUp>
     </CardWrapper>
     // </ColumnFlex>
   )
