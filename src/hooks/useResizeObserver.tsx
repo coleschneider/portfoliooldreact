@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useCallback, useLayoutEffect } from 'react'
 
 export interface DimensionObject {
@@ -56,8 +57,7 @@ function useDimensions({ liveMeasure = true }: UseDimensionsArgs = {}): UseDimen
         }
       }
     }
-  }, // eslint-disable-next-line
-  [node])
+  }, [node]) // eslint-disable-next-line
 
   return [ref, dimensions, node]
 }

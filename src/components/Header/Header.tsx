@@ -114,6 +114,7 @@ function Header(props: Props) {
     y: modeType === 'unpinned' ? -100 : 0,
   })
   const handleGoBack = () => {
+    props.onUnselectCard()
     replace({
       pathname: '/mywork',
       state: {},

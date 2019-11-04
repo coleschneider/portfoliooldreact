@@ -42,22 +42,81 @@ class OmittedTransitionGroup extends CSSTransition {
     // Do not remove enter classes when active
   }
 }
+function useCardDimensions(initialState = { cardsById: {}, currentCard: null }) {
+  const currentCard = (state, action) => {
+    switch (action.type) {
+      case 'SELECT_CARD':
+        return action.payload.id
+      case 'UNSELECT_CARD':
+        return null
+      default:
+        return state
+    }
+  }
+  const cardsById = (state, action) => {
+    switch (action.type) {
+      case 'UPDATE_CARDS':
+        console.log(action.payload)
+        return {
+          ...state,
+          [action.payload.id]: action.payload.dimensions,
+        }
+      default:
+        return state
+    }
+  }
+  const cardsReducer = (state, action) => ({
+    cardsById: cardsById(state.cardsById, action),
+    currentCard: currentCard(state.currentCard, action),
+  })
+  const [state, dispatch] = React.useReducer(cardsReducer, initialState)
+  const updateCardDimensions = (dimensions, id) => {
+    dispatch({
+      type: 'UPDATE_CARDS',
+      payload: { dimensions, id },
+    })
+  }
+  const onSelectCard = id => {
+    dispatch({
+      type: 'SELECT_CARD',
+      payload: { id },
+    })
+  }
+  const onUnselectCard = () => {
+    dispatch({
+      type: 'UNSELECT_CARD',
+    })
+  }
 
+  return {
+    updateCardDimensions,
+    onSelectCard,
+    onUnselectCard,
+
+    state,
+  }
+}
 const App: React.FC = () => {
   const location = useLocation()
 
-  
   const modalContainerRef: React.RefObject<HTMLDivElement> = React.useRef(null)
   const modal = location.state && location.state.to === 'modal'
-// Maybe add null here
-  let position = usePrevious<DOMRect | ClientRect>()
-  
-  const background = location.state && location.state.background
   const isModal = location.state && location.state.background
+  const background = location.state && location.state.background
+  const { state, updateCardDimensions, onSelectCard, onUnselectCard } = useCardDimensions(
+    isModal
+      ? {
+          currentCard: location.state.id,
+          cardsById: {
+            [location.state.id]: location.state.meta.from,
+          },
+        }
+      : undefined,
+  )
 
-  if (modal && location.state.meta) {
-    position = location.state.meta.from
-  }
+  // eslint-disable-next-line
+  
+  
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
     if (modalContainerRef.current && modal && location.state.meta) return modalContainerRef.current
@@ -81,24 +140,29 @@ const App: React.FC = () => {
       onFrame,
     })
   }
-  
-  const onUpdateCards: DimensionCallback = (dimensions, id) => {
-    if(location.state && location.state.id === id){
-      console.log("updating dimensions for id: ", {id, dimensions})
-      position = dimensions
-    }
-    
-  }
 
-  
-  
+  const onUpdateCards: DimensionCallback = (dimensions, id) => {
+    if (!isModal) {
+      updateCardDimensions(dimensions, id)
+    }
+    if (isModal && id === location.state.id) {
+      updateCardDimensions(dimensions, id)
+    }
+  }
+  const position = state.currentCard ? state.cardsById[state.currentCard] : {}
+  console.log(position, state, location.state)
   return (
     <HelmetProvider>
       <div className="App">
         <Helmet>
           <body className={isModal ? 'overflow-page' : undefined} />
         </Helmet>
-        <Header scrollContainer={getScrollContainer()} modal={modal} {...location} />
+        <Header
+          onUnselectCard={onUnselectCard}
+          //  scrollContainer={getScrollContainer()}
+          modal={modal}
+          {...location}
+        />
         <div className="view-container">
           <Switch location={background || location}>
             <Route exact path="/" component={Home} />
@@ -106,14 +170,14 @@ const App: React.FC = () => {
               exact
               path="/mywork"
               component={(props: RouteComponentProps) => (
-                <Work {...props} isModal={isModal} onUpdateCards={onUpdateCards}  />
+                <Work {...props} isModal={isModal} onUpdateCards={onUpdateCards} onSelectCard={onSelectCard} />
               )}
             />
           </Switch>
         </div>
         <TransitionGroup>
           <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            <div className="modal-container" style={position} ref={modalContainerRef}>
+            <div className="modal-container" style={position}>
               <Switch location={location}>
                 <Route path="/work/:workId" component={WorkDetails} />
               </Switch>

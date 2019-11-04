@@ -19,23 +19,12 @@ interface Props extends RouteComponentProps {
 }
 
 const WorkCards = (props: Props) => {
-  const [cardDimensions, setCardDimensions] = React.useState({})
-const handleSetDimensions = React.useCallback((dimensions, id) => {
-  setCardDimensions({
-    ...cardDimensions,
-    [id]: dimensions
-  })
-}, [])
   return (
     <Wrapper>
       {cardsConfig.map(card => {
         return (
           <ColumnFlex key={card.id}>
-            <Card
-              setCardDimensions={handleSetDimensions}
-              {...card}
-              {...props}
-            />
+            <Card {...card} {...props} />
           </ColumnFlex>
         )
       })}
