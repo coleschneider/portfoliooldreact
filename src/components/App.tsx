@@ -10,20 +10,8 @@ import Work from './Work/Work'
 import WorkDetails from './WorkDetails/WorkDetails'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
-import usePrevious from '../hooks/usePrevious'
+import useCardDimensions from '../hooks/useCardDimensions'
 
-const ModalContainer = styled.div`
-  position: fixed;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
-  overflow: auto;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: unset;
-  left: 0;
-  height: 100%;
-  width: 100vw;
-`
 const Scrollup = styled.a`
   position: fixed;
   right: 0;
@@ -43,59 +31,7 @@ class OmittedTransitionGroup extends CSSTransition {
     // Do not remove enter classes when active
   }
 }
-function useCardDimensions(initialState = { cardsById: {}, currentCard: null }) {
-  const currentCard = (state, action) => {
-    switch (action.type) {
-      case 'SELECT_CARD':
-        return action.payload.id
-      case 'UNSELECT_CARD':
-        return null
-      default:
-        return state
-    }
-  }
-  const cardsById = (state, action) => {
-    switch (action.type) {
-      case 'UPDATE_CARDS':
-        return {
-          ...state,
-          [action.payload.id]: action.payload.dimensions,
-        }
-      default:
-        return state
-    }
-  }
-  const cardsReducer = (state, action) => ({
-    cardsById: cardsById(state.cardsById, action),
-    currentCard: currentCard(state.currentCard, action),
-  })
-  const [state, dispatch] = React.useReducer(cardsReducer, initialState)
-  const updateCardDimensions = (dimensions, id) => {
-    dispatch({
-      type: 'UPDATE_CARDS',
-      payload: { dimensions, id },
-    })
-  }
-  const onSelectCard = id => {
-    dispatch({
-      type: 'SELECT_CARD',
-      payload: { id },
-    })
-  }
-  const onUnselectCard = () => {
-    dispatch({
-      type: 'UNSELECT_CARD',
-    })
-  }
 
-  return {
-    updateCardDimensions,
-    onSelectCard,
-    onUnselectCard,
-
-    state,
-  }
-}
 const App: React.FC = () => {
   const location = useLocation()
 
@@ -160,12 +96,7 @@ const App: React.FC = () => {
         <Helmet>
           <body className={isModal ? 'overflow-page' : undefined} />
         </Helmet>
-        <Header
-          onUnselectCard={onUnselectCard}
-          //  scrollContainer={getScrollContainer()}
-          modal={modal}
-          {...location}
-        />
+        <Header onUnselectCard={onUnselectCard} modal={modal} {...location} />
         <div className="view-container">
           <Switch location={background || location}>
             <Route exact path="/" component={Home} />

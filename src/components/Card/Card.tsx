@@ -37,7 +37,7 @@ const ImagePopUp = styled.a`
   justify-content: center;
   align-items: center;
   text-decoration: none;
-  border-radius: 7px;
+  border-radius: 5px;
   transition: opacity 0.2s ease;
   :hover {
     opacity: 1;
