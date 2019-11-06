@@ -33,6 +33,9 @@ class OmittedTransitionGroup extends CSSTransition {
 }
 
 const App: React.FC = () => {
+  /*
+  Idea: Instead of listening to each cards position and dimensions uopdate, only grab the updates when we
+  */
   const location = useLocation()
 
   const modalContainerRef: React.RefObject<HTMLDivElement> = React.useRef(null)
@@ -50,19 +53,19 @@ const App: React.FC = () => {
         }
       : undefined,
   )
-
+  const isModalContainer = isModal && state.currentCard === location.state.id
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
-    const c = document.querySelector('.modal-container')
+    const modalContainer = document.querySelector('.modal-container')
 
-    if (isModal && location.state && state.currentCard === location.state.id) {
-      return c
+    if (isModalContainer) {
+      return modalContainer
     }
     return window
   }
   const getScrollTop = () => {
     const c = document.querySelector('.modal-container')
-    if (isModal && location.state && state.currentCard === location.state.id) {
+    if (isModalContainer) {
       return c.scrollTop
     }
     return window.scrollY
@@ -81,6 +84,7 @@ const App: React.FC = () => {
   }
 
   const onUpdateCards: DimensionCallback = (dimensions, id) => {
+    console.log(dimensions, id)
     if (!isModal) {
       updateCardDimensions(dimensions, id)
     }

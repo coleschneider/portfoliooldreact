@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import * as React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
@@ -19,12 +21,22 @@ interface Props extends RouteComponentProps {
 }
 
 const WorkCards = (props: Props) => {
+  const [shouldResize, setResize] = React.useState(false)
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setResize(true)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <Wrapper>
       {cardsConfig.map(card => {
         return (
           <ColumnFlex key={card.id}>
-            <Card {...card} {...props} />
+            <Card {...card} {...props} setResize={setResize} shouldResize={shouldResize} />
           </ColumnFlex>
         )
       })}

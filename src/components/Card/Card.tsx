@@ -79,23 +79,20 @@ function Card({
   cardImage,
   description,
   placeholder,
+  shouldResize,
+  setResize,
 }: Props) {
   // const imageSrc = useLazyImage(cardImage, placeholder)
   const element = React.useRef(null)
 
   React.useEffect(() => {
-    const handleResize = () => {
-      if (element.current) {
-        const { top, right, bottom, left, width, height } = element.current.getBoundingClientRect()
-        onUpdateCards({ top, right, bottom, left, width, height }, id)
-      }
+    if (shouldResize) {
+      const { top, right, bottom, left, width, height } = element.current.getBoundingClientRect()
+      onUpdateCards({ top, right, bottom, left, width, height }, id)
+      setResize(false)
     }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
+  }, [shouldResize])
+  console.log(shouldResize, id)
   // const [node, setNode] = React.useState(null)
 
   const [trail, set] = useTrail<TrailAnimation>(description.length, springs.trailCards)
