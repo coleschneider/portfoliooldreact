@@ -36,7 +36,7 @@
     "import/named": "off",
     "@typescript-eslint/camelcase": "off",
     "import/no-named-as-default": "off",
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts" ]}],
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.spec.tsx", "**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts", "**/__tests__/**/*.{js,jsx,ts,tsx}" ]}],
     "no-case-declarations": "off",
     "no-prototype-builtins": "off",
     "import/no-cycle": "off",

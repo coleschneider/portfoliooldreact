@@ -3,13 +3,8 @@ import * as React from 'react'
 import styled from 'styled-components'
 import { animated, useTrail, SpringConfig } from 'react-spring'
 import { RouteComponentProps } from 'react-router'
-import withNavigation from './withNavigation'
 import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
-import useResizeObserver from '../../hooks/useResizeObserver'
-import useLazyImage from '../../hooks/useLazyImage'
-import usePrevious from '../../hooks/usePrevious'
-import useDimensions from '../../hooks/useMeasure/useMeasure'
 
 export const CardImage = styled.img`
   width: 100%;
@@ -124,7 +119,7 @@ function Card({
       onClick={animateOnClick}
       level={2}
       hover
-      ref={ref => (element.current = ref)}
+      ref={element}
       style={{ position: currentCard ? undefined : 'relative' }}
     >
       <CardImage src={cardImage} />
