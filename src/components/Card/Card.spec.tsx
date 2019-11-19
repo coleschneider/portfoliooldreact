@@ -9,7 +9,7 @@ describe('Card', () => {
     push: jest.fn(),
   }
   it('should render', () => {
-    const Wrapper = shallow(<Card history={history} {...cardsConfig.cardsById[1]} />)
+    const Wrapper = shallow(<Card history={history} card={cardsConfig.cardsById[1]} />)
     expect(Wrapper.text()).toEqual('A Test Image')
   })
 })

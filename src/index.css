@@ -105,8 +105,8 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 1rem;
   font-weight: 400;
-      text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   height: 100%;
   line-height: 1.5;
   color: #292929;
@@ -124,8 +124,6 @@ html {
 h1, h2 {
   display: block;
   font-size: 1.5em;
-  /* margin-block-start: 0.83em;
-  */
   margin-block-end: 0px; 
   margin-inline-start: 0px;
   margin-inline-end: 0px;
@@ -145,17 +143,6 @@ strong {
   height: 100%;
   width: 100%;
 }
-/* body.blur {
-  overflow: hidden;
-} */
-/* body.blur #root > .container > * {
-  filter: blur(5px) brightness(0.7);
-  pointer-events: none;
-  user-select: none;
-  transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1) 0s;
-} */
-
-
 a {
   font-family: 'Open Sans', sans-serif;
 }

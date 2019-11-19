@@ -1,10 +1,8 @@
-import { animated, useSpring } from 'react-spring'
 import * as React from 'react'
 import styled from 'styled-components'
 import { RouteProps, useHistory } from 'react-router-dom'
 import { ReactComponent as LeftArrow } from '../../assets/icons/LeftArrow.svg'
 import { media } from '../../theme/Grid/config'
-// import useHeadroom from '../../hooks/useHeadroom'
 import NavLinks from './NavLinks'
 
 const ArrowIcon = styled(LeftArrow)`
@@ -24,10 +22,8 @@ const HeadroomWrapper = styled.div`
   top: 0;
   display: block;
 `
-interface StyleProps {
-  pinned: boolean
-}
-const HeaderPinned = styled(animated.div)`
+
+const HeaderPinned = styled.div`
   z-index: 15;
   display: flex;
   justify-content: center;
@@ -65,9 +61,7 @@ const NavOuter = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   align-items: center;
 `
 
