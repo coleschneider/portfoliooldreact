@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { RouteProps, useHistory } from 'react-router-dom'
 import { ReactComponent as LeftArrow } from '../../assets/icons/LeftArrow.svg'
 import { media } from '../../theme/Grid/config'
-import useHeadroom from '../../hooks/useHeadroom'
+// import useHeadroom from '../../hooks/useHeadroom'
 import NavLinks from './NavLinks'
 
 const ArrowIcon = styled(LeftArrow)`
@@ -99,20 +99,20 @@ interface Props extends RouteProps {
 
 function Header(props: Props) {
   const headRef = React.useRef<HTMLDivElement>(null)
-  const [modeType, setMode] = React.useState('static')
+  // const [modeType, setMode] = React.useState('static')
   const { goBack, replace } = useHistory()
 
-  useHeadroom(
-    headRef,
-    { pinStart: 100 },
-    ({ mode }) => {
-      if (mode !== modeType) setMode(mode)
-    },
-    300,
-  )
-  const { y } = useSpring({
-    y: modeType === 'unpinned' ? -100 : 0,
-  })
+  // useHeadroom(
+  //   headRef,
+  //   { pinStart: 100 },
+  //   ({ mode }) => {
+  //     if (mode !== modeType) setMode(mode)
+  //   },
+  //   300,
+  // )
+  // const { y } = useSpring({
+  //   y: modeType === 'unpinned' ? -100 : 0,
+  // })
   const handleGoBack = () => {
     props.onUnselectCard()
     replace({
@@ -125,11 +125,7 @@ function Header(props: Props) {
       <div data-testid="header-testId">
         <div>
           <HeadroomWrapper ref={headRef}>
-            <HeaderPinned
-              style={{
-                transform: y.interpolate(int => `translateY(${int}px)`),
-              }}
-            >
+            <HeaderPinned>
               <Navbar>
                 <NavBackground />
                 <NavOuter>
@@ -144,7 +140,7 @@ function Header(props: Props) {
         </div>
       </div>
     ),
-    [handleGoBack, props.modal, y],
+    [handleGoBack, props.modal],
   )
 }
 

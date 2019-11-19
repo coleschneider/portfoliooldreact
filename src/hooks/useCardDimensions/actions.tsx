@@ -29,5 +29,5 @@ function createCardActions(dispatch: React.Dispatch<CardActions>) {
     updateCardDimensions,
   }
 }
-
+export type CardActionCreators = ReturnType<typeof createCardActions>
 export default createCardActions

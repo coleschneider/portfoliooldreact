@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router-dom'
 import { H2 } from '../../theme/Elements'
 import Card from '../Card/Card'
 import { cardsConfig } from '../Card/cardsConfig'
+import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 
 const Wrapper = styled.div`
   display: flex;
@@ -16,8 +17,9 @@ const Wrapper = styled.div`
   margin-right: auto;
 `
 
-interface Props extends RouteComponentProps {
-  onUpdateCards: DimensionCallback
+interface Props extends RouteComponentProps, CardActionCreators {
+  onUpdateCards: UpdateCardsCallback
+  currentCard: CurrentCardState
 }
 
 const WorkCards = (props: Props) => {
@@ -35,7 +37,7 @@ const WorkCards = (props: Props) => {
     <Wrapper>
       <H2 primary>Some of my work:</H2>
       {cardsConfig.map(card => {
-        return <Card {...card} {...props} setResize={setResize} shouldResize={shouldResize} />
+        return <Card key={card.id} card={card} {...props} setResize={setResize} shouldResize={shouldResize} />
       })}
     </Wrapper>
   )

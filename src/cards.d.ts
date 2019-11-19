@@ -12,7 +12,7 @@ interface CardDetails {
 }
 interface Card {
   description: string[]
-  id: string | number
+  id: string
   cardImage: string
   placeholder: string
   details: CardDetails[]

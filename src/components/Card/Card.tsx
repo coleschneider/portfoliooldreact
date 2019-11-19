@@ -5,24 +5,20 @@ import { animated, useTrail, SpringConfig } from 'react-spring'
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
+import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 
 export const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
 `
-const ColumnFlex = styled.div`
-  margin: 16px;
-  flex: 1 1 250px;
-`
+
 const ImagePopUp = styled.a`
   position: absolute;
   top: 0;
-  /* bottom: 6px; */
   bottom: 0px;
   left: 0;
   right: 0;
   vertical-align: middle;
-
   background: rgba(0, 0, 0, 0.7);
   opacity: 0;
   text-align: center;
@@ -37,8 +33,13 @@ const ImagePopUp = styled.a`
   }
 `
 
-type Props = RouteComponentProps & Card & { onUpdateCards: UpdateCardsCallback }
-
+interface Props extends RouteComponentProps, Omit<CardActionCreators, 'updateCardDimensions'> {
+  card: Card
+  setResize: React.Dispatch<React.SetStateAction<boolean>>
+  onUpdateCards: UpdateCardsCallback
+  shouldResize: boolean
+  currentCard: CurrentCardState
+}
 interface TrailAnimation {
   config: SpringConfig
   opacity: number
@@ -51,19 +52,8 @@ function getDimensionObject(node: HTMLDivElement): DimensionObject {
   return { top, right, bottom, left, width, height }
 }
 
-function Card({
-  currentCard,
-  onSelectCard,
-  onUpdateCards,
-  location,
-  history,
-  id,
-  cardImage,
-  description,
-  placeholder,
-  shouldResize,
-  setResize,
-}: Props) {
+function Card({ currentCard, onSelectCard, onUpdateCards, location, history, card, shouldResize, setResize }: Props) {
+  const { id, description, cardImage, placeholder } = card
   // const imageSrc = useLazyImage(cardImage, placeholder)
   const element = React.useRef<HTMLDivElement>(null)
 
@@ -84,20 +74,22 @@ function Card({
     })
   }, [location, set])
   const handleClick = () => {
-    const { top, right, bottom, left, width, height } = element.current.getBoundingClientRect()
-    onSelectCard(id)
-    onUpdateCards({ top, right, bottom, left, width, height }, id)
-    history.push({
-      pathname: `/work/${id}`,
-      state: {
-        id,
-        to: 'modal',
-        background: location,
-        meta: {
-          from: { top, right, bottom, left, width, height },
+    if (element.current) {
+      const dimensions = getDimensionObject(element.current)
+      onSelectCard(id)
+      onUpdateCards(dimensions, id)
+      history.push({
+        pathname: `/work/${id}`,
+        state: {
+          id,
+          to: 'modal',
+          background: location,
+          meta: {
+            from: dimensions,
+          },
         },
-      },
-    })
+      })
+    }
   }
   const animateOnClick = () => {
     const completed = []
