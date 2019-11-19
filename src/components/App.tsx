@@ -1,7 +1,7 @@
 import React from 'react'
 // eslint-disable-next-line
 import {Helmet, HelmetProvider} from 'react-helmet-async'
-import { Route, Switch, useLocation, RouteComponentProps, useHistory, useParams } from 'react-router-dom'
+import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -10,7 +10,7 @@ import Work from './Work/Work'
 import WorkDetails from './WorkDetails/WorkDetails'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
-import useCardDimensions from '../hooks/useCardDimensions'
+import useCardDimensions from '../hooks/useCardDimensions/useCardDimensions'
 
 const Scrollup = styled.a`
   position: fixed;
@@ -18,7 +18,7 @@ const Scrollup = styled.a`
   padding: 10px;
   cursor: pointer;
   bottom: 50px;
-  z-index: 8000;
+  z-index: 2;
 `
 interface SpringWindow {
   onFrame: ({ y }: { y: number }) => void
@@ -33,26 +33,21 @@ class OmittedTransitionGroup extends CSSTransition {
 }
 
 const App: React.FC = () => {
-  /*
-  Idea: Instead of listening to each cards position and dimensions uopdate, only grab the updates when we
-  */
   const location = useLocation()
 
-  const modalContainerRef: React.RefObject<HTMLDivElement> = React.useRef(null)
   const modal = location.state && location.state.to === 'modal'
   const isModal = location.state && location.state.background
   const background = location.state && location.state.background
+  const initialCardState = isModal
+    ? {
+        currentCard: location.state.id,
+        cardsById: {
+          [location.state.id]: location.state.meta.from,
+        },
+      }
+    : undefined
+  const { state, updateCardDimensions, onSelectCard, onUnselectCard } = useCardDimensions(initialCardState)
 
-  const { state, updateCardDimensions, onSelectCard, onUnselectCard } = useCardDimensions(
-    isModal
-      ? {
-          currentCard: location.state.id,
-          cardsById: {
-            [location.state.id]: location.state.meta.from,
-          },
-        }
-      : undefined,
-  )
   const isModalContainer = isModal && state.currentCard === location.state.id
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
@@ -83,8 +78,7 @@ const App: React.FC = () => {
     })
   }
 
-  const onUpdateCards: DimensionCallback = (dimensions, id) => {
-    console.log(dimensions, id)
+  const onUpdateCards: UpdateCardsCallback = (dimensions: DimensionObject, id: string) => {
     if (!isModal) {
       updateCardDimensions(dimensions, id)
     }
@@ -121,7 +115,7 @@ const App: React.FC = () => {
         </div>
         <TransitionGroup>
           <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            <div className="modal-container" style={position} ref={modalContainerRef}>
+            <div className="modal-container" style={position}>
               <Switch location={location}>
                 <Route path="/work/:workId" component={WorkDetails} />
               </Switch>

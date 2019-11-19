@@ -11,18 +11,60 @@ export const cardsConfig: Card[] = [
     description: ['Software ', 'Engineer ', 'Internship'],
     cardImage: BlendLogo,
     placeholder: BlendLogoSmall,
+    details: [
+      {
+        title: `September - December Blend (Software Engineer Internship)`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Development`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Testing`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+    ],
   },
   {
     id: 2,
     description: ['Non ', '-', 'Profit ', 'Website'],
     cardImage: ORCASPreview,
     placeholder: ORCASPreviewSmall,
+    details: [
+      {
+        title: `September - December Blend (Software Engineer Internship)`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Development`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Testing`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+    ],
   },
   {
     id: 3,
     description: ['Dan ', 'Miller ', 'ATI '],
     cardImage: DanMillerATI,
     placeholder: DanMillerATISmall,
+    details: [
+      {
+        title: `September - December Blend (Software Engineer Internship)`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Development`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+      {
+        title: `Testing`,
+        body: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel, venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae, euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.`,
+      },
+    ],
   },
 ]
 

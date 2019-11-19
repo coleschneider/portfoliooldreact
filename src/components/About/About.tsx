@@ -38,11 +38,20 @@ function About() {
   const imageSrc = useLazyImage(AboutMe, AboutMePlaceholder)
   const handleClose = () => {
     setState({ isShown: false })
+  }
+  const openResume = () => {
     window.open(Resume)
   }
   return (
     <Wrapper>
-      <Dialog confirmLabel="View Resume" title="Hello!" isShown={isShown} onCloseComplete={handleClose}>
+      <Dialog
+        confirmLabel="View Resume"
+        title="Hello!"
+        isShown={isShown}
+        onCloseComplete={handleClose}
+        onCancel={handleClose}
+        onConfirm={openResume}
+      >
         <PSecondary>
           Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
           <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">

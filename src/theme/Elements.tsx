@@ -131,9 +131,9 @@ export const SVGButton = styled(Button)`
 `
 export const Pane = styled.div`
   background-color: ${Colors.white};
-  border-radius: 5px;
   width: 100%;
   ${withHover}
+  border-radius: 5px;
   transition-duration: 150ms;
   transition-property: box-shadow, transform, border;
   transition-timing-function: cubic-bezier(0, 0.2, 1);

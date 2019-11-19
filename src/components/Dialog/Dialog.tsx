@@ -60,6 +60,7 @@ const Container = styled.div<{ children: React.ReactNode; css: FlattenSimpleInte
   width: 392px;
   border-radius: 5px;
   box-shadow: rgba(67, 90, 111, 0.3) 0px 0px 1px, rgba(67, 90, 111, 0.47) 0px 16px 24px -8px;
+  z-index: 3;
 `
 
 const ButtonGroup = styled.div`
@@ -147,7 +148,7 @@ function Dialog({
                 <Button primary onClick={handleConfirm}>
                   {confirmLabel}
                 </Button>
-                {hasCancel && <Button onClick={handleConfirm}>{cancelLabel}</Button>}
+                {hasCancel && <Button onClick={handleCancel}>{cancelLabel}</Button>}
               </ButtonGroup>
             </Container>
           )

@@ -1,13 +1,12 @@
 import React from 'react'
+import createActions, { SELECT_CARD, UNSELECT_CARD, UPDATE_CARDS } from './actions'
 
-const initialState: CardsState = { cardsById: {}, currentCard: null }
-
-function useCardDimensions(initalState: CardsState) {
+function useCardDimensions(initalState: CardsState = { cardsById: {}, currentCard: null }) {
   const currentCard = (state: CurrentCardState, action: CardActions): CurrentCardState => {
     switch (action.type) {
-      case 'SELECT_CARD':
+      case SELECT_CARD:
         return action.payload.id
-      case 'UNSELECT_CARD':
+      case UNSELECT_CARD:
         return null
       default:
         return state
@@ -15,7 +14,7 @@ function useCardDimensions(initalState: CardsState) {
   }
   const cardsById = (state: CardsByIdState, action: CardActions): CardsByIdState => {
     switch (action.type) {
-      case 'UPDATE_CARDS':
+      case UPDATE_CARDS:
         return {
           ...state,
           [action.payload.id]: action.payload.dimensions,
@@ -29,30 +28,10 @@ function useCardDimensions(initalState: CardsState) {
     cardsById: cardsById(state.cardsById, action),
     currentCard: currentCard(state.currentCard, action),
   })
-  const [state, dispatch] = React.useReducer(cardsReducer, initialState)
-
-  const updateCardDimensions = (dimensions: CardDimensions, id: string) => {
-    dispatch({
-      type: 'UPDATE_CARDS',
-      payload: { dimensions, id },
-    })
-  }
-  const onSelectCard = (id: string) => {
-    dispatch({
-      type: 'SELECT_CARD',
-      payload: { id },
-    })
-  }
-  const onUnselectCard = () => {
-    dispatch({
-      type: 'UNSELECT_CARD',
-    })
-  }
+  const [state, dispatch] = React.useReducer(cardsReducer, initalState)
 
   return {
-    updateCardDimensions,
-    onSelectCard,
-    onUnselectCard,
+    ...createActions(dispatch),
     state,
   }
 }

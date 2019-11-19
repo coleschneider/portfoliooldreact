@@ -18,22 +18,23 @@ const ImageWrapper = styled.div`
   box-sizing: border-box;
   font-family: Roboto, sans-serif;
   border-radius: 2px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
 `
 const TextWrapper = styled.div`
   line-height: 1.8;
-  max-width: 680px;
   margin: 0 24px;
 `
 
 const WrapImage = styled.div`
   margin: 0 auto;
   width: 100%;
-
-  max-width: 680px;
+  max-width: 600px;
 `
 
 const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string }>) => {
-  const { cardImage, placeholder } = cardsById[params.workId]
+  const { cardImage, placeholder, details } = cardsById[params.workId]
 
   const imageSrc = useLazyImage(cardImage, placeholder)
 
@@ -45,32 +46,12 @@ const WorkDetails = ({ match: { params } }: RouteComponentProps<{ workId: string
 
       <Wrapper>
         <TextWrapper>
-          <H2 primary>September - December Blend (Software Engineer Internship)</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
-
-          <H2 primary>Development</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
-
-          <H2 primary>Testing</H2>
-          <P primary>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ipsum libero, ornare sit amet tempor vel,
-            venenatis non urna. Aliquam in leo arcu. Etiam rutrum ante libero, ut sodales arcu aliquam a. Integer
-            bibendum ornare lacinia. Sed non tellus vel purus tempor hendrerit. Nullam vulputate mollis odio, ut laoreet
-            purus sagittis vel. Proin feugiat tristique purus a imperdiet. Nunc at urna congue, tempus est vitae,
-            euismod mi. Phasellus in est placerat, viverra odio eget, rhoncus justo.
-          </P>
+          {details.map(({ title, body }) => (
+            <>
+              <H2 primary>{title}</H2>
+              <P primary>{body}</P>
+            </>
+          ))}
         </TextWrapper>
       </Wrapper>
     </ImageWrapper>

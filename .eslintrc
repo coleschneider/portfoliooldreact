@@ -34,9 +34,14 @@
      * "import/named" temporary disable.
      */
     "import/named": "off",
+    "@typescript-eslint/camelcase": "off",
     "import/no-named-as-default": "off",
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "src/setupTests.ts" ]}],
-
+    "no-case-declarations": "off",
+    "no-prototype-builtins": "off",
+    "import/no-cycle": "off",
+    "no-bitwise": "off",
+    "no-plusplus":"off",
     /**
      * @bug?
      * "import/export" temporary disable.
@@ -55,7 +60,9 @@
     "react/no-unescaped-entities": "warn",
     "@typescript-eslint/no-param-reassign": "off", // also want to use "type"
     "@typescript-eslint/explicit-function-return-type": "off", // annoying to force return type
+    "react-hooks/exhaustive-deps": "off",
     "no-param-reassign": "off",
+    "react/no-array-index-key": "off",
     /**
      * @description rules of eslint-plugin-react
      */

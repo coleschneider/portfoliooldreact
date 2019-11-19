@@ -1,4 +1,3 @@
-type DimensionCallback = (dimensions: ClientRect | DOMRect) => void
 type Icons = 'PointerRight' | 'Close' | 'LeftArrow'
 
 type ConstantPaths = '/mywork' | '/' | '/static/media/Resume.pdf'

@@ -3,17 +3,17 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
-import Row from '../../theme/Grid/Row'
+import { H2 } from '../../theme/Elements'
 import Card from '../Card/Card'
 import { cardsConfig } from '../Card/cardsConfig'
 
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-`
-const ColumnFlex = styled.div`
-  margin: 16px;
-  flex: 1 1 250px;
+  margin-top: 90px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 `
 
 interface Props extends RouteComponentProps {
@@ -33,12 +33,9 @@ const WorkCards = (props: Props) => {
 
   return (
     <Wrapper>
+      <H2 primary>Some of my work:</H2>
       {cardsConfig.map(card => {
-        return (
-          <ColumnFlex key={card.id}>
-            <Card {...card} {...props} setResize={setResize} shouldResize={shouldResize} />
-          </ColumnFlex>
-        )
+        return <Card {...card} {...props} setResize={setResize} shouldResize={shouldResize} />
       })}
     </Wrapper>
   )

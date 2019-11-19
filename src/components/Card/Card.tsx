@@ -11,10 +11,6 @@ import useLazyImage from '../../hooks/useLazyImage'
 import usePrevious from '../../hooks/usePrevious'
 import useDimensions from '../../hooks/useMeasure/useMeasure'
 
-export const CardWrapper = styled(Pane)`
-  /* z-index: 1200; */
-  /* margin-top: 67px; */
-`
 export const CardImage = styled.img`
   width: 100%;
   object-fit: cover;
@@ -26,11 +22,13 @@ const ColumnFlex = styled.div`
 const ImagePopUp = styled.a`
   position: absolute;
   top: 0;
-  bottom: 0;
+  /* bottom: 6px; */
+  bottom: 0px;
   left: 0;
   right: 0;
   vertical-align: middle;
-  background: rgba(0, 0, 0, 0.5);
+
+  background: rgba(0, 0, 0, 0.7);
   opacity: 0;
   text-align: center;
   display: flex;
@@ -44,7 +42,7 @@ const ImagePopUp = styled.a`
   }
 `
 
-type Props = RouteComponentProps & Card & { onUpdateCards: DimensionCallback }
+type Props = RouteComponentProps & Card & { onUpdateCards: UpdateCardsCallback }
 
 interface TrailAnimation {
   config: SpringConfig
@@ -53,19 +51,8 @@ interface TrailAnimation {
   height: number
 }
 
-function getDimensionObject(node: HTMLElement): DimensionObject {
+function getDimensionObject(node: HTMLDivElement): DimensionObject {
   const { top, right, bottom, left, width, height } = node.getBoundingClientRect()
-
-  // return {
-  //   width: rect.width,
-  //   height: rect.height,
-  //   top: 'x' in rect ? rect.x : rect.top,
-  //   left: 'y' in rect ? rect.y : rect.left,
-  //   x: 'x' in rect ? rect.x : rect.left,
-  //   y: 'y' in rect ? rect.y : rect.top,
-  //   right: rect.right,
-  //   bottom: rect.bottom,
-  // }
   return { top, right, bottom, left, width, height }
 }
 
@@ -83,17 +70,14 @@ function Card({
   setResize,
 }: Props) {
   // const imageSrc = useLazyImage(cardImage, placeholder)
-  const element = React.useRef(null)
+  const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
-    if (shouldResize) {
-      const { top, right, bottom, left, width, height } = element.current.getBoundingClientRect()
-      onUpdateCards({ top, right, bottom, left, width, height }, id)
+    if (shouldResize && element.current) {
+      onUpdateCards(getDimensionObject(element.current), id)
       setResize(false)
     }
   }, [shouldResize])
-  console.log(shouldResize, id)
-  // const [node, setNode] = React.useState(null)
 
   const [trail, set] = useTrail<TrailAnimation>(description.length, springs.trailCards)
 
@@ -121,7 +105,6 @@ function Card({
     })
   }
   const animateOnClick = () => {
-    // selectCard(id)
     const completed = []
     set({
       opacity: 0,
@@ -137,10 +120,9 @@ function Card({
     })
   }
   return (
-    // <ColumnFlex ref={ref} onClick={animateOnClick}>
-
-    <CardWrapper
+    <Pane
       onClick={animateOnClick}
+      level={2}
       hover
       ref={ref => (element.current = ref)}
       style={{ position: currentCard ? undefined : 'relative' }}
@@ -162,52 +144,8 @@ function Card({
           </animated.div>
         ))}
       </ImagePopUp>
-    </CardWrapper>
-    // </ColumnFlex>
+    </Pane>
   )
 }
-
-// class Card extends React.Component {
-//   element = null
-//         componentDidMount(){
-//             window.addEventListener('resize', this.handleResize)
-//         }
-//         componentWillUnmount(){
-//             window.removeEventListener('resize', this.handleResize)
-//         }
-//         handleResize = (e) => {
-//             const { top, right, bottom, left, width, height } = this.element.getBoundingClientRect();
-//             this.props.onUpdateCards({ top, right, bottom, left, width, height }, this.props.id)
-//             // if(this.props.isModal){
-//             //   this.props.onUpdateCards({ top, right, bottom, left, width, height }, this.props.id)
-//             // }
-
-//         }
-//   render(){
-//   const animateOnClick = () => {
-
-//     const { top, right, bottom, left, width, height } = this.element.getBoundingClientRect();
-
-//     this.props.onSelectCard({ top, right, bottom, left, width, height }, this.props.id)
-//     console.log(this.props)
-//     this.props.history.push({
-//       pathname: `/work/${this.props.id}`,
-//       state: {
-//         background: this.props.location,
-//         to: 'modal',
-//         meta: {
-//           from: { top, right, bottom, left, width, height },
-//         },
-//       },
-//     })
-//   }
-//     return (
-
-//     <CardWrapper ref={ref => this.element = ref} onClick={animateOnClick} hover>
-//       <CardImage src={this.props.cardImage} />
-//     </CardWrapper>
-//     )
-//   }
-// }
 
 export default Card
