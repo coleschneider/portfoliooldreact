@@ -6,6 +6,7 @@ import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
+import useLazyImage from '../../hooks/useLazyImage'
 
 export const CardImage = styled.img`
   width: 100%;
@@ -54,7 +55,7 @@ function getDimensionObject(node: HTMLDivElement): DimensionObject {
 
 function Card({ currentCard, onSelectCard, onUpdateCards, location, history, card, shouldResize, setResize }: Props) {
   const { id, description, cardImage, placeholder } = card
-  // const imageSrc = useLazyImage(cardImage, placeholder)
+  const imageSrc = useLazyImage(cardImage, placeholder)
   const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -114,7 +115,7 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
       ref={element}
       style={{ position: currentCard ? undefined : 'relative' }}
     >
-      <CardImage src={cardImage} />
+      <CardImage src={imageSrc} />
       <ImagePopUp>
         {trail.map(({ x, height, ...rest }, index) => (
           <animated.div
