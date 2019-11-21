@@ -12,6 +12,18 @@ export enum Colors {
   grey = 'rgb(102, 120, 138)',
   transparentDarken = 'rgba(67, 90, 111, 0.06)',
   evergreen = 'rgb(35, 67, 97)',
+  neutralShade1 = '#f2f2f2',
+  neutralShade2 = '#e8e9e9',
+  neutralShade3 = '#d1d3d4',
+  neutralShade4 = '#babdbf',
+  neutralShade5 = '#808488',
+  neutralShade6 = '#666a6d',
+  neutralShade7 = '#4d5052',
+  neutralShade8 = '#212122',
+  grayColor = '#999',
+  lightGrayColor = '#ddd',
+  borderRadius = '6px',
+  boxShadow = '0 2px 5px rgba(#333, 0.2)',
 }
 interface ShadowProps {
   hover: boolean

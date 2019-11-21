@@ -8,21 +8,20 @@ import AboutMe from '../../assets/images/about_me.jpg'
 import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
 import Resume from '../../assets/Resume.pdf'
 import { media } from '../../theme/Grid/config'
-import { H1, P, PSecondary, ButtonIcon } from '../../theme/Elements'
+import { ButtonIcon, AboutTextContainer } from '../../theme/Elements'
+import { H1, P, PSecondary } from '../../theme/Typography'
 import Dialog from '../Dialog/Dialog'
 import useLazyImage from '../../hooks/useLazyImage'
 
 const ImageContainer = styled.img`
-  ${media.xs`
-      width: 100%;
-  `}
-  width: 400px;
-  object-fit: cover;
-  padding-left: 15px;
-  padding-right: 15px;
+  width: 100%;
+  object-fit: contain;
 `
 const Wrapper = styled.div`
-  margin-top: 100px;
+  margin-top: 90px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 600px;
 `
 const ExternalLink = styled.a`
   text-decoration: underline;
@@ -62,35 +61,36 @@ function About() {
       </Dialog>
       <Container>
         <Row>
-          <Col center xs={4} sm={3} md={3} lg={3} xl={3}>
+          <Col center>
             <ImageContainer src={imageSrc} />
           </Col>
-          <Col xs={4} sm={5} md={5} lg={9} xl={9}>
-            <div>
-              <H1 primary>Cole Schneider</H1>
-
-              <P primary>
-                Hi my name is Cole Schneider I am currently a senior at{' '}
-                <ExternalLink target="_blank" href="https://www.pepperdine.edu/">
-                  {' '}
-                  Pepperdine University.
-                </ExternalLink>{' '}
-                Expected graduation date is Fall of 2019 with a major in business administration and and a minor in
-                computer science. Please feel free to{' '}
-                <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
-                  send an email
-                </ExternalLink>{' '}
-                to me with any questions or concerns
-              </P>
-            </div>
-            <ButtonGroup>
-              <ButtonIcon icon="PointerRight" to="/mywork">
-                See Work
-              </ButtonIcon>
-              <ButtonIcon icon="PointerRight" primary target="_blank" href={Resume}>
-                See Resume
-              </ButtonIcon>
-            </ButtonGroup>
+          <Col center>
+            <AboutTextContainer>
+              <div>
+                <H1 primary>Cole Schneider</H1>
+                <P primary>
+                  Hi my name is Cole Schneider I am currently a senior at{' '}
+                  <ExternalLink target="_blank" href="https://www.pepperdine.edu/">
+                    {' '}
+                    Pepperdine University.
+                  </ExternalLink>{' '}
+                  Expected graduation date is Fall of 2019 with a major in business administration and and a minor in
+                  computer science. Please feel free to{' '}
+                  <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
+                    send an email
+                  </ExternalLink>{' '}
+                  to me with any questions or concerns.
+                </P>
+              </div>
+              <ButtonGroup>
+                <ButtonIcon icon="PointerRight" to="/mywork">
+                  See Work
+                </ButtonIcon>
+                <ButtonIcon icon="PointerRight" primary target="_blank" href={Resume}>
+                  See Resume
+                </ButtonIcon>
+              </ButtonGroup>
+            </AboutTextContainer>
           </Col>
         </Row>
       </Container>

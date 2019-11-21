@@ -3,7 +3,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
-import { H2 } from '../../theme/Elements'
+import { H2 } from '../../theme/Typography'
 import Card from '../Card/Card'
 import { cardsConfig } from '../Card/cardsConfig'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'

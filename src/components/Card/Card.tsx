@@ -55,7 +55,7 @@ function getDimensionObject(node: HTMLDivElement): DimensionObject {
 
 function Card({ currentCard, onSelectCard, onUpdateCards, location, history, card, shouldResize, setResize }: Props) {
   const { id, description, cardImage, placeholder } = card
-  const imageSrc = useLazyImage(cardImage, placeholder)
+  // const imageSrc = useLazyImage(cardImage, placeholder)
   const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -115,7 +115,7 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
       ref={element}
       style={{ position: currentCard ? undefined : 'relative' }}
     >
-      <CardImage src={imageSrc} />
+      <CardImage src={cardImage} />
       <ImagePopUp>
         {trail.map(({ x, height, ...rest }, index) => (
           <animated.div

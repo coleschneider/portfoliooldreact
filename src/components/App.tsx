@@ -3,7 +3,7 @@ import React from 'react'
 import {Helmet, HelmetProvider} from 'react-helmet-async'
 import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
 import { useSpring } from 'react-spring'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
 import Work from './Work/Work'
@@ -11,6 +11,7 @@ import WorkDetails from './WorkDetails/WorkDetails'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
 import useCardDimensions from '../hooks/useCardDimensions/useCardDimensions'
+import { ModalContainer } from '../theme/Elements'
 
 const Scrollup = styled.a`
   position: fixed;
@@ -51,7 +52,7 @@ const App: React.FC = () => {
   const isModalContainer = isModal && state.currentCard === location.state.id
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
-    const modalContainer = document.querySelector('.modal-container')
+    const modalContainer = document.getElementById('mdl')
 
     if (isModalContainer) {
       return modalContainer
@@ -59,7 +60,7 @@ const App: React.FC = () => {
     return window
   }
   const getScrollTop = () => {
-    const c = document.querySelector('.modal-container')
+    const c = document.getElementById('mdl')
     if (isModalContainer) {
       return c.scrollTop
     }
@@ -114,12 +115,19 @@ const App: React.FC = () => {
           </Switch>
         </div>
         <TransitionGroup>
-          <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            <div className="modal-container" style={position}>
-              <Switch location={location}>
-                <Route path="/work/:workId" component={WorkDetails} />
-              </Switch>
-            </div>
+          <OmittedTransitionGroup timeout={450} key={location.pathname}>
+            {transitionState => {
+              return (
+                <ModalContainer transitionState={transitionState} style={position} id="mdl">
+                  <Switch location={location}>
+                    <Route
+                      path="/work/:workId"
+                      component={props => <WorkDetails {...props} transitionState={transitionState} />}
+                    />
+                  </Switch>
+                </ModalContainer>
+              )
+            }}
           </OmittedTransitionGroup>
         </TransitionGroup>
         <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">

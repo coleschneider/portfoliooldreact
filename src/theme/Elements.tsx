@@ -1,35 +1,11 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled, { css, FlattenSimpleInterpolation } from 'styled-components'
 import { Link, LinkProps } from 'react-router-dom'
+import { TransitionStatus } from 'react-transition-group/Transition'
 import { Colors, primaryGradient, secondaryGradient, withHover } from './colors'
 import Icons from './Icons'
+import { media } from './Grid/config'
 
-const fontColorMixin = ({ primary }: { primary?: boolean }) => `
-    color: ${primary ? Colors.darkBlue : Colors.white};
-`
-
-export const H1 = styled.h1`
-  font-size: 3.8rem;
-  ${fontColorMixin}
-`
-export const H2 = styled.h1`
-  font-size: 1.6rem;
-  ${fontColorMixin}
-`
-
-export const P = styled.p`
-  font-size: 1rem;
-  ${fontColorMixin}
-`
-
-export const PSecondary = styled(P)`
-  color: ${Colors.grey};
-  box-sizing: border-box;
-  letter-spacing: -0.05px;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 400;
-`
 interface ButtonProps {
   primary?: boolean
 }
@@ -133,8 +109,76 @@ export const Pane = styled.div`
   background-color: ${Colors.white};
   width: 100%;
   ${withHover}
+  z-index: 1;
   border-radius: 5px;
   transition-duration: 150ms;
   transition-property: box-shadow, transform, border;
   transition-timing-function: cubic-bezier(0, 0.2, 1);
+`
+
+const enterTransition = css`
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: auto;
+`
+type CardTransitionStates = Exclude<TransitionStatus, 'unmounted'>
+
+type CardTransitions = {
+  [k in CardTransitionStates]: FlattenSimpleInterpolation
+}
+interface Transitions extends CardTransitions {
+  [k: string]: FlattenSimpleInterpolation
+}
+export const cardTransitions: Partial<Transitions> = {
+  entered: enterTransition,
+  entering: enterTransition,
+  exited: css`
+    overflow: hidden;
+    z-index: 0;
+  `,
+  exiting: css``,
+}
+
+export interface TransitionStateProps {
+  transitionState: TransitionStatus
+}
+export const ModalContainer = styled.div<TransitionStateProps>`
+  position: fixed;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 2;
+  ${({ transitionState }) => cardTransitions[transitionState]};
+  :empty {
+    display: none;
+  }
+`
+
+const cardContainer = css`
+  top: 90px;
+  position: relative;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
+`
+export const CardContainerTransition: Partial<Transitions> = {
+  entered: cardContainer,
+  entering: cardContainer,
+}
+
+export const AboutTextContainer = styled.div`
+  ${media.sm`
+    width: unset;
+    margin-top: 0px;
+  `}
+  margin-top: 1rem;
+  width: 400px;
 `
