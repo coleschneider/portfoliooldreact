@@ -106,11 +106,10 @@ body {
   font-weight: 300;
   line-height: 1.5;
   font-size: 16px;
-  /* font-family: 'Poppins', sans-serif; */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  color: #292929;
+  color: rgb(17, 17, 17);
 }
 
 
@@ -123,7 +122,7 @@ head {
 }
 html {
   display: block;
-  color: -internal-root-color;
+  color: rgb(17,17,17);
 }
 
 /* App Wrapper */
@@ -138,9 +137,12 @@ html {
 }
 a {
   font-family: 'Open Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  color: rgb(17,17,17);
 }
 
-
+/* 
 .enable-transition {
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;  
 }
@@ -170,4 +172,78 @@ a {
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
+ */
 
+ .enable-transition {
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;  
+}
+
+.appear {
+  opacity: 0;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms; 
+}
+
+.modal-enter-active .appear {
+  opacity: 1;
+}
+.modal-enter-active {
+  opacity: 1;
+}
+
+.view-container {
+  padding-top: 64px;
+}
+.modal-container h1 {
+  opacity: 0;
+}
+.modal-container {
+  position:fixed;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: white;
+  z-index: 2;
+}
+
+.modal-container:empty {
+  display: none;
+}
+
+.modal-container.modal-enter-active h1 {
+  opacity: 1;
+}
+
+.modal-container.modal-enter-active {
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: auto;
+}
+.modal-appear h1 {
+  opacity: 1;
+}
+.modal-appear {
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: auto;
+}
+
+
+
+.modal-container.modal-enter-active .work-container {
+  top: 90px;
+  position: relative;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
+}

@@ -1,17 +1,37 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { RouteProps, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { ReactComponent as LeftArrow } from '../../assets/icons/LeftArrow.svg'
 import { media } from '../../theme/Grid/config'
 import NavLinks from './NavLinks'
 
-const ArrowIcon = styled(LeftArrow)`
+const ArrowIcon = styled.div`
   display: inline-block;
   fill: currentcolor;
   height: 30px;
+  cursor: pointer;
   width: 30px;
   user-select: none;
-  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  :after {
+    content: '';
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: block;
+    position: relative;
+    bottom: 15px;
+    left: 50%;
+    background-color: #000;
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.5s cubic-bezier(0.1, 0.29, 0, 1), opacity 0.5s cubic-bezier(0.1, 0.29, 0, 1);
+  }
+  :hover {
+    :after {
+      opacity: 0.1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
 `
 
 const HeadroomWrapper = styled.div`
@@ -35,11 +55,8 @@ const HeaderPinned = styled.div`
 `
 
 const Navbar = styled.div`
-  color: #0f3351;
   z-index: 16;
-  font-family: Josefin Sans;
-  font-size: 11px;
-  font-weight: 700;
+  font: 600 12px/1 'Open Sans', sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,7 +85,6 @@ const NavOuter = styled.div`
 const NameContainer = styled.div`
   margin: 0 auto;
   display: block;
-
   max-width: 100%;
   width: 100%;
   ${media.xs`
@@ -80,42 +96,39 @@ const Name = styled.div`
   z-index: 2;
   line-height: 16.5px;
   position: relative;
-  color: #0f3351;
   text-decoration: none;
   display: none;
+  cursor: pointer;
   ${media.sm`
     display: block;
   `}
 `
-interface Props extends RouteProps {
-  modal: boolean
+interface Props {
+  isModal: boolean
+  onUnselectCard: () => void
 }
 
-function Header(props: Props) {
+function Header({ isModal, onUnselectCard }: Props) {
   const headRef = React.useRef<HTMLDivElement>(null)
   // const [modeType, setMode] = React.useState('static')
-  const { goBack, replace } = useHistory()
+  const { replace } = useHistory()
 
-  // useHeadroom(
-  //   headRef,
-  //   { pinStart: 100 },
-  //   ({ mode }) => {
-  //     if (mode !== modeType) setMode(mode)
-  //   },
-  //   300,
-  // )
-  // const { y } = useSpring({
-  //   y: modeType === 'unpinned' ? -100 : 0,
-  // })
   const handleGoBack = () => {
-    props.onUnselectCard()
+    onUnselectCard()
     replace({
       pathname: '/mywork',
       state: {},
     })
   }
-  return React.useMemo(
-    () => (
+  const handleGoHome = () => {
+    replace({
+      pathname: '/',
+      state: {},
+    })
+  }
+  return React.useMemo(() => {
+    console.log('rendering header', isModal)
+    return (
       <div data-testid="header-testId">
         <div>
           <HeadroomWrapper ref={headRef}>
@@ -124,7 +137,13 @@ function Header(props: Props) {
                 <NavBackground />
                 <NavOuter>
                   <NameContainer>
-                    {props.modal ? <ArrowIcon onClick={handleGoBack} /> : <Name>COLE SCHNEIDER</Name>}
+                    {isModal ? (
+                      <ArrowIcon onClick={handleGoBack}>
+                        <LeftArrow />
+                      </ArrowIcon>
+                    ) : (
+                      <Name onClick={handleGoHome}>COLE SCHNEIDER</Name>
+                    )}
                   </NameContainer>
                 </NavOuter>
                 <NavLinks />
@@ -133,9 +152,8 @@ function Header(props: Props) {
           </HeadroomWrapper>
         </div>
       </div>
-    ),
-    [handleGoBack, props.modal],
-  )
+    )
+  }, [isModal])
 }
 
 export default Header

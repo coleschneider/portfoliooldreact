@@ -14,7 +14,8 @@ const LinkStyles = css`
   cursor: pointer;
   line-height: 2.5em;
   text-decoration: none;
-  color: #0f3351;
+  font: 600 12px/1 'Open Sans', sans-serif;
+
   ::before {
     content: '';
     position: relative;

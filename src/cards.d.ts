@@ -11,7 +11,7 @@ interface CardDetails {
   body: string
 }
 interface Card {
-  description: string[]
+  description: string
   id: string
   cardImage: string
   placeholder: string

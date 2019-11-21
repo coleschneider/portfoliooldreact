@@ -2,7 +2,7 @@ import * as React from 'react'
 import Transition, { TransitionStatus, EnterHandler } from 'react-transition-group/Transition'
 import styled, { FlattenSimpleInterpolation } from 'styled-components'
 import { Button, SVGButton } from '../../theme/Elements'
-import { PSecondary } from '../../theme/Typography'
+import { P, H6 } from '../../theme/Typography'
 import { ReactComponent as Close } from '../../assets/icons/Close.svg'
 import usePrevious from '../../hooks/usePrevious'
 import { Colors } from '../../theme/colors'
@@ -42,10 +42,8 @@ const TitleContainer = styled.div`
   align-self: center;
 `
 
-const Title = styled.h4`
+const Title = styled(H6)`
   flex: 1 1 0%;
-  color: ${Colors.evergreen};
-  letter-spacing: -0.07px;
   font-size: 20px;
   line-height: 24px;
   display: block;
@@ -120,7 +118,7 @@ function Dialog({
       return children({ close: handleClose })
     }
     if (typeof children === 'string') {
-      return <PSecondary>{children}</PSecondary>
+      return <P>{children}</P>
     }
     return children
   }

@@ -149,13 +149,13 @@ export interface TransitionStateProps {
 export const ModalContainer = styled.div<TransitionStateProps>`
   position: fixed;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
-  overflow: hidden;
-  top: 0;
+  /* overflow: hidden; */
+  /* top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   height: 100vh;
-  width: 100vw;
+  width: 100vw; */
   background: white;
   z-index: 2;
   ${({ transitionState }) => cardTransitions[transitionState]};
@@ -175,10 +175,5 @@ export const CardContainerTransition: Partial<Transitions> = {
 }
 
 export const AboutTextContainer = styled.div`
-  ${media.sm`
-    width: unset;
-    margin-top: 0px;
-  `}
   margin-top: 1rem;
-  width: 400px;
 `

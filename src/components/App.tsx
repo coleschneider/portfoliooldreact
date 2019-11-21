@@ -36,9 +36,10 @@ class OmittedTransitionGroup extends CSSTransition {
 const App: React.FC = () => {
   const location = useLocation()
 
-  const modal = location.state && location.state.to === 'modal'
-  const isModal = location.state && location.state.background
   const background = location.state && location.state.background
+
+  const isModal = background && location.state.to === 'modal'
+
   const initialCardState = isModal
     ? {
         currentCard: location.state.id,
@@ -53,7 +54,6 @@ const App: React.FC = () => {
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
     const modalContainer = document.getElementById('mdl')
-
     if (isModalContainer) {
       return modalContainer
     }
@@ -95,7 +95,7 @@ const App: React.FC = () => {
         <Helmet>
           <body className={isModal ? 'overflow-page' : undefined} />
         </Helmet>
-        <Header onUnselectCard={onUnselectCard} modal={modal} {...location} />
+        <Header onUnselectCard={onUnselectCard} isModal={isModal} />
         <div className="view-container">
           <Switch location={background || location}>
             <Route exact path="/" component={Home} />
@@ -115,15 +115,15 @@ const App: React.FC = () => {
           </Switch>
         </div>
         <TransitionGroup>
-          <OmittedTransitionGroup timeout={450} key={location.pathname}>
+          <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
             {transitionState => {
+              // When using styled components state doesnt work
+              const WorkDetailsTransitioned = WorkDetails({ transitionState })
               return (
-                <ModalContainer transitionState={transitionState} style={position} id="mdl">
+                // <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
+                <ModalContainer className="modal-container" style={position} id="mdl">
                   <Switch location={location}>
-                    <Route
-                      path="/work/:workId"
-                      component={props => <WorkDetails {...props} transitionState={transitionState} />}
-                    />
+                    <Route path="/work/:workId" component={WorkDetailsTransitioned} />
                   </Switch>
                 </ModalContainer>
               )

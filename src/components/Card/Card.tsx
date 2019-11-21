@@ -7,6 +7,10 @@ import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 import useLazyImage from '../../hooks/useLazyImage'
+import Column from '../../theme/Grid/Column'
+import { TextBlock, H6 } from '../../theme/Typography'
+import GridContainer from '../../theme/Grid/Container'
+import GridRow from '../../theme/Grid/Row'
 
 export const CardImage = styled.img`
   width: 100%;
@@ -92,47 +96,28 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
       })
     }
   }
-  const animateOnClick = () => {
-    const completed = []
-    set({
-      opacity: 0,
-      x: -200,
-      height: 80,
-      onRest: item => {
-        completed.push(item)
-        if (completed.length === description.length) {
-          // eslint-disable-next-line
-          handleClick()
-        }
-      },
-    })
-  }
+
   return (
-    <Pane
-      onClick={animateOnClick}
-      level={2}
-      hover
-      ref={element}
-      style={{ position: currentCard ? undefined : 'relative' }}
-    >
-      <CardImage src={cardImage} />
-      <ImagePopUp>
-        {trail.map(({ x, height, ...rest }, index) => (
-          <animated.div
-            key={description[index]}
-            style={{
-              ...rest,
-              color: 'white',
-              whiteSpace: 'pre',
-              fontSize: '1.5em',
-              transform: x.interpolate(y => `translate3d(0,${y}px,0)`),
-            }}
+    <GridContainer>
+      <GridRow reverse>
+        <Column md={2} lg={4} xl={4}>
+          <TextBlock>
+            <H6>{description}</H6>
+          </TextBlock>
+        </Column>
+        <Column md={6} lg={8} xl={8}>
+          <Pane
+            onClick={handleClick}
+            level={2}
+            hover
+            ref={element}
+            style={{ position: currentCard ? undefined : 'relative' }}
           >
-            <animated.div style={{ height }}>{description[index]}</animated.div>
-          </animated.div>
-        ))}
-      </ImagePopUp>
-    </Pane>
+            <CardImage src={cardImage} />
+          </Pane>
+        </Column>
+      </GridRow>
+    </GridContainer>
   )
 }
 

@@ -9,22 +9,21 @@ import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
 import Resume from '../../assets/Resume.pdf'
 import { media } from '../../theme/Grid/config'
 import { ButtonIcon, AboutTextContainer } from '../../theme/Elements'
-import { H1, P, PSecondary } from '../../theme/Typography'
+import { H1, P } from '../../theme/Typography'
 import Dialog from '../Dialog/Dialog'
 import useLazyImage from '../../hooks/useLazyImage'
 
 const ImageContainer = styled.img`
   width: 100%;
-  object-fit: contain;
+  object-fit: cover;
 `
 const Wrapper = styled.div`
   margin-top: 90px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 600px;
+  max-width: 800px;
 `
 const ExternalLink = styled.a`
-  text-decoration: underline;
   color: inherit;
   vertical-align: baseline;
 `
@@ -51,24 +50,24 @@ function About() {
         onCancel={handleClose}
         onConfirm={openResume}
       >
-        <PSecondary>
+        <P>
           Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
           <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
             {' '}
             send an email
           </ExternalLink>
-        </PSecondary>
+        </P>
       </Dialog>
       <Container>
         <Row>
-          <Col center>
+          <Col center xs={4} sm={4} md={4} lg={6} xl={4}>
             <ImageContainer src={imageSrc} />
           </Col>
-          <Col center>
+          <Col xs={8} sm={4} md={4} lg={6} xl={8}>
             <AboutTextContainer>
               <div>
-                <H1 primary>Cole Schneider</H1>
-                <P primary>
+                <H1>Cole Schneider</H1>
+                <P>
                   Hi my name is Cole Schneider I am currently a senior at{' '}
                   <ExternalLink target="_blank" href="https://www.pepperdine.edu/">
                     {' '}
@@ -92,6 +91,9 @@ function About() {
               </ButtonGroup>
             </AboutTextContainer>
           </Col>
+          {/* <Col xs={4} sm={4} md={4} lg={6} xl={4}>
+           
+          </Col> */}
         </Row>
       </Container>
     </Wrapper>

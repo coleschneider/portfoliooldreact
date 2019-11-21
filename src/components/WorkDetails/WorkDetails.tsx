@@ -2,14 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router'
 import { TransitionStatus } from 'react-transition-group/Transition'
-import { P, H2 } from '../../theme/Typography'
+import { P, H3, TextBlock } from '../../theme/Typography'
 import { CardImage } from '../Card/Card'
 import { cardsById } from '../Card/cardsConfig'
 import useLazyImage from '../../hooks/useLazyImage'
 import { CardContainerTransition, TransitionStateProps } from '../../theme/Elements'
 
-interface DetailProps extends Pick<Card, 'details'>, TransitionStateProps {}
-interface Props extends RouteComponentProps<{ workId: string }>, TransitionStateProps {}
+// interface DetailProps extends Pick<Card, 'details'>, TransitionStateProps {}
+
+interface PassProps extends Pick<Card, 'details'>, TransitionStateProps {}
 
 const Wrapper = styled.div`
   display: flex;
@@ -25,12 +26,11 @@ const ImageWrapper = styled.div<TransitionStateProps>`
   border-radius: 2px;
   margin-left: auto;
   margin-right: auto;
-  max-width: 600px;
+  max-width: 800px;
   ${({ transitionState }) => CardContainerTransition[transitionState]}
 `
 const TextWrapper = styled.div`
   line-height: 1.8;
-  margin: 0 24px;
 `
 
 const WrapImage = styled.div`
@@ -38,7 +38,7 @@ const WrapImage = styled.div`
   width: 100%;
 `
 
-const WorkDetails = ({ transitionState, details }: DetailProps) => {
+const WorkDetails = ({ transitionState, details }: PassProps) => {
   if (transitionState === 'exited' || transitionState === 'exiting') {
     return null
   }
@@ -47,8 +47,11 @@ const WorkDetails = ({ transitionState, details }: DetailProps) => {
       <TextWrapper>
         {details.map(({ title, body }) => (
           <>
-            <H2 primary>{title}</H2>
-            <P primary>{body}</P>
+            <TextBlock>
+              <H3>{title}</H3>
+            </TextBlock>
+
+            <P>{body}</P>
           </>
         ))}
       </TextWrapper>
@@ -56,9 +59,12 @@ const WorkDetails = ({ transitionState, details }: DetailProps) => {
   )
 }
 
-const WorkPage = ({ transitionState, match: { params } }: Props) => {
+const WorkPage = ({ transitionState }: PassProps) => ({
+  match: { params },
+}: RouteComponentProps<{ workId: string }>) => {
   const { cardImage, placeholder, details } = cardsById[params.workId]
   // const imageSrc = useLazyImage(cardImage, placeholder)
+
   return (
     <ImageWrapper transitionState={transitionState}>
       <WrapImage>
