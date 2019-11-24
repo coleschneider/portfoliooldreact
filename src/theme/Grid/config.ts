@@ -1,23 +1,23 @@
 import { css, DefaultTheme, ThemedCssFunction, ThemedStyledProps } from 'styled-components'
 import PropTypes, { Requireable } from 'prop-types'
 
-type Dimensions = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type Dimensions = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'tablet'
 
-export const DIMENSIONS: Dimensions[] = ['xs', 'sm', 'md', 'lg', 'xl']
+export const DIMENSIONS: Dimensions[] = ['xs', 'sm', 'md', 'tablet', 'lg', 'xl']
 export type ConfigDimensions<T> = {
   [k in Dimensions]: T
 }
+
 export interface Baseconfig {
   mediaQuery: 'only screen'
-  columns: ConfigDimensions<number>
-  gutterWidth: ConfigDimensions<number>
-  paddingWidth: ConfigDimensions<number>
-  container: ConfigDimensions<number | 'full'>
+  columns: Omit<ConfigDimensions<number>, 'tablet'>
+  gutterWidth: Omit<ConfigDimensions<number>, 'tablet'>
+  paddingWidth: Omit<ConfigDimensions<number>, 'tablet'>
+  container: Omit<ConfigDimensions<number | 'full'>, 'tablet'>
   breakpoints: ConfigDimensions<number>
   // eslint-disable-next-line
   [key: string]: any;
 }
-
 export const BASE_CONF: Baseconfig = {
   mediaQuery: 'only screen',
   columns: {
@@ -49,11 +49,17 @@ export const BASE_CONF: Baseconfig = {
     xl: 90, // max-width: 1440px
   },
   breakpoints: {
-    xs: 1,
-    sm: 48, // 768px
-    md: 64, // 1024px
-    lg: 90, // 1440px
-    xl: 120, // 1920px
+    xs: 16,
+    sm: 768, // 768px
+    tablet: 800, // 800px
+    md: 1024, // 1024px
+    lg: 1440, // 1440px
+    xl: 1920, // 1920px
+    // sm: 48, // 768px
+    // tablet: 50, // 800px
+    // md: 64, // 1024px
+    // lg: 90, // 1440px
+    // xl: 120, // 1920px
   },
 }
 export interface ConfigMedia extends Baseconfig {
@@ -72,9 +78,7 @@ export const media = (Object.keys(BASE_CONF.breakpoints) as Dimensions[]).reduce
   (mediaQuery, breakpoint) => {
     const breakpointWidth = BASE_CONF.breakpoints[breakpoint]
     mediaQuery[breakpoint] = makeMedia(
-      [BASE_CONF.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
-        .filter(Boolean)
-        .join(' and '),
+      [BASE_CONF.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}px)`].filter(Boolean).join(' and '),
     )
     return mediaQuery
   },
@@ -87,7 +91,7 @@ function transformConfig(basConfig: Baseconfig): ConfigMedia {
     (mediaQuery, breakpoint) => {
       const breakpointWidth = basConfig.breakpoints[breakpoint]
       mediaQuery[breakpoint] = makeMedia(
-        [basConfig.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}rem)`]
+        [basConfig.mediaQuery, breakpointWidth >= 0 && `(min-width: ${breakpointWidth}px)`]
           .filter(Boolean)
           .join(' and '),
       )

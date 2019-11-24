@@ -3,7 +3,7 @@ import React from 'react'
 import {Helmet, HelmetProvider} from 'react-helmet-async'
 import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
 import { useSpring } from 'react-spring'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
 import Work from './Work/Work'
@@ -46,9 +46,17 @@ const App: React.FC = () => {
         cardsById: {
           [location.state.id]: location.state.meta.from,
         },
+        validDimensions: false,
       }
     : undefined
-  const { state, updateCardDimensions, onSelectCard, onUnselectCard } = useCardDimensions(initialCardState)
+  const {
+    state,
+    updateCardDimensions,
+    invalidateDimensions,
+    validateDimensions,
+    onSelectCard,
+    onUnselectCard,
+  } = useCardDimensions(initialCardState)
 
   const isModalContainer = isModal && state.currentCard === location.state.id
   const [, setY] = useSpring<SpringWindow>(windowFn)
@@ -106,6 +114,9 @@ const App: React.FC = () => {
                 <Work
                   {...props}
                   isModal={isModal}
+                  validDimensions={state.validDimensions}
+                  invalidateDimensions={invalidateDimensions}
+                  validateDimensions={validateDimensions}
                   onUpdateCards={onUpdateCards}
                   onSelectCard={onSelectCard}
                   currentCard={isModal ? state.currentCard : null}

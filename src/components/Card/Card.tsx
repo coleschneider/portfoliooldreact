@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react'
 import styled from 'styled-components'
-import { animated, useTrail, SpringConfig } from 'react-spring'
+
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import { springs } from '../../theme/animations'
@@ -17,39 +17,12 @@ export const CardImage = styled.img`
   object-fit: cover;
 `
 
-const ImagePopUp = styled.a`
-  position: absolute;
-  top: 0;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-  vertical-align: middle;
-  background: rgba(0, 0, 0, 0.7);
-  opacity: 0;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: opacity 0.2s ease;
-  :hover {
-    opacity: 1;
-  }
-`
-
 interface Props extends RouteComponentProps, Omit<CardActionCreators, 'updateCardDimensions'> {
   card: Card
   setResize: React.Dispatch<React.SetStateAction<boolean>>
   onUpdateCards: UpdateCardsCallback
   shouldResize: boolean
   currentCard: CurrentCardState
-}
-interface TrailAnimation {
-  config: SpringConfig
-  opacity: number
-  x: number
-  height: number
 }
 
 function getDimensionObject(node: HTMLDivElement): DimensionObject {
@@ -69,15 +42,6 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
     }
   }, [shouldResize])
 
-  const [trail, set] = useTrail<TrailAnimation>(description.length, springs.trailCards)
-
-  React.useEffect(() => {
-    set({
-      opacity: 1,
-      x: 0,
-      height: 80,
-    })
-  }, [location, set])
   const handleClick = () => {
     if (element.current) {
       const dimensions = getDimensionObject(element.current)

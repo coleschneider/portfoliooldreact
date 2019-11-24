@@ -127,7 +127,6 @@ function Header({ isModal, onUnselectCard }: Props) {
     })
   }
   return React.useMemo(() => {
-    console.log('rendering header', isModal)
     return (
       <div data-testid="header-testId">
         <div>

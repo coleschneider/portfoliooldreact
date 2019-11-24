@@ -164,14 +164,20 @@ export const ModalContainer = styled.div<TransitionStateProps>`
   }
 `
 
-const cardContainer = css`
+const cardContainerEnter = css`
   top: 90px;
   position: relative;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
 `
+const cardContainerLeave = css`
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+`
 export const CardContainerTransition: Partial<Transitions> = {
-  entered: cardContainer,
-  entering: cardContainer,
+  entered: cardContainerEnter,
+  entering: cardContainerEnter,
+  exited: cardContainerLeave,
+  exiting: cardContainerLeave,
 }
 
 export const AboutTextContainer = styled.div`
