@@ -23,7 +23,6 @@ const WorkPage_Wrapper = styled.div<TransitionStateProps>`
   border-radius: 2px;
   margin-left: 1rem;
   margin-right: 1rem;
-  margin-bottom: 1rem;
   ${({ transitionState }) => CardContainerTransition[transitionState]}
 `
 const WorkPage_Container = styled.div`
