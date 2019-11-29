@@ -8,18 +8,18 @@ import NavLinks from './NavLinks'
 const ArrowIcon = styled.div`
   display: inline-block;
   fill: currentcolor;
-  height: 30px;
+  height: 20px;
   cursor: pointer;
-  width: 30px;
+  width: 20px;
   user-select: none;
   :after {
     content: '';
-    width: 3rem;
-    height: 3rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
     display: block;
     position: relative;
-    bottom: 15px;
+    bottom: 12px;
     left: 50%;
     background-color: #000;
     opacity: 0.1;

@@ -1,9 +1,5 @@
 import styled, { css } from 'styled-components'
-import { Colors } from './colors'
 
-const fontColorMixin = ({ primary }: { primary?: boolean }) => `
-color: ${primary ? Colors.darkBlue : Colors.white};
-`
 export const TextBlock = styled.div`
   box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
   padding-left: 23px;

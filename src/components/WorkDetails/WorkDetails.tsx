@@ -65,8 +65,7 @@ const WorkDetails = ({ transitionState, details }: PassProps) => {
 const WorkPage = ({ transitionState }: PassProps) => ({
   match: { params },
 }: RouteComponentProps<{ workId: string }>) => {
-  const { cardImage, placeholder, details } = cardsById[params.workId]
-  // const imageSrc = useLazyImage(cardImage, placeholder)
+  const { cardImage, details } = cardsById[params.workId]
 
   return (
     <WorkPage_Wrapper transitionState={transitionState}>

@@ -1,13 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import { RouteComponentProps } from 'react-router'
 import Container from '../../theme/Grid/Container'
 import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
 import AboutMe from '../../assets/images/about_me.jpg'
 import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
 import Resume from '../../assets/Resume.pdf'
-import { media } from '../../theme/Grid/config'
 import { ButtonIcon, AboutTextContainer } from '../../theme/Elements'
 import { H1, P } from '../../theme/Typography'
 import Dialog from '../Dialog/Dialog'
@@ -91,9 +89,6 @@ function About() {
               </ButtonGroup>
             </AboutTextContainer>
           </Col>
-          {/* <Col xs={4} sm={4} md={4} lg={6} xl={4}>
-           
-          </Col> */}
         </Row>
       </Container>
     </Wrapper>

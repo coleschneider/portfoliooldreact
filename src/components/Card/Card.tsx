@@ -4,9 +4,7 @@ import styled from 'styled-components'
 
 import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
-import { springs } from '../../theme/animations'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
-import useLazyImage from '../../hooks/useLazyImage'
 import Column from '../../theme/Grid/Column'
 import { TextBlock, H6 } from '../../theme/Typography'
 import GridContainer from '../../theme/Grid/Container'
@@ -31,8 +29,7 @@ function getDimensionObject(node: HTMLDivElement): DimensionObject {
 }
 
 function Card({ currentCard, onSelectCard, onUpdateCards, location, history, card, shouldResize, setResize }: Props) {
-  const { id, description, cardImage, placeholder } = card
-  // const imageSrc = useLazyImage(cardImage, placeholder)
+  const { id, description, cardImage } = card
   const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
