@@ -12,7 +12,7 @@ import { media } from '../../theme/Grid/config'
 const Work_Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin-top: 90px;
+  margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
 `
