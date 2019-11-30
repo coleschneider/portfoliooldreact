@@ -10,12 +10,11 @@ interface NavLinkProps {
 
 const LinkStyles = css`
   z-index: 2;
-  margin: 0 30px;
   cursor: pointer;
   line-height: 2.5em;
   text-decoration: none;
   font: 600 12px/1 'Open Sans', sans-serif;
-
+  margin: 0 1rem;
   ::before {
     content: '';
     position: relative;
@@ -55,9 +54,9 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 `
 
 const navPaths: NavLinkProps[] = [
-  { path: '/', display: 'HOME' },
-  { path: '/mywork', display: 'WORK' },
-  { path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' },
+  { path: '/', display: 'Home' },
+  { path: '/mywork', display: 'Work' },
+  { path: '/static/media/Resume.pdf', display: 'Resume', target: '_blank' },
 ]
 
 function NavLink({ display, path, ...rest }: NavLinkProps) {

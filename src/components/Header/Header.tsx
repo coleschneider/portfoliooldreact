@@ -51,7 +51,7 @@ const HeaderPinned = styled.div`
   left: 0;
   right: 0;
   width: 100%;
-  height: 8vh;
+  height: 67px;
 `
 
 const Navbar = styled.div`
@@ -109,8 +109,6 @@ interface Props {
 }
 
 function Header({ isModal, onUnselectCard }: Props) {
-  const headRef = React.useRef<HTMLDivElement>(null)
-  // const [modeType, setMode] = React.useState('static')
   const { replace } = useHistory()
 
   const handleGoBack = () => {
@@ -130,7 +128,7 @@ function Header({ isModal, onUnselectCard }: Props) {
     return (
       <div data-testid="header-testId">
         <div>
-          <HeadroomWrapper ref={headRef}>
+          <HeadroomWrapper>
             <HeaderPinned>
               <Navbar>
                 <NavBackground />
