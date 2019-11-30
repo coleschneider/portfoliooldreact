@@ -16,7 +16,7 @@ const ImageContainer = styled.img`
   object-fit: cover;
 `
 const Wrapper = styled.div`
-  margin-top: 90px;
+  margin-top: 1rem;
   margin-left: auto;
   margin-right: auto;
   max-width: 800px;
