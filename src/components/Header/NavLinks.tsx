@@ -46,6 +46,7 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
     height: 2px;
     z-index: 8;
     left: 0;
+    top: 8px;
     background-color: #0f3351;
     transform: ${({ matches }) => (matches ? 'scale(1)' : 'scale(0)')};
     transition: all 0.65s cubic-bezier(0.7, 0.3, 0, 1);
@@ -54,9 +55,9 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 `
 
 const navPaths: NavLinkProps[] = [
-  { path: '/', display: 'Home' },
-  { path: '/mywork', display: 'Work' },
-  { path: '/static/media/Resume.pdf', display: 'Resume', target: '_blank' },
+  { path: '/', display: 'HOME' },
+  { path: '/mywork', display: 'WORK' },
+  { path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' },
 ]
 
 function NavLink({ display, path, ...rest }: NavLinkProps) {
