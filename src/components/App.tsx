@@ -128,11 +128,9 @@ const App: React.FC = () => {
         <TransitionGroup>
           <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
             {transitionState => {
-              // When using styled components state doesnt work
               const WorkDetailsTransitioned = WorkDetails({ transitionState })
               return (
-                // <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
-                <ModalContainer className="modal-container" style={position} id="mdl">
+                <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
                   <Switch location={location}>
                     <Route path="/work/:workId" component={WorkDetailsTransitioned} />
                   </Switch>

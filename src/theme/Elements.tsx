@@ -135,7 +135,7 @@ interface Transitions extends CardTransitions {
 }
 export const cardTransitions: Partial<Transitions> = {
   entered: enterTransition,
-  entering: enterTransition,
+  // entering: enterTransition,
   exited: css`
     overflow: hidden;
     z-index: 0;
@@ -149,18 +149,36 @@ export interface TransitionStateProps {
 export const ModalContainer = styled.div<TransitionStateProps>`
   position: fixed;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
-  /* overflow: hidden; */
-  /* top: 0;
+  overflow: hidden;
+  top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   height: 100vh;
-  width: 100vw; */
+  width: 100vw;
   background: white;
   z-index: 2;
-  ${({ transitionState }) => cardTransitions[transitionState]};
   :empty {
     display: none;
+  }
+  &.modal-appear {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: auto;
+  }
+
+  &.modal-enter-active {
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    overflow: auto;
   }
 `
 
