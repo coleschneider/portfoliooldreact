@@ -37,8 +37,8 @@ export const cardsConfig: Card[] = [
     placeholder: ORCASPreviewSmall,
     details: [
       {
-        title: `September - December Blend (Software Engineer Internship)`,
-        body: `During my first Senior semester at Pepperdinue University, I worked with a team of other students to improve the current state of a non profit organization. We we're assigned the ORCAS who's mission is to build a better senior center for the community of Oxnard, CA. My team and I presented them with multiple new strategies to help achieve their goal, one of the being a new website that I woked on for the duration of the project.`,
+        title: `ORCA Seniors`,
+        body: `During my first Senior semester at Pepperdine University, I worked with a team of other students to improve the current state of a non profit organization. We we're assigned the ORCAS who's mission is to build a better senior center for the community of Oxnard, CA. My team and I presented them with multiple new strategies to help achieve their goal, one of the being a new website that I woked on for the duration of the project.`,
       },
       {
         title: `Development`,
