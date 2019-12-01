@@ -184,6 +184,7 @@ export const ModalContainer = styled.div<TransitionStateProps>`
 
 const cardContainerEnter = css`
   top: 90px;
+  padding-bottom: 1rem;
   position: relative;
   transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1);
 `
