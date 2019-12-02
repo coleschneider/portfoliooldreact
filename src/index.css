@@ -117,6 +117,7 @@ body {
 body.overflow-page {
   overflow: hidden
 }
+
 head {
   display: none;
 }
