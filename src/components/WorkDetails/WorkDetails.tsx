@@ -67,8 +67,9 @@ const WorkPage = ({ transitionState }: PassProps) => ({
   match: { params },
 }: RouteComponentProps<{ workId: string }>) => {
   const { placeholder, cardImage, details } = cardsById[params.workId]
+  // eslint-disable-next-line
   const imageSrc = useLazyImage(cardImage, placeholder)
-
+  // eslint-disable-next-line
   return React.useMemo(
     () => (
       <WorkPage_Wrapper transitionState={transitionState}>
