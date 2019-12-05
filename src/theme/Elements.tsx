@@ -111,6 +111,7 @@ export const Pane = styled.div`
   ${withHover}
   z-index: 1;
   display: flex;
+  flex-direction: column;
   border-radius: 5px;
   transition-duration: 150ms;
   transition-property: box-shadow, transform, border;
