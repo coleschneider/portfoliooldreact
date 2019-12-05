@@ -110,6 +110,7 @@ export const Pane = styled.div`
   width: 100%;
   ${withHover}
   z-index: 1;
+  display: flex;
   border-radius: 5px;
   transition-duration: 150ms;
   transition-property: box-shadow, transform, border;

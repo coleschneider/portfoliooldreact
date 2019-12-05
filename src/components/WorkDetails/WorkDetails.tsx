@@ -6,6 +6,7 @@ import { CardImage } from '../Card/Card'
 import { cardsById } from '../Card/cardsConfig'
 import { CardContainerTransition, TransitionStateProps } from '../../theme/Elements'
 import { media } from '../../theme/Grid/config'
+import useLazyImage from '../../hooks/useLazyImage'
 
 interface PassProps extends Pick<Card, 'details'>, TransitionStateProps {}
 
@@ -65,17 +66,21 @@ const WorkDetails = ({ transitionState, details }: PassProps) => {
 const WorkPage = ({ transitionState }: PassProps) => ({
   match: { params },
 }: RouteComponentProps<{ workId: string }>) => {
-  const { cardImage, details } = cardsById[params.workId]
+  const { placeholder, cardImage, details } = cardsById[params.workId]
+  const imageSrc = useLazyImage(cardImage, placeholder)
 
-  return (
-    <WorkPage_Wrapper transitionState={transitionState}>
-      <WorkPage_Container>
-        <WrapImage>
-          <CardImage src={cardImage} />
-        </WrapImage>
-        <WorkDetails transitionState={transitionState} details={details} />
-      </WorkPage_Container>
-    </WorkPage_Wrapper>
+  return React.useMemo(
+    () => (
+      <WorkPage_Wrapper transitionState={transitionState}>
+        <WorkPage_Container>
+          <WrapImage>
+            <CardImage src={imageSrc} />
+          </WrapImage>
+          <WorkDetails transitionState={transitionState} details={details} />
+        </WorkPage_Container>
+      </WorkPage_Wrapper>
+    ),
+    [imageSrc],
   )
 }
 

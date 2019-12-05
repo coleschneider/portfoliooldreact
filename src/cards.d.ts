@@ -13,6 +13,7 @@ interface CardDetails {
 interface Card {
   description: string
   id: string
+  position: string
   cardImage: string
   placeholder: string
   details: CardDetails[]

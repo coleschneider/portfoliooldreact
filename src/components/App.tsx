@@ -1,6 +1,5 @@
 import React from 'react'
 // eslint-disable-next-line
-import {Helmet, HelmetProvider} from 'react-helmet-async'
 import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
 import { useSpring } from 'react-spring'
 import styled from 'styled-components'
@@ -10,7 +9,7 @@ import Work from './Work/Work'
 import WorkDetails from './WorkDetails/WorkDetails'
 import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
-import useCardDimensions from '../hooks/useCardDimensions/useCardDimensions'
+import { CardsContext } from '../hooks/useCardDimensions/useCardDimensions'
 import { ModalContainer } from '../theme/Elements'
 
 const Scrollup = styled.a`
@@ -21,6 +20,25 @@ const Scrollup = styled.a`
   bottom: 50px;
   z-index: 2;
 `
+const ChildTransition = ({ location, position }) => {
+  return (
+    <TransitionGroup>
+      <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
+        {transitionState => {
+          const WorkDetailsTransitioned = WorkDetails({ transitionState })
+          return (
+            <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
+              <Switch location={location}>
+                <Route path="/work/:workId" component={WorkDetailsTransitioned} />
+              </Switch>
+            </ModalContainer>
+          )
+        }}
+      </OmittedTransitionGroup>
+    </TransitionGroup>
+  )
+}
+
 interface SpringWindow {
   onFrame: ({ y }: { y: number }) => void
   y: number
@@ -33,31 +51,13 @@ class OmittedTransitionGroup extends CSSTransition {
   }
 }
 
-const App: React.FC = () => {
+const App: React.FC = props => {
   const location = useLocation()
 
   const background = location.state && location.state.background
 
   const isModal = background && location.state.to === 'modal'
-
-  const initialCardState = isModal
-    ? {
-        currentCard: location.state.id,
-        cardsById: {
-          [location.state.id]: location.state.meta.from,
-        },
-        validDimensions: false,
-      }
-    : undefined
-  const {
-    state,
-    updateCardDimensions,
-    invalidateDimensions,
-    validateDimensions,
-    onSelectCard,
-    onUnselectCard,
-  } = useCardDimensions(initialCardState)
-
+  const { state, onUnselectCard } = React.useContext(CardsContext)
   const isModalContainer = isModal && state.currentCard === location.state.id
   const [, setY] = useSpring<SpringWindow>(windowFn)
   const getScrollContainer = () => {
@@ -87,63 +87,22 @@ const App: React.FC = () => {
     })
   }
 
-  const onUpdateCards: UpdateCardsCallback = (dimensions: DimensionObject, id: string) => {
-    if (!isModal) {
-      updateCardDimensions(dimensions, id)
-    }
-    if (isModal && id === location.state.id) {
-      updateCardDimensions(dimensions, id)
-    }
-  }
   const position = state.currentCard ? state.cardsById[state.currentCard] : {}
 
   return (
-    <HelmetProvider>
-      <div className="App">
-        <Helmet>
-          <body className={isModal ? 'overflow-page' : undefined} />
-        </Helmet>
-        <Header onUnselectCard={onUnselectCard} isModal={isModal} />
-        <div className="view-container">
-          <Switch location={background || location}>
-            <Route exact path="/" component={Home} />
-            <Route
-              exact
-              path="/mywork"
-              component={(props: RouteComponentProps) => (
-                <Work
-                  {...props}
-                  isModal={isModal}
-                  validDimensions={state.validDimensions}
-                  invalidateDimensions={invalidateDimensions}
-                  validateDimensions={validateDimensions}
-                  onUpdateCards={onUpdateCards}
-                  onSelectCard={onSelectCard}
-                  currentCard={isModal ? state.currentCard : null}
-                />
-              )}
-            />
-          </Switch>
-        </div>
-        <TransitionGroup>
-          <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
-            {transitionState => {
-              const WorkDetailsTransitioned = WorkDetails({ transitionState })
-              return (
-                <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
-                  <Switch location={location}>
-                    <Route path="/work/:workId" component={WorkDetailsTransitioned} />
-                  </Switch>
-                </ModalContainer>
-              )
-            }}
-          </OmittedTransitionGroup>
-        </TransitionGroup>
-        <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
-          <UpArrow />
-        </Scrollup>
+    <div className="App">
+      <Header onUnselectCard={onUnselectCard} isModal={isModal} />
+      <div className="view-container">
+        <Switch location={background || location}>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/mywork" component={Work} />
+        </Switch>
       </div>
-    </HelmetProvider>
+      <ChildTransition position={position} location={location} />
+      <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
+        <UpArrow />
+      </Scrollup>
+    </div>
   )
 }
 

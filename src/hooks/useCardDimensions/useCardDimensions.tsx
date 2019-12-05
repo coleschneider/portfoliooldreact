@@ -35,5 +35,17 @@ function useCardDimensions(initalState: CardsState = { cardsById: {}, currentCar
     state,
   }
 }
+type ContextProps = { state: CardsState } & ReturnType<typeof createActions>
 
+export const CardsContext = React.createContext<ContextProps>({
+  state: { cardsById: {}, currentCard: null },
+})
+
+interface ProviderProps {
+  initialState?: CardsState
+  children: React.ReactNode
+}
+export const CardsProvider = ({ initialState, children }: ProviderProps) => {
+  return <CardsContext.Provider value={useCardDimensions(initialState)}>{children}</CardsContext.Provider>
+}
 export default useCardDimensions

@@ -6,9 +6,10 @@ import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 import Column from '../../theme/Grid/Column'
-import { TextBlock, H6 } from '../../theme/Typography'
+import { TextBlock, H6, P } from '../../theme/Typography'
 import GridContainer from '../../theme/Grid/Container'
 import GridRow from '../../theme/Grid/Row'
+import { CardsContext } from '../../hooks/useCardDimensions/useCardDimensions'
 
 export const CardImage = styled.img`
   width: 100%;
@@ -28,13 +29,19 @@ function getDimensionObject(node: HTMLDivElement): DimensionObject {
   return { top, right, bottom, left, width, height }
 }
 
-function Card({ currentCard, onSelectCard, onUpdateCards, location, history, card, shouldResize, setResize }: Props) {
-  const { id, description, cardImage } = card
+function Card({ location, history, card, shouldResize, setResize }: Props) {
+  const {
+    onSelectCard,
+    updateCardDimensions,
+    state: { currentCard },
+  } = React.useContext(CardsContext)
+
+  const { id, description, cardImage, position } = card
   const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
     if (shouldResize && element.current) {
-      onUpdateCards(getDimensionObject(element.current), id)
+      updateCardDimensions(getDimensionObject(element.current), id)
       setResize(false)
     }
   }, [shouldResize])
@@ -43,7 +50,7 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
     if (element.current) {
       const dimensions = getDimensionObject(element.current)
       onSelectCard(id)
-      onUpdateCards(dimensions, id)
+      updateCardDimensions(dimensions, id)
       history.push({
         pathname: `/work/${id}`,
         state: {
@@ -64,12 +71,20 @@ function Card({ currentCard, onSelectCard, onUpdateCards, location, history, car
         <Column md={2} lg={4} xl={4}>
           <TextBlock>
             <H6>{description}</H6>
+            <P>{position}</P>
           </TextBlock>
         </Column>
-        <Column md={6} lg={8} xl={8}>
+        <Column
+          css={css`
+            padding: 1.5rem;
+          `}
+          md={6}
+          lg={8}
+          xl={8}
+        >
           <Pane
             onClick={handleClick}
-            level={2}
+            level={1}
             hover
             ref={element}
             style={{ position: currentCard ? undefined : 'relative' }}

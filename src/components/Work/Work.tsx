@@ -15,12 +15,14 @@ const Work_Wrapper = styled.div`
   margin-top: 1rem;
   margin-left: 1rem;
   margin-right: 1rem;
+  padding-bottom: 120px;
 `
 const Work_Container = styled.div`
   ${media.tablet`
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
+    
   `}
 `
 
@@ -31,10 +33,16 @@ interface Props extends RouteComponentProps, CardActionCreators {
 
 const WorkCards = (props: Props) => {
   const [shouldResize, setResize] = React.useState(false)
+  const [height, setHeight] = React.useState(window.innerHeight)
+  const [width, setWidth] = React.useState(window.innerWidth)
 
   React.useEffect(() => {
     const handleResize = () => {
-      setResize(true)
+      if (height !== window.innerHeight || width !== window.innerWidth) {
+        setHeight(window.innerHeight)
+        setWidth(window.innerWidth)
+        setResize(true)
+      }
     }
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)

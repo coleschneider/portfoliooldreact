@@ -36,11 +36,11 @@ const boxShadows = [
 ]
 export const withHover = ({ hover, level }: ShadowProps) => {
   return css`
-    box-shadow: ${boxShadows[level]};
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     :hover {
       ${hover &&
         css`
-          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+          box-shadow: ${boxShadows[level]};
         `}
     }
   `
