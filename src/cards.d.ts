@@ -16,6 +16,7 @@ interface Card {
   position: string
   cardImage: string
   placeholder: string
+  link: string
   details: CardDetails[]
 }
 

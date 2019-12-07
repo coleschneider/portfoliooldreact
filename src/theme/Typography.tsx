@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { Colors } from './colors'
 
 export const TextBlock = styled.div`
   box-shadow: inset 3px 0 0 0 rgba(0, 0, 0, 0.84);
@@ -34,3 +35,13 @@ export const subHeader = css`
 `
 
 export const P = styled.p``
+export const CardLink = styled.a`
+  display: inline;
+  margin: 10px 30px 5px 0;
+  border-bottom: 1px dashed;
+  font-weight: 500;
+  line-height: 2.5;
+  text-decoration: none;
+  cursor: pointer;
+  color: ${Colors.primaryColor};
+`

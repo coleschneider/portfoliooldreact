@@ -14,6 +14,7 @@ export enum Colors {
   evergreen = 'rgb(35, 67, 97)',
   neutralShade1 = '#f2f2f2',
   neutralShade2 = '#e8e9e9',
+  primaryColor = '#03a9f4',
   neutralShade3 = '#d1d3d4',
   neutralShade4 = '#babdbf',
   neutralShade5 = '#808488',

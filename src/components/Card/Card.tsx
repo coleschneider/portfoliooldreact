@@ -6,7 +6,7 @@ import { RouteComponentProps } from 'react-router'
 import { Pane } from '../../theme/Elements'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 import Column from '../../theme/Grid/Column'
-import { TextBlock, H6, P } from '../../theme/Typography'
+import { TextBlock, H6, P, CardLink } from '../../theme/Typography'
 import GridContainer from '../../theme/Grid/Container'
 import GridRow from '../../theme/Grid/Row'
 import { CardsContext } from '../../hooks/useCardDimensions/useCardDimensions'
@@ -36,7 +36,7 @@ function Card({ location, history, card, shouldResize, setResize }: Props) {
     state: { currentCard },
   } = React.useContext(CardsContext)
 
-  const { id, description, cardImage, position } = card
+  const { id, description, cardImage, position, link } = card
   const element = React.useRef<HTMLDivElement>(null)
 
   React.useEffect(() => {
@@ -72,6 +72,9 @@ function Card({ location, history, card, shouldResize, setResize }: Props) {
           <TextBlock>
             <H6>{description}</H6>
             <P>{position}</P>
+            <CardLink href={link} target="_blank">
+              Visit Site
+            </CardLink>
           </TextBlock>
         </Column>
         <Column

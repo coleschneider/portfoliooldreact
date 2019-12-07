@@ -12,6 +12,7 @@ export const cardsConfig: Card[] = [
     cardImage: BlendLogo,
     placeholder: BlendLogoSmall,
     position: 'Software Engineer (Intern)',
+    link: 'https://blend.com',
     details: [
       {
         title: `Blend (Software Engineer Internship)`,
@@ -37,6 +38,7 @@ export const cardsConfig: Card[] = [
     position: 'Developer for a non-profit',
     cardImage: ORCASPreview,
     placeholder: ORCASPreviewSmall,
+    link: 'https://orcaseniors.org',
     details: [
       {
         title: `ORCA Seniors`,
@@ -62,6 +64,7 @@ export const cardsConfig: Card[] = [
     position: 'Developer / Project',
     cardImage: DanMillerATI,
     placeholder: DanMillerATISmall,
+    link: 'https://www.danmillerati.com',
     details: [
       {
         title: `Dan Miller ATI`,

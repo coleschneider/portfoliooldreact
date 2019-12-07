@@ -1,2 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
+Allow: /
+Sitemap: https://coleschneider.me/sitemap.xml
+Host: https://coleschneider.me
