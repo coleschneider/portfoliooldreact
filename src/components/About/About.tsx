@@ -43,17 +43,17 @@ function About() {
               <div>
                 <H1>Cole Schneider</H1>
                 <P>
-                  Hi my name is Cole Schneider I am currently a senior at{' '}
+                  Hi my name is Cole Schneider. I am a recent graduate of{' '}
                   <ExternalLink target="_blank" href="https://www.pepperdine.edu/">
                     {' '}
                     Pepperdine University.
                   </ExternalLink>{' '}
-                  Expected graduation date is Fall of 2019 with a major in business administration and and a minor in
-                  computer science. Please feel free to{' '}
+                  I am currently based in San Francisco, CA and looking for software engineering opportunities in the
+                  bay area. Please feel free to{' '}
                   <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
                     send an email
                   </ExternalLink>{' '}
-                  to me with any questions or concerns.
+                  with any questions or concerns.
                 </P>
               </div>
               <ButtonGroup>
