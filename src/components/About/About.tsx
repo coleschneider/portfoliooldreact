@@ -8,7 +8,6 @@ import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
 import Resume from '../../assets/Resume.pdf'
 import { ButtonIcon, AboutTextContainer } from '../../theme/Elements'
 import { H1, P } from '../../theme/Typography'
-import Dialog from '../Dialog/Dialog'
 import useLazyImage from '../../hooks/useLazyImage'
 
 const ImageContainer = styled.img`
@@ -30,32 +29,10 @@ const ButtonGroup = styled.div`
   margin-top: 24px;
 `
 function About() {
-  const [{ isShown }, setState] = React.useState({ isShown: true })
   const imageSrc = useLazyImage(AboutMe, AboutMePlaceholder)
-  const handleClose = () => {
-    setState({ isShown: false })
-  }
-  const openResume = () => {
-    window.open(Resume)
-  }
+
   return (
     <Wrapper>
-      <Dialog
-        confirmLabel="View Resume"
-        title="Hello!"
-        isShown={isShown}
-        onCloseComplete={handleClose}
-        onCancel={handleClose}
-        onConfirm={openResume}
-      >
-        <P>
-          Hi there! Welcome to my site. Feel free to contact me at the bottom of the page or
-          <ExternalLink target="_blank" href="mailto:colekschneider@gmail.com?Subject=Website%20Inquiry">
-            {' '}
-            send an email
-          </ExternalLink>
-        </P>
-      </Dialog>
       <Container>
         <Row>
           <Col center xs={4} sm={4} md={4} lg={6} xl={4}>
