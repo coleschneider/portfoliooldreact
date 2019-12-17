@@ -1,31 +1,8 @@
 import React from 'react'
 import { TransitionStatus } from 'react-transition-group/Transition'
 import { css, keyframes, FlattenSimpleInterpolation } from 'styled-components'
+import { useSpring } from 'react-spring'
 
-const animationPatterns = {
-  deceleration: `cubic-bezier(0.0, 0.0, 0.2, 1)`,
-  acceleration: `cubic-bezier(0.4, 0.0, 1, 1)`,
-  spring: `cubic-bezier(0.175, 0.885, 0.320, 1.175)`,
-}
-
-const openAnimation = keyframes`
-to {
-  transform: translateY(0);
-}
-from {
-  transform: translateY(100%);
-}
-`
-const closeAnimation = keyframes`
-  from {
-    transform: scale(1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-`
 const DIALOG_TRANSITION = 300
 
 type StyleProps = {
@@ -36,20 +13,8 @@ interface Styles extends Omit<StyleProps, 'exited' | 'unmounted'> {
 }
 
 const transitions: {
-  dialogTransition: Styles
   cardTransition: Styles
 } = {
-  dialogTransition: {
-    entering: css`
-      animation: ${openAnimation} ${DIALOG_TRANSITION}ms ${animationPatterns.spring} both;
-    `,
-    entered: css`
-      animation: ${openAnimation} ${DIALOG_TRANSITION}ms ${animationPatterns.spring} both;
-    `,
-    exiting: css`
-      animation: ${closeAnimation} 120ms ${animationPatterns.acceleration} both;
-    `,
-  },
   cardTransition: {
     entering: css`
       top: 0 !important;
@@ -71,6 +36,12 @@ const transitions: {
     `,
   },
 }
+
+interface SpringWindow {
+  onFrame: ({ y }: { y: number }) => void
+  y: number
+}
+
 const springs = {
   trailCards: () => ({
     config: { duration: 400, mass: 1, tension: 5000, friction: 250 },
@@ -78,6 +49,38 @@ const springs = {
     x: 0,
     height: 80,
   }),
+  windowFn: (): SpringWindow => ({ y: 0, onFrame: ({ y }) => window.scroll(0, y) }),
 }
 
-export { transitions, DIALOG_TRANSITION, springs }
+function useArrowClick(container: string, isModal: boolean) {
+  const containerElement = document.getElementById(container)
+  const [, setY] = useSpring<SpringWindow>(springs.windowFn)
+  const getScrollContainer = () => {
+    const modalContainer = document.getElementById(container)
+    if (isModal && modalContainer) {
+      return modalContainer
+    }
+    return window
+  }
+  const getScrollTop = () => {
+    const c = document.getElementById(container)
+    if (isModal && c) {
+      return c.scrollTop
+    }
+    return window.scrollY
+  }
+
+  const onFrame = ({ y }: { y: number }) => {
+    return getScrollContainer().scroll(0, y)
+  }
+  const onClick = () => {
+    setY({
+      y: 0,
+      reset: true,
+      from: { y: getScrollTop() },
+      onFrame,
+    })
+  }
+  return { onClick }
+}
+export { transitions, DIALOG_TRANSITION, springs, useArrowClick }

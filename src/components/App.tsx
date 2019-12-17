@@ -1,7 +1,5 @@
 import React from 'react'
-// eslint-disable-next-line
 import { Route, Switch, useLocation, RouteComponentProps } from 'react-router-dom'
-import { useSpring } from 'react-spring'
 import styled from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Home from './Home/Home'
@@ -11,6 +9,7 @@ import Header from './Header/Header'
 import { ReactComponent as UpArrow } from '../logo.svg'
 import { CardsContext } from '../hooks/useCardDimensions/useCardDimensions'
 import { ModalContainer } from '../theme/Elements'
+import { useArrowClick } from '../theme/animations'
 
 const Scrollup = styled.a`
   position: fixed;
@@ -20,7 +19,13 @@ const Scrollup = styled.a`
   bottom: 50px;
   z-index: 2;
 `
-const ChildTransition = ({ location, position }) => {
+
+const ChildTransition = ({
+  location,
+  position,
+}: {
+  position: DimensionObject
+} & Pick<RouteComponentProps, 'location'>) => {
   return (
     <TransitionGroup>
       <OmittedTransitionGroup timeout={450} classNames="modal" key={location.pathname} mountOnEnter appear>
@@ -39,54 +44,19 @@ const ChildTransition = ({ location, position }) => {
   )
 }
 
-interface SpringWindow {
-  onFrame: ({ y }: { y: number }) => void
-  y: number
-}
-const windowFn = (): SpringWindow => ({ y: 0, onFrame: ({ y }) => window.scroll(0, y) })
-
 class OmittedTransitionGroup extends CSSTransition {
   onEntered = () => {
     // Do not remove enter classes when active
   }
 }
 
-const App: React.FC = props => {
+const App: React.FC = () => {
   const location = useLocation()
-
   const background = location.state && location.state.background
-
   const isModal = background && location.state.to === 'modal'
   const { state, onUnselectCard } = React.useContext(CardsContext)
   const isModalContainer = isModal && state.currentCard === location.state.id
-  const [, setY] = useSpring<SpringWindow>(windowFn)
-  const getScrollContainer = () => {
-    const modalContainer = document.getElementById('mdl')
-    if (isModalContainer) {
-      return modalContainer
-    }
-    return window
-  }
-  const getScrollTop = () => {
-    const c = document.getElementById('mdl')
-    if (isModalContainer) {
-      return c.scrollTop
-    }
-    return window.scrollY
-  }
-
-  const onFrame = ({ y }: { y: number }) => {
-    return getScrollContainer().scroll(0, y)
-  }
-  const handleUpArrowClick = () => {
-    setY({
-      y: 0,
-      reset: true,
-      from: { y: getScrollTop() },
-      onFrame,
-    })
-  }
-
+  const arrowClick = useArrowClick('mdl', isModalContainer)
   const position = state.currentCard ? state.cardsById[state.currentCard] : {}
 
   return (
@@ -99,7 +69,7 @@ const App: React.FC = props => {
         </Switch>
       </div>
       <ChildTransition position={position} location={location} />
-      <Scrollup onClick={handleUpArrowClick} data-testid="upArrow">
+      <Scrollup {...arrowClick} data-testid="upArrow">
         <UpArrow />
       </Scrollup>
     </div>

@@ -63,7 +63,7 @@ const WorkDetails = ({ transitionState, details }: PassProps) => {
   )
 }
 
-const WorkPage = ({ transitionState }: PassProps) => ({
+const WorkPage = ({ transitionState }: TransitionStateProps) => ({
   match: { params },
 }: RouteComponentProps<{ workId: string }>) => {
   const { placeholder, cardImage, details } = cardsById[params.workId]
