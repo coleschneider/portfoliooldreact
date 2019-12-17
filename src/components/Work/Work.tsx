@@ -22,7 +22,6 @@ const Work_Container = styled.div`
     margin-left: auto;
     margin-right: auto;
     max-width: 800px;
-    
   `}
 `
 

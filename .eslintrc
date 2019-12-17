@@ -41,6 +41,7 @@
     "no-prototype-builtins": "off",
     "import/no-cycle": "off",
     "no-bitwise": "off",
+    "react/jsx-pascal-case": "off",
     "no-plusplus":"off",
     /**
      * @bug?
