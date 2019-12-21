@@ -2,6 +2,7 @@
   "name": "por",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://coleschneider.me/",
   "dependencies": {
     "@babel/core": "7.6.0",
     "@svgr/webpack": "4.3.2",
