@@ -10,7 +10,7 @@ describe('NavLinks', () => {
     const Links = shallow(<NavLinks />).find('NavLink')
     expect(Links).toHaveLength(3)
     expect(Links.first().props()).toEqual({ path: '/', display: 'HOME' })
-    expect(Links.at(1).props()).toEqual({ path: '/mywork', display: 'WORK' })
+    expect(Links.at(1).props()).toEqual({ path: '/work', display: 'WORK' })
     expect(Links.at(2).props()).toEqual({ path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' })
   })
 })

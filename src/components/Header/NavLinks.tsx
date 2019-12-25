@@ -56,7 +56,7 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 
 const navPaths: NavLinkProps[] = [
   { path: '/', display: 'HOME' },
-  { path: '/mywork', display: 'WORK' },
+  { path: '/work', display: 'WORK' },
   { path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' },
 ]
 

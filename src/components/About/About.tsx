@@ -59,7 +59,7 @@ function About() {
                 </P>
               </div>
               <ButtonGroup>
-                <ButtonIcon icon="PointerRight" to="/mywork">
+                <ButtonIcon icon="PointerRight" to="/work">
                   See Work
                 </ButtonIcon>
                 <ButtonIcon icon="PointerRight" primary target="_blank" href={Resume}>

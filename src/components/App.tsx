@@ -65,7 +65,7 @@ const App: React.FC = () => {
       <div className="view-container">
         <Switch location={background || location}>
           <Route exact path="/" component={Home} />
-          <Route exact path="/mywork" component={Work} />
+          <Route exact path="/work" component={Work} />
         </Switch>
       </div>
       <ChildTransition position={position} location={location} />

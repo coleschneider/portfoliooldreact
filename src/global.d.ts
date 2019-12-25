@@ -1,6 +1,6 @@
 type Icons = 'PointerRight' | 'Close' | 'LeftArrow'
 
-type ConstantPaths = '/mywork' | '/' | '/static/media/Resume.pdf'
+type ConstantPaths = '/work' | '/' | '/static/media/Resume.pdf'
 
 type renderFn = typeof import('enzyme').render
 type mountFn = typeof import('enzyme').mount

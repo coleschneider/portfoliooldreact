@@ -114,7 +114,7 @@ function Header({ isModal, onUnselectCard }: Props) {
   const handleGoBack = () => {
     onUnselectCard()
     replace({
-      pathname: '/mywork',
+      pathname: '/work',
       state: {},
     })
   }

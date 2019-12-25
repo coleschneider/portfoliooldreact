@@ -10,7 +10,7 @@ exports[`NavLinks should match the snapshot 1`] = `
   <NavLink
     display="WORK"
     key="WORK"
-    path="/mywork"
+    path="/work"
   />
   <NavLink
     display="RESUME"
