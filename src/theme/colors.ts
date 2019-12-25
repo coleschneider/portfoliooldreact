@@ -27,7 +27,7 @@ export enum Colors {
   boxShadow = '0 2px 5px rgba(#333, 0.2)',
 }
 interface ShadowProps {
-  hover: boolean
+  hover?: boolean
   level: 1 | 2 | 3
 }
 

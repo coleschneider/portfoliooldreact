@@ -3,10 +3,10 @@ import styled from 'styled-components'
 import Container from '../../theme/Grid/Container'
 import Row from '../../theme/Grid/Row'
 import Col from '../../theme/Grid/Column'
-import AboutMe from '../../assets/images/about_me.jpg'
-import AboutMePlaceholder from '../../assets/images/AboutMeSmall.jpg'
+import Profile from '../../assets/images/ProfileImage.jpg'
+import ProfilePlaceholder from '../../assets/images/ProfileImageSmall.jpg'
 import Resume from '../../assets/Resume.pdf'
-import { ButtonIcon, AboutTextContainer } from '../../theme/Elements'
+import { ButtonIcon, AboutTextContainer, Pane } from '../../theme/Elements'
 import { H1, P } from '../../theme/Typography'
 import useLazyImage from '../../hooks/useLazyImage'
 
@@ -29,14 +29,16 @@ const ButtonGroup = styled.div`
   margin-top: 24px;
 `
 function About() {
-  const imageSrc = useLazyImage(AboutMe, AboutMePlaceholder)
+  const imageSrc = useLazyImage(Profile, ProfilePlaceholder)
 
   return (
     <Wrapper>
       <Container>
         <Row>
           <Col center xs={4} sm={4} md={4} lg={6} xl={4}>
-            <ImageContainer src={imageSrc} />
+            <Pane level={1}>
+              <ImageContainer src={imageSrc} />
+            </Pane>
           </Col>
           <Col xs={8} sm={4} md={4} lg={6} xl={8}>
             <AboutTextContainer>
