@@ -138,7 +138,7 @@ function Header({ isModal, onUnselectCard }: Props) {
                       <LeftArrow />
                     </ArrowIcon>
                   ) : (
-                    <Name onClick={handleGoHome}>COLE SCHNEIDER</Name>
+                    <Name onClick={handleGoHome}>Cole Schneider</Name>
                   )}
                 </NameContainer>
               </NavOuter>

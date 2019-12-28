@@ -3,12 +3,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import { RouteComponentProps } from 'react-router-dom'
+import debounce from 'lodash.debounce'
 import { H2, H6, TextBlock } from '../../theme/Typography'
 import Card from '../Card/Card'
 import { cardsConfig } from '../Card/cardsConfig'
 import { CardActionCreators } from '../../hooks/useCardDimensions/actions'
 import { media } from '../../theme/Grid/config'
-import { CardsContext } from '../../hooks/useCardDimensions/useCardDimensions'
 
 const Work_Wrapper = styled.div`
   display: flex;
@@ -32,32 +32,23 @@ interface Props extends RouteComponentProps, CardActionCreators {
 }
 
 const WorkCards = (props: Props) => {
-  const {
-    onSelectCard,
-    updateCardDimensions,
-    state: { currentCard },
-  } = React.useContext(CardsContext)
   const [shouldResize, setResize] = React.useState(false)
   const [height, setHeight] = React.useState(window.innerHeight)
   const [width, setWidth] = React.useState(window.innerWidth)
 
   React.useEffect(() => {
-    const handleResize = () => {
+    function handleResize() {
       if (height !== window.innerHeight || width !== window.innerWidth) {
         setHeight(window.innerHeight)
         setWidth(window.innerWidth)
         setResize(true)
       }
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+    const debouncedResize = debounce(handleResize, 1000)
+    window.addEventListener('resize', debouncedResize)
+    return () => window.removeEventListener('resize', debouncedResize)
   }, [])
-  const handleResize = React.useCallback(
-    id => {
-      console.log(id, shouldResize)
-    },
-    [shouldResize],
-  )
+
   return (
     <Work_Wrapper>
       <Work_Container>
@@ -66,7 +57,7 @@ const WorkCards = (props: Props) => {
           <H6>Some of my internships, projects, and non-profit projects</H6>
         </TextBlock>
         {cardsConfig.map(card => {
-          return <Card key={card.id} card={card} {...props} setResize={handleResize} shouldResize={shouldResize} />
+          return <Card key={card.id} card={card} {...props} setResize={setResize} shouldResize={shouldResize} />
         })}
       </Work_Container>
     </Work_Wrapper>

@@ -34,7 +34,7 @@ const ChildTransition = ({
           return (
             <ModalContainer className="modal-container" transitionState={transitionState} style={position} id="mdl">
               <Switch location={location}>
-                <Route path="/work/:workId" component={WorkDetailsTransitioned} />
+                <Route path="/work/:workId/" component={WorkDetailsTransitioned} />
               </Switch>
             </ModalContainer>
           )
