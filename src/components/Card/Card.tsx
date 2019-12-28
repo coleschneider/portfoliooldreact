@@ -52,7 +52,7 @@ function Card({ location, history, card, shouldResize, setResize }: Props) {
       onSelectCard(id)
       updateCardDimensions(dimensions, id)
       history.push({
-        pathname: `/work/${id}`,
+        pathname: `/work/${id}/`,
         state: {
           id,
           to: 'modal',

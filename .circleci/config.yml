@@ -53,7 +53,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: "Build app"
-          command: PUBLIC_URL=${PUBLIC_URL} npm run build
+          command: PUBLIC_URL=${PUBLIC_URL} GA_ID=${GA_ID} npm run build
       - persist_to_workspace:
           root: ~/repo
           paths:

@@ -54,7 +54,7 @@ const HeaderPinned = styled.div`
   height: 67px;
 `
 
-const Navbar = styled.div`
+const Navbar = styled.nav`
   z-index: 16;
   font: 600 12px/1 'Open Sans', sans-serif;
   display: flex;
@@ -126,29 +126,27 @@ function Header({ isModal, onUnselectCard }: Props) {
   }
   return React.useMemo(() => {
     return (
-      <div data-testid="header-testId">
-        <div>
-          <HeadroomWrapper>
-            <HeaderPinned>
-              <Navbar>
-                <NavBackground />
-                <NavOuter>
-                  <NameContainer>
-                    {isModal ? (
-                      <ArrowIcon onClick={handleGoBack}>
-                        <LeftArrow />
-                      </ArrowIcon>
-                    ) : (
-                      <Name onClick={handleGoHome}>COLE SCHNEIDER</Name>
-                    )}
-                  </NameContainer>
-                </NavOuter>
-                <NavLinks />
-              </Navbar>
-            </HeaderPinned>
-          </HeadroomWrapper>
-        </div>
-      </div>
+      <header>
+        <HeadroomWrapper>
+          <HeaderPinned>
+            <Navbar>
+              <NavBackground />
+              <NavOuter>
+                <NameContainer>
+                  {isModal ? (
+                    <ArrowIcon onClick={handleGoBack}>
+                      <LeftArrow />
+                    </ArrowIcon>
+                  ) : (
+                    <Name onClick={handleGoHome}>COLE SCHNEIDER</Name>
+                  )}
+                </NameContainer>
+              </NavOuter>
+              <NavLinks />
+            </Navbar>
+          </HeaderPinned>
+        </HeadroomWrapper>
+      </header>
     )
   }, [isModal])
 }

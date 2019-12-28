@@ -7,7 +7,7 @@ import ORCASPreviewSmall from '../../assets/images/ORCASPreviewSmall.jpg'
 
 export const cardsConfig: Card[] = [
   {
-    id: '1',
+    id: 'blend',
     description: 'Blend',
     cardImage: BlendLogo,
     placeholder: BlendLogoSmall,
@@ -33,7 +33,7 @@ export const cardsConfig: Card[] = [
     ],
   },
   {
-    id: '2',
+    id: 'orca-seniors',
     description: 'ORCA Seniors',
     position: 'Developer for a non-profit',
     cardImage: ORCASPreview,
@@ -59,7 +59,7 @@ export const cardsConfig: Card[] = [
     ],
   },
   {
-    id: '3',
+    id: 'dan-miller-ati',
     description: 'Dan Miller ATI',
     position: 'Developer / Project',
     cardImage: DanMillerATI,

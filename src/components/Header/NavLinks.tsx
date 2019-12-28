@@ -55,14 +55,14 @@ const TextLink = styled(({ matches, ...restProps }) => <Link {...restProps} />)`
 `
 
 const navPaths: NavLinkProps[] = [
-  { path: '/', display: 'HOME' },
-  { path: '/work', display: 'WORK' },
-  { path: '/static/media/Resume.pdf', display: 'RESUME', target: '_blank' },
+  { path: '/', display: 'Home' },
+  { path: '/work', display: 'Work' },
+  { path: '/static/media/Resume.pdf', display: 'Resume', target: '_blank' },
 ]
 
 function NavLink({ display, path, ...rest }: NavLinkProps) {
   const isMatch = useRouteMatch(path)
-  const isResume = path === '/static/media/Resume.pdf' && display === 'RESUME'
+  const isResume = path === '/static/media/Resume.pdf' && display === 'Resume'
   return (
     <TextLink
       {...rest}
