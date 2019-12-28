@@ -3,18 +3,18 @@
 exports[`NavLinks should match the snapshot 1`] = `
 <Fragment>
   <NavLink
-    display="HOME"
-    key="HOME"
+    display="Home"
+    key="Home"
     path="/"
   />
   <NavLink
-    display="WORK"
-    key="WORK"
+    display="Work"
+    key="Work"
     path="/work"
   />
   <NavLink
-    display="RESUME"
-    key="RESUME"
+    display="Resume"
+    key="Resume"
     path="/static/media/Resume.pdf"
     target="_blank"
   />

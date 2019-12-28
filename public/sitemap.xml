@@ -5,8 +5,13 @@
 <priority>1.00</priority>
 </url>
 <url>
+<loc>https://coleschneider.me/static/media/Resume.pdf</loc>
+<changefreq>daily</changefreq>
+<priority>1.00</priority>
+</url>
+<url>
 <loc>
-https://coleschneider.me/work/
+https://coleschneider.me/work
 </loc>
 <changefreq>daily</changefreq>
 <priority>0.80</priority>
