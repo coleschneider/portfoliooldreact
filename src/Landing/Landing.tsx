@@ -4,8 +4,7 @@ import Particles from 'react-particles-js';
 import styled from 'styled-components';
 
 import { ReactComponent as LandscapeSvg } from '../assets/Landscape.svg';
-import { ExternalLink, H1, Heading, Paragraph } from '../theme/text';
-import { media } from '../theme/utils/mediaQueries';
+import { ExternalLink, Heading, Paragraph } from '../theme/text';
 import { particleConfig } from './constants';
 
 const Landscape = styled(LandscapeSvg)`

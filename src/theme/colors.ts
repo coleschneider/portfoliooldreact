@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-shadow
 export enum Colors {
   Primary = '#0E1F28',
   PrimaryDark = '#0b66c1',

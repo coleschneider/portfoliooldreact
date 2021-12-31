@@ -1,5 +1,5 @@
 import React from 'react';
-import { images, Blend, ORCAS, JuniperSquare, DanMillerATI } from './images';
+import { Blend, ORCAS, JuniperSquare, DanMillerATI } from './images';
 
 export const workConfig = [
   {
@@ -24,6 +24,7 @@ export const workConfig = [
             <a
               target="_blank"
               href="https://medium.com/juniper-square-engineering/enhancing-subscriptions-with-investor-due-diligence-1f9741e8f675"
+              rel="noreferrer"
             >
               here
             </a>

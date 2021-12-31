@@ -27,8 +27,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: 'NPM install'
-          command: npm install
+          name: 'Yarn install'
+          command: yarn
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
@@ -42,7 +42,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: 'Test'
-          command: npm run test
+          command: yarn test
   build:
     <<: *defaults
     steps:
@@ -52,7 +52,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: 'Build app'
-          command: PUBLIC_URL=${PUBLIC_URL} GA_ID=${GA_ID} npm run build
+          command: PUBLIC_URL=${PUBLIC_URL} GA_ID=${GA_ID} yarn build
       - persist_to_workspace:
           root: ~/repo
           paths:

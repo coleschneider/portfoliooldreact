@@ -70,8 +70,8 @@ export const WorkDetail: React.FunctionComponent<RouteComponentProps<{ id: strin
       <BackLinkWrapper variants={backVariants}>
         <Link to="/work">← Back</Link>
       </BackLinkWrapper>
-      {details.map(({ title, body }, i) => (
-        <TextDecorationWrapper variants={textVariants} key={i}>
+      {details.map(({ title, body }) => (
+        <TextDecorationWrapper variants={textVariants} key={title}>
           <H3>{title}</H3>
           <AnimatedParagraph>{body}</AnimatedParagraph>
         </TextDecorationWrapper>

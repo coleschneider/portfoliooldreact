@@ -24,6 +24,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'react-hooks', 'prettier', 'unused-imports'],
   rules: {
+    'react/no-unescaped-entities': 'off',
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
     'no-unused-vars': 'off', // or "@typescript-eslint/no-unused-vars": "off",

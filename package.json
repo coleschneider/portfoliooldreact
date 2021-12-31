@@ -73,11 +73,12 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js",
     "predeploy": "npm run build",
     "format": "prettier --write src/**/*.ts{,x}",
+    "clear-cache": "rimraf ./jestCache",
     "lint": "eslint src/**/*.ts{,x}",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test": "npm run clear-cache && npm run lint && jest --config jest.config.js"
   },
   "browserslist": {
     "production": [
