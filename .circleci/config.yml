@@ -68,8 +68,8 @@ jobs:
           name: 'Deploy to S3'
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              aws s3 sync build/ s3://${PRODUCTION_BUCKET} --delete
-              aws cloudfront create-invalidation --distribution-id "${PRODUCTION_DISTRIBUTION_ID}" --paths '/*'
+              ~/bin/aws s3 sync build/ s3://${PRODUCTION_BUCKET} --delete
+              ~/bin/aws cloudfront create-invalidation --distribution-id "${PRODUCTION_DISTRIBUTION_ID}" --paths '/*'
             fi
 workflows:
   version: 2
