@@ -1,4 +1,6 @@
-build
-public
-config
-serviceWorker.ts
+*.css
+*.svg
+dist
+node_modules
+coverage
+.eslintrc.js

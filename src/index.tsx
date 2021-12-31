@@ -1,21 +1,19 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import { BrowserRouter as Router } from 'react-router-dom'
-import ReactGA from 'react-ga'
-import Routes from './components/Routes'
-import * as serviceWorker from './serviceWorker'
+import React from 'react';
 
-const isEnvProduction = process.env.NODE_ENV === 'production'
-if (isEnvProduction) {
-  ReactGA.initialize(process.env.GA_ID)
-}
+import ReactDOM from 'react-dom';
+import './assets/fonts/Calibre-Regular.woff';
+import './index.css';
+import { App } from './App';
+import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <Router>
-    <Routes />
-  </Router>,
-  document.getElementById('root'),
-)
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-serviceWorker.unregister()
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
