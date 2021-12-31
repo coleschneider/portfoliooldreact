@@ -65,6 +65,9 @@ jobs:
     steps:
       - checkout
       - run:
+          name: 'Install awscli'
+          command: sudo pip install awscli
+      - run:
           name: 'Deploy to S3'
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
