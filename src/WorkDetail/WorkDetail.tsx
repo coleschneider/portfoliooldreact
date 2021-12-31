@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { motion } from 'framer-motion';
-import { Link, RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { images } from '../constants/images';
@@ -67,9 +67,6 @@ export const WorkDetail: React.FunctionComponent<RouteComponentProps<{ id: strin
   return (
     <Wrapper initial="exit" animate="enter" exit="exit">
       <WorkDetailImage variants={imageVariants} src={images[Number(match.params.id)]} />
-      <BackLinkWrapper variants={backVariants}>
-        <Link to="/work">← Back</Link>
-      </BackLinkWrapper>
       {details.map(({ title, body }) => (
         <TextDecorationWrapper variants={textVariants} key={title}>
           <H3>{title}</H3>
