@@ -4,6 +4,7 @@ import { matchPath } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Sitelinks } from '../Sitelinks/Sitelinks';
+import Resume from '../assets/Resume.pdf';
 import { ReactComponent as BackSvg } from '../assets/Back.svg';
 
 const Wrapper = styled.header`
@@ -115,7 +116,7 @@ const Underline = styled(motion.div)`
 const initialTabs = [
   { label: 'Home', to: '/' },
   { label: 'Work', to: '/work' },
-  { label: 'Resume', to: '/resume' },
+  { label: 'Resume', to: Resume },
 ];
 export const Header: React.FunctionComponent = () => {
   const [activeTab, setActiveTab] = React.useState<string | undefined | null>(null);
@@ -160,7 +161,12 @@ export const Header: React.FunctionComponent = () => {
                     }}
                   >
                     <NavItemWrapper>
-                      <LinkElement to={tab.to}>{tab.label}</LinkElement>
+                      <LinkElement
+                        to={tab.to}
+                        target={tab.label === 'Resume' ? '_blank' : undefined}
+                      >
+                        {tab.label}
+                      </LinkElement>
                       {tab.isActive ? <Underline layoutId="underline" /> : null}
                     </NavItemWrapper>
                   </NavItem>
