@@ -93,5 +93,5 @@ workflows:
             - install
       - deploy:
           requires:
-            - test
+            # - test
             - build
