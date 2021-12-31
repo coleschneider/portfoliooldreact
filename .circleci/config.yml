@@ -60,20 +60,18 @@ jobs:
           paths:
             - build
             - package.json
-  deploy:
+  deploy-aws-job:
     <<: *defaults
-
-    deploy_portfolio_job:
-      executor: aws-cli/default
-      steps:
-        - checkout
-        - run:
-            name: 'Deploy to S3'
-            command: |
-              if [ "${CIRCLE_BRANCH}" == "master" ]; then
-                aws s3 sync build/ s3://${PRODUCTION_BUCKET} --delete
-                aws cloudfront create-invalidation --distribution-id "${PRODUCTION_DISTRIBUTION_ID}" --paths '/*'
-              fi
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - run:
+          name: 'Deploy to S3'
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              aws s3 sync build/ s3://${PRODUCTION_BUCKET} --delete
+              aws cloudfront create-invalidation --distribution-id "${PRODUCTION_DISTRIBUTION_ID}" --paths '/*'
+            fi
 workflows:
   version: 2
   build_and_test:
@@ -88,7 +86,8 @@ workflows:
       - build:
           requires:
             - install
-      - deploy:
+      - deploy-aws-job:
+          context: aws
           requires:
             # - test
             - build
