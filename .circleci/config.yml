@@ -62,7 +62,6 @@ jobs:
             - package.json
   deploy-aws-job:
     <<: *defaults
-    executor: aws-cli/default
     steps:
       - checkout
       - run:
