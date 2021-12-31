@@ -94,6 +94,7 @@ workflows:
           requires:
             - install
       - deploy:
+          context: aws
           requires:
             # - test
             - build
