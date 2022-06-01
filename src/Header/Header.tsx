@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion, AnimateSharedLayout } from 'framer-motion';
-import { matchPath } from 'react-router';
-import { Link, useLocation } from 'react-router-dom';
+import { matchPath, Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Sitelinks } from '../Sitelinks/Sitelinks';
 import Resume from '../assets/Resume.pdf';
@@ -113,29 +112,42 @@ const Underline = styled(motion.div)`
   background: white;
 `;
 
-const initialTabs = [
-  { label: 'Home', to: '/' },
-  { label: 'Work', to: '/work' },
-  { label: 'Resume', to: Resume },
+type Tab = {
+  label: string;
+  to: string;
+  path: string;
+};
+
+const initialTabs: Tab[] = [
+  { label: 'Home', to: '/', path: '/' },
+  { label: 'Work', to: '/work', path: '/work' },
+  { label: 'Resume', to: Resume, path: '/resume' },
 ];
+
 export const Header: React.FunctionComponent = () => {
-  const [activeTab, setActiveTab] = React.useState<string | undefined | null>(null);
+  const [activeTab, setActiveTab] = React.useState<Tab | undefined | null>(null);
   const location = useLocation();
   const getActiveTab = () => {
-    return initialTabs.find(
-      (tab) =>
-        !!matchPath(location.pathname, tab.to) && matchPath(location.pathname, tab.to)?.isExact
-    );
+    return initialTabs.find((tab) => {
+      const isMatch = location.pathname.sub(tab.path);
+      return isMatch;
+    });
   };
   React.useEffect(() => {
     const nextTab = getActiveTab();
-    setActiveTab(nextTab?.label);
-  }, [location]);
 
-  const tabs = initialTabs.map((tab) => ({
-    ...tab,
-    isActive: tab.label === activeTab,
-  }));
+    setActiveTab(nextTab);
+  }, []);
+
+  const tabs = React.useMemo(
+    () =>
+      initialTabs.map((tab) => ({
+        ...tab,
+        isActive: tab.label === activeTab?.label,
+      })),
+    [activeTab]
+  );
+
   const isWorkDetail = matchPath(location.pathname, '/work/:id');
   const displayBack = isWorkDetail && isWorkDetail.isExact;
   return (
@@ -153,13 +165,7 @@ export const Header: React.FunctionComponent = () => {
             <AnimateSharedLayout>
               <NavList>
                 {tabs.map((tab) => (
-                  <NavItem
-                    onMouseOver={() => setActiveTab(tab.label)}
-                    onMouseLeave={() => {
-                      const nextTab = getActiveTab();
-                      setActiveTab(nextTab?.label);
-                    }}
-                  >
+                  <NavItem onMouseOver={() => setActiveTab(tab)}>
                     <NavItemWrapper>
                       <LinkElement
                         to={tab.to}
