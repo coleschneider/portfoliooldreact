@@ -74,6 +74,8 @@ const NavOuter = styled.div`
 const NavList = styled.ul`
   display: flex;
   margin-right: 20px;
+  flex: 100%;
+  justify-content: flex-end;
 `;
 
 const initialTabs: Tab[] = [

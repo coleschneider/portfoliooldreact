@@ -15,7 +15,7 @@ const NavListItem = styled(motion.li)`
   text-decoration: none;
   list-style: none;
   position: relative;
-  width: 100%;
+  /* width: 100%; */
 `;
 
 const NavItemWrapper = styled.div`
