@@ -1,9 +1,10 @@
 import React from 'react';
-import { motion, AnimateSharedLayout } from 'framer-motion';
-import { matchPath, Link, useLocation } from 'react-router-dom';
+import { AnimateSharedLayout } from 'framer-motion';
+import { matchPath, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Sitelinks } from '../Sitelinks/Sitelinks';
 import Resume from '../assets/Resume.pdf';
+import { NavItem, Tab, LinkElement } from './NavItem';
 import { ReactComponent as BackSvg } from '../assets/Back.svg';
 
 const Wrapper = styled.header`
@@ -69,54 +70,11 @@ const NavOuter = styled.div`
   top: 0;
   width: 100%;
 `;
-const LinkElement = styled(Link)`
-  color: inherit;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  z-index: 2;
-`;
 
 const NavList = styled.ul`
   display: flex;
   margin-right: 20px;
 `;
-
-const NavItem = styled(motion.li)`
-  padding: 0px 10px;
-  text-decoration: none;
-  list-style: none;
-  position: relative;
-  width: 100%;
-`;
-
-const NavItemWrapper = styled.div`
-  padding: 10px;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-`;
-
-const Underline = styled(motion.div)`
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  right: 0;
-  /* width: calc(100% - 10px); */
-  width: 100%;
-  height: 1px;
-  background: white;
-`;
-
-type Tab = {
-  label: string;
-  to: string;
-  path: string;
-};
 
 const initialTabs: Tab[] = [
   { label: 'Home', to: '/', path: '/' },
@@ -127,17 +85,21 @@ const initialTabs: Tab[] = [
 export const Header: React.FunctionComponent = () => {
   const [activeTab, setActiveTab] = React.useState<Tab | undefined | null>(null);
   const location = useLocation();
+
   const getActiveTab = () => {
     return initialTabs.find((tab) => {
-      const isMatch = location.pathname.sub(tab.path);
-      return isMatch;
+      const isMatch = matchPath(location.pathname, {
+        path: tab.path,
+        exact: true,
+      });
+      return isMatch || tab.label === 'Work';
     });
   };
+
   React.useEffect(() => {
     const nextTab = getActiveTab();
-
     setActiveTab(nextTab);
-  }, []);
+  }, [getActiveTab]);
 
   const tabs = React.useMemo(
     () =>
@@ -164,18 +126,12 @@ export const Header: React.FunctionComponent = () => {
             </NavOuter>
             <AnimateSharedLayout>
               <NavList>
-                {tabs.map((tab) => (
-                  <NavItem onMouseOver={() => setActiveTab(tab)}>
-                    <NavItemWrapper>
-                      <LinkElement
-                        to={tab.to}
-                        target={tab.label === 'Resume' ? '_blank' : undefined}
-                      >
-                        {tab.label}
-                      </LinkElement>
-                      {tab.isActive ? <Underline layoutId="underline" /> : null}
-                    </NavItemWrapper>
-                  </NavItem>
+                {tabs.map((currentTab) => (
+                  <NavItem
+                    key={currentTab.label}
+                    tab={currentTab}
+                    setActiveTab={(nextTab) => setActiveTab(nextTab)}
+                  />
                 ))}
               </NavList>
             </AnimateSharedLayout>

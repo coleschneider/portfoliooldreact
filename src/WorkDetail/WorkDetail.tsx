@@ -49,7 +49,7 @@ const BackLinkWrapper = styled(motion.div)`
 
 const WorkDetailImage = styled(motion.img)`
   max-width: 100%;
-  max-height: 100vh;
+  max-height: 50vh;
 `;
 const H3 = styled(motion.h3)`
   ${subtitleStyles}

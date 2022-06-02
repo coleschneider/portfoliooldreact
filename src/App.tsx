@@ -18,7 +18,7 @@ export function App() {
           <AnimatePresence exitBeforeEnter initial={false}>
             <Switch location={location} key={location.pathname}>
               <Route component={Landing} exact path="/" />
-              <Route component={Work} path="/work" exact />
+              <Route component={Work} exact path="/work" />
               <Route component={WorkDetail} exact path="/work/:id" />
               <Route exact path="/static/**/**" />
               <Route component={NotFound} />
